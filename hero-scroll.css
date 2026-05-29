@@ -1,0 +1,141 @@
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    display: flex;
+    background-color: #fdfcfd;
+}
+
+.hero-scroll-container {
+    height: 100%;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    width: 60%;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hero-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.hero-slide {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.hero-slide img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-text-container {
+    position: relative;
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-text-slide {
+    width: 100%;
+    padding: 0 4rem;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.hero-text-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.carousel-navigation {
+    position: absolute;
+    bottom: 30px;
+    left: 70%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.carousel-dots {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 15px;
+    border-radius: 20px;
+}
+
+.dot {
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 6px;
+    background-color: #d9bceb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active, .dot:hover {
+    background-color: #51208a;
+}
+
+
+/* UPDATED: Responsive adjustments for mobile */
+@media (max-width: 991.98px) {
+    .hero-section {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .hero-scroll-container {
+        width: 100%;
+        height: 50vh;
+        order: 1; /* First item */
+    }
+
+    .carousel-navigation {
+        order: 2; /* Second item */
+        position: relative; /* Becomes part of the document flow */
+        bottom: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        padding: 1rem 0;
+        justify-content: center;
+        display: flex;
+        background-color: #fdfcfd; /* Match body background */
+    }
+    
+    .carousel-dots {
+        background-color: transparent; /* Remove white background on mobile */
+    }
+
+    .hero-text-container {
+        width: 100%;
+        height: auto;
+        padding: 2rem 1rem;
+        order: 3; /* Third item */
+    }
+
+    .hero-text-slide {
+        position: relative;
+        padding: 0; /* Remove extra padding */
+        display: none;
+    }
+
+    .hero-text-slide.active {
+        display: block;
+    }
+}

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donate | Alice Talk World</title>
+    <meta name="description" content="Support Alice Talk World with a donation. Your contribution helps us fund critical programs, provide resources to students, and build a brighter future for young leaders." />
+    <link rel="canonical" href="https://www.alicetalkworld.org/donate/" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background-color: #fff; }
+        .page-hero {
+            background-color: #FDF8E1;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        .page-hero h1 { font-family: 'Anton', sans-serif; font-size: 3.5rem; color: #1E5631; }
+        .donation-section { padding: 5rem 0; }
+        .donation-box {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+        .donation-options .btn-amount {
+            flex: 1 1 auto;
+            background-color: #F9F9F7;
+            border: 1px solid #ddd;
+            color: #333;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0.25rem;
+        }
+        .donation-options .btn-amount.active, .donation-options .btn-amount:hover {
+            background-color: #1E5631;
+            color: #fff;
+            border-color: #1E5631;
+        }
+        .custom-amount-input {
+            max-width: 200px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        .btn-donate-primary {
+            background-color: #D00000;
+            color: #fff;
+            font-weight: 700;
+            padding: 0.8rem 2.5rem;
+            border: none;
+            width: 100%;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .btn-donate-primary:hover { background-color: #a30000; }
+        .impact-item { text-align: center; }
+        .impact-item .icon { font-size: 2.5rem; color: #1E5631; }
+        .impact-item h4 { font-weight: 700; margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo.png" alt="alice talk world" class="navbar-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown position-static"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Who We Are</a><div class="dropdown-menu mt-lg-0"><div class="container-fluid px-lg-5"><a class="dropdown-item" href="about.html">Our Vision & Mission</a><a class="dropdown-item" href="#">Our Team</a><a class="dropdown-item" href="#">Financial Information</a></div></div></li>
+                    <li class="nav-item"><a class="nav-link" href="#">What We Do</a></li>
+                    <li class="nav-item"><a class="nav-link" href="get-involved.html">Get Involved</a></li>
+                    <li class="nav-item"><a class="nav-link" href="news.html">Latest News</a></li>
+                </ul>
+                <div class="d-flex align-items-center navbar-right-items"><a href="donation.html" class="search-icon d-none d-lg-inline-block" aria-label="Search website"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg></a><a href="#" class="btn btn-donate text-uppercase ms-lg-4">Donate</a></div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <h1>Support Our Mission</h1>
+            <p class="lead col-lg-8 mx-auto">Your donation empowers the next generation of leaders. Every contribution, big or small, makes a difference.</p>
+        </div>
+    </section>
+
+    <section class="donation-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="donation-box">
+                        <h3 class="text-center mb-4">Choose an Amount to Give (GHS)</h3>
+                        <!-- Tiered donation buttons -->
+                        <div class="d-flex flex-wrap justify-content-center mb-3 donation-options">
+                            <button class="btn btn-amount active" data-amount="25">₵25</button>
+                            <button class="btn btn-amount" data-amount="50">₵50</button>
+                            <button class="btn btn-amount" data-amount="100">₵100</button>
+                            <button class="btn btn-amount" data-amount="250">₵250</button>
+                        </div>
+                        <div class="text-center mb-4">
+                            <!-- Custom amount input -->
+                            <input type="number" class="form-control d-inline-block custom-amount-input" id="customAmount" placeholder="Other Amount">
+                        </div>
+                        <!-- Main Donate Button -->
+                        <a href="#" id="donate-link" class="btn btn-donate-primary" target="_blank" rel="noopener noreferrer">Donate Now</a>
+                        <p class="text-center text-muted small mt-3">You will be redirected to our secure payment partner, Paystack.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-5 text-center">
+                <div class="col-12">
+                    <h2 class="mb-4" style="font-family: 'Anton', sans-serif; color: #1E5631;">Where Your Donation Goes</h2>
+                </div>
+                <div class="col-md-4 impact-item mb-4">
+                    <i class="bi bi-mortarboard-fill icon"></i>
+                    <h4>Student Workshops</h4>
+                    <p>Fund skills-building workshops on leadership, finance, and technology.</p>
+                </div>
+                <div class="col-md-4 impact-item mb-4">
+                    <i class="bi bi-megaphone-fill icon"></i>
+                    <h4>Awareness Campaigns</h4>
+                    <p>Support our health and social advocacy initiatives in local communities.</p>
+                </div>
+                <div class="col-md-4 impact-item mb-4">
+                    <i class="bi bi-award-fill icon"></i>
+                    <h4>Mentorship Programs</h4>
+                    <p>Help us connect aspiring young leaders with experienced mentors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="main-footer pt-5 pb-4 bg-light">
+    <!-- Your Footer Here -->
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const amountButtons = document.querySelectorAll('.btn-amount');
+        const donateLink = document.getElementById('donate-link');
+        const customAmountInput = document.getElementById('customAmount');
+
+        // --- IMPORTANT ---
+        // Replace these placeholder URLs with your actual Paystack Payment Links.
+        const paystackLinks = {
+            '25': 'https://paystack.com/pay/your-25-cedi-link',
+            '50': 'https://paystack.com/pay/your-50-cedi-link',
+            '100': 'https://paystack.com/pay/your-100-cedi-link',
+            '250': 'https://paystack.com/pay/your-250-cedi-link',
+            'custom': 'https://paystack.com/pay/your-general-donation-link' // A link where users can enter any amount
+        };
+
+        // Function to update the main donate button's link
+        function updateDonateLink(amount) {
+            if (paystackLinks[amount]) {
+                donateLink.href = paystackLinks[amount];
+            }
+        }
+
+        // Set the initial donate link based on the default active button
+        updateDonateLink('25');
+
+        // Add click listeners to the preset amount buttons
+        amountButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                amountButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to the clicked button
+                this.classList.add('active');
+                
+                const amount = this.dataset.amount;
+                updateDonateLink(amount);
+
+                // Clear the custom amount input field
+                customAmountInput.value = '';
+            });
+        });
+
+        // Add input listener to the custom amount field
+        customAmountInput.addEventListener('input', function() {
+            if (this.value) {
+                // Remove active class from all preset buttons
+                amountButtons.forEach(btn => btn.classList.remove('active'));
+                // Update the link to a general donation page
+                // Paystack handles the amount on their end for "Pay with Paystack" buttons
+                // For "Donation" pages, this link works perfectly.
+                updateDonateLink('custom');
+            }
+        });
+    });
+</script>
+</body>
+</html>

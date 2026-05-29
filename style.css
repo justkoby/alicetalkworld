@@ -1,0 +1,837 @@
+/* --- NEW: Scroll Animation Classes --- */
+.fade-in-on-scroll,
+.slide-in-from-left,
+.slide-in-from-right {
+    opacity: 0;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition-delay: var(--delay, 0s);
+}
+
+.fade-in-on-scroll {
+    transform: translateY(30px);
+}
+
+.slide-in-from-left {
+    transform: translateX(-40px);
+}
+
+.slide-in-from-right {
+    transform: translateX(40px);
+}
+
+.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (max-width: 768px) {
+    .fade-in-on-scroll,
+    .slide-in-from-left,
+    .slide-in-from-right {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+/* --- General Body & Font Styles --- */
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: #F9F9F7;
+    color: #333;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+.navbar-brand {
+    font-family: 'Anton', sans-serif;
+}
+
+/* --- Navbar Styles --- */
+.navbar {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #000 !important;
+    letter-spacing: 0.5px;
+}
+
+.navbar-brand span {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+}
+
+.navbar-logo {
+    height: 45px;
+    width: auto;
+}
+
+.navbar-toggler {
+    padding: 0.5rem;
+    background-color: #1E5631 !important; /* Main Green */
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar .nav-link {
+    color: #333;
+    font-weight: 600;
+    margin: 0 0.75rem;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #1E5631;
+    transition: width 0.3s ease-out;
+}
+
+.navbar .nav-link:hover::after {
+    width: 100%;
+}
+
+.navbar-right-items .search-icon {
+    color: #000;
+    transition: transform 0.3s ease;
+}
+
+.navbar-right-items .search-icon:hover {
+    transform: scale(1.1);
+}
+
+.btn-donate {
+    background-color: #D00000;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.75rem 1.75rem;
+    border-radius: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-donate:hover {
+    background-color: #a30000;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu {
+    display: none;
+    width: 100vw;
+    left: 0 !important;
+    right: 0 !important;
+    background-color: #1E5631;
+    border: none;
+    border-radius: 0;
+    padding: 1.5rem 0;
+    margin-top: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.dropdown-menu .dropdown-item {
+    color: #fff;
+    font-weight: 600;
+    display: inline-block;
+    width: auto;
+    padding: 0.5rem 1.5rem;
+    background-color: transparent !important;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    text-decoration: underline;
+}
+
+/* --- General Content Styles --- */
+.highlight {
+    background-color: #FFC300;
+    padding: 0 0.25rem;
+}
+
+.btn-join-us {
+    background-color: #D00000;
+    color: #fff;
+    font-weight: 800;
+    padding: 0.8rem 2.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-join-us:hover {
+    background-color: #a30000;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Our Approach Section --- */
+.our-approach {
+    background-color: #FDF8E1;
+}
+
+.icon-container {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #1E5631;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-placeholder {
+    width: 40px;
+    height: 40px;
+    background-color: #4C9A2A;
+    border-radius: 50%;
+}
+
+.text-brand-green {
+    color: #1E5631;
+}
+
+.learn-more {
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #000;
+}
+
+.learn-more::after {
+    content: '→';
+    position: absolute;
+    right: -20px;
+    top: -1px;
+    transition: right 0.3s ease;
+}
+
+.learn-more:hover::after {
+    right: -25px;
+}
+
+/* --- Movements Section --- */
+.movements-section {
+    background-color: #1E5631;
+    color: #fff;
+}
+
+.learn-more-light {
+    color: #fff;
+    font-weight: 500;
+}
+
+.movement-location {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.movement-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.8rem;
+    line-height: 1.1;
+    margin-top: 0.5rem;
+}
+
+.btn-outline-light-custom {
+    color: #fff;
+    border-color: #fff;
+    border-radius: 0;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light-custom:hover {
+    color: #1E5631;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+/* --- Director Message Section --- */
+.director-message .image-wrapper {
+    background-color: #f8f9fa;
+    padding: 20px;
+    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
+}
+
+.director-message .image-wrapper img {
+    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
+}
+
+.director-message .message-content p {
+    color: #555;
+    line-height: 1.7;
+}
+
+.director-message .signature {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+/* --- Latest News Section --- */
+.latest-news h2 {
+    color: #1E5631;
+    font-family: 'Anton', sans-serif;
+}
+
+.news-text-col {
+    background-color: #F9F9F7;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.news-date {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.news-title {
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #333;
+    line-height: 1.2;
+}
+
+.news-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.news-title a:hover {
+    color: #1E5631;
+}
+
+#newsCarousel .carousel-control-prev,
+#newsCarousel .carousel-control-next {
+    background-color: #1E5631;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    opacity: 1;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#newsCarousel .carousel-control-prev {
+    left: -100px;
+}
+
+#newsCarousel .carousel-control-next {
+    right: -100px;
+}
+
+#newsCarousel .carousel-indicators {
+    bottom: -60px;
+}
+
+#newsCarousel .carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #d1d1d1;
+    border: none;
+    margin: 0 5px;
+}
+
+#newsCarousel .carousel-indicators .active {
+    background-color: #1E5631;
+}
+
+/* --- Impact Section --- */
+.impact-section {
+    background-color: #082c14;
+}
+
+.btn-impact-donate {
+    background-color: #D00000;
+    color: #fff;
+    font-weight: 800;
+    padding: 0.8rem 2.8rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-impact-donate:hover {
+    background-color: #a30000;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.newsletter-box {
+    background-color: #1E5631;
+    padding: 2.5rem;
+}
+
+.newsletter-box .form-control {
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    padding: 0.75rem 1rem;
+}
+
+.newsletter-box .form-control::placeholder {
+    color: #6c757d;
+}
+
+.btn-newsletter-submit {
+    background-color: #FFC300;
+    color: #1E5631;
+    border-radius: 0;
+    border: none;
+    font-weight: 600;
+    padding: 0.75rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-newsletter-submit:hover {
+    background-color: #e6b000;
+    color: #1E5631;
+}
+
+/* --- Footer --- */
+.main-footer {
+    background-color: #F9F9F7;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.footer-logo-img {
+    max-width: 180px;
+    height: auto;
+}
+
+.footer-brand {
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #000 !important;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.footer-brand span {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.social-icons a {
+    color: #333;
+    margin-right: 1.5rem;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #1E5631;
+}
+
+.footer-legal a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 1rem;
+}
+
+.footer-legal a:hover {
+    text-decoration: underline;
+}
+
+.footer-legal p {
+    color: #555;
+    font-size: 0.8rem;
+}
+
+/* --- About Page Hero & Content --- */
+.about-hero {
+    background-color: #1E5631;
+    padding: 6rem 1rem;
+    position: relative;
+    background-image: linear-gradient(
+            rgba(30, 86, 49, 0.85),
+            rgba(30, 86, 49, 0.85)
+        ),
+        url('images/2.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.about-hero .lead {
+    max-width: 700px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.about-content {
+    background-color: #fff;
+}
+
+.intro-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.7;
+    color: #333;
+    border-bottom: 2px solid #FFC300;
+    padding-bottom: 2rem;
+}
+
+.content-block {
+    border-left: 4px solid #FFC300;
+    padding-left: 2rem;
+}
+
+.content-title {
+    font-family: 'Anton', sans-serif;
+    color: #1E5631;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.content-block p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* --- Core Values Section --- */
+.core-values-section {
+    background-color: #FDF8E1;
+}
+
+.core-values-section h2 {
+    color: #1E5631;
+}
+
+.value-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    text-align: center;
+}
+
+.value-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.value-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #1E5631;
+    margin-bottom: 0.5rem;
+}
+
+.value-text {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* --- News Listing Page --- */
+.page-hero {
+    background-color: #1E5631;
+    color: #fff;
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.page-hero h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.5rem;
+}
+
+.news-grid {
+    padding: 4rem 0;
+}
+
+.news-card {
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.news-card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.news-card-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #333;
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+.news-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.news-card-link:hover .news-card-title {
+    color: #1E5631;
+}
+
+.news-card-date {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}
+
+/* --- Instagram Feed Section --- */
+.instagram-feed-section {
+    padding: 5rem 0;
+    background-color: #fff;
+}
+
+.section-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.8rem;
+    color: #1E5631;
+    margin-bottom: 0.5rem;
+}
+
+.instagram-handle {
+    text-decoration: none;
+    font-weight: 600;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.instagram-handle:hover {
+    color: #000;
+}
+
+/* --- ATW Anniversary Full-Width Carousel --- */
+.atw-anniversary-carousel {
+    background-color: #F9F9F7;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    position: relative;
+}
+
+.atw-anniversary-carousel .carousel-inner,
+.atw-anniversary-carousel .carousel-item {
+    height: auto;
+}
+
+.atw-anniversary-carousel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 650px;
+    object-fit: cover;
+    transition: transform 8s ease;
+}
+
+.atw-anniversary-carousel .carousel-item.active img {
+    transform: scale(1.03);
+}
+
+/* Smooth fade for all fade carousels */
+.carousel.carousel-fade .carousel-item {
+    transition: opacity 1s ease-in-out;
+}
+
+/* ATW @5 movement carousel images */
+#atw5MovementCarousel .carousel-item img {
+    height: 100%;
+    max-height: 600px;
+    object-fit: cover;
+}
+
+/* Hero image slides */
+.hero-slide {
+    overflow: hidden;
+}
+
+.hero-slide img {
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+/* --- Media Queries --- */
+@media (min-width: 992px) {
+    .navbar .dropdown:hover .dropdown-menu {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .director-message,
+    .our-approach,
+    .movements-section,
+    .latest-news,
+    .impact-section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    .main-footer .col-lg-4 {
+        text-align: center;
+    }
+
+    .footer-legal {
+        text-align: center !important;
+        margin-top: 1rem;
+    }
+
+    .navbar-right-items {
+        padding-top: 1rem;
+        align-items: flex-start !important;
+    }
+
+    .navbar-right-items .btn-donate {
+        margin-left: 0 !important;
+        margin-top: 1rem;
+    }
+
+    .navbar-nav .dropdown-menu.show {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        position: static !important;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0.5rem 0 0.5rem 1rem;
+        transform: none;
+    }
+
+    .navbar-nav .dropdown-menu .dropdown-item {
+        color: #333;
+        font-weight: 500;
+        padding: 0.5rem 0;
+    }
+
+    .navbar-nav .dropdown-menu .dropdown-item:hover {
+        background-color: transparent;
+        text-decoration: underline;
+    }
+
+    .hero-text-slide h1,
+    .hero-text-slide h2 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+    }
+
+    .movement-title {
+        font-size: 2.2rem;
+    }
+
+    .director-message .image-wrapper,
+    .director-message .image-wrapper img {
+        clip-path: none;
+        border-radius: 15px;
+    }
+
+    .movement-content,
+    .message-content {
+        padding: 2rem 1rem !important;
+    }
+
+    .news-text-col {
+        padding: 1.5rem;
+    }
+
+    .news-title {
+        font-size: 1.5rem;
+    }
+
+    #newsCarousel .carousel-control-prev,
+    #newsCarousel .carousel-control-next {
+        display: none;
+    }
+
+    #newsCarousel .carousel-indicators {
+        bottom: -45px;
+    }
+
+    .about-hero {
+        padding: 4rem 1rem;
+    }
+
+    .content-title {
+        font-size: 2rem;
+    }
+
+    .content-block {
+        padding-left: 1.5rem;
+    }
+}
+
+/* Lightwidget's code is responsive by default, so no extra styling is needed for the feed itself. */

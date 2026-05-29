@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | Alice Talk World</title>
+    <meta name="description" content="Learn about the vision, mission, and core values of Alice Talk World, a movement dedicated to empowering the next generation of leaders." />
+
+    <!-- Fonts & Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Site-wide styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="images/favicon.webp">
+
+    <!-- Page-specific styles (only things NOT already in style.css) -->
+    <style>
+        /* --- Our History Section --- */
+        .our-history-section {
+            padding: 5rem 0;
+            background-color: #FDF8E1;
+            position: relative;
+        }
+        .our-history-section .history-header {
+            background-color: #1E5631;
+            color: #fff;
+            padding: 2rem 1rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .our-history-section .history-header h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 0;
+        }
+        .history-content {
+            display: flex;
+            align-items: stretch;
+            background-color: #1E5631;
+            color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .history-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            filter: grayscale(100%);
+        }
+        .history-text-block {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .history-text-block p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        @media (max-width: 991.98px) {
+            .history-content {
+                flex-direction: column;
+            }
+        }
+
+        /* --- Our Thematic Areas Section --- */
+        .thematic-areas-section {
+            background-color: #1E5631; /* Main Green */
+            color: #fff;
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .thematic-areas-section h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+        .thematic-card {
+            background-color: #082c14; /* Very Dark Green */
+            border: 1px solid #4C9A2A; /* Lighter green border */
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: left;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .thematic-card:hover {
+            transform: translateY(-5px);
+            background-color: #0c3b1c;
+        }
+        .thematic-card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5rem;
+            color: #FFC300; /* Accent Yellow */
+            margin-bottom: 1rem;
+        }
+        .thematic-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* --- Our Objectives Section --- */
+        .our-objectives-section {
+            background-color: #fff;
+            padding: 5rem 0;
+        }
+        .our-objectives-section h2 {
+            color: #1E5631;
+            font-family: 'Anton', sans-serif;
+            font-size: 2.8rem;
+        }
+        .objective-card {
+            background-color: #FDF8E1;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            height: 100%;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .objective-icon-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .objective-icon {
+            width: 50px;
+            height: 50px;
+            fill: #1E5631;
+        }
+        .objective-title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #1E5631;
+            margin-bottom: 0.5rem;
+        }
+        .objective-text {
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/logo.png" alt="Alice Talk World Logo" class="navbar-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Who We Are
+                        </a>
+                        <div class="dropdown-menu mt-lg-0">
+                            <div class="container-fluid px-lg-5">
+                                <a class="dropdown-item" href="about.html">Our Vision & Mission</a>
+                                <a class="dropdown-item" href="our-team.html">Our Team</a>
+                                <a class="dropdown-item" href="#">Financial Information</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Mark this as active since we’re on About / What We Do -->
+                        <a class="nav-link active" href="about.html">What We Do</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="get-involved.html">Get Involved</a></li>
+                    <li class="nav-item"><a class="nav-link" href="news.html">Latest News</a></li>
+                </ul>
+                <div class="d-flex align-items-center navbar-right-items">
+                    <a href="donation.html" class="btn btn-donate text-uppercase ms-lg-4">Donate</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- HERO -->
+    <section class="about-hero text-center">
+        <div class="container">
+            <h1 class="display-2 text-white">ABOUT ALICE TALK WORLD</h1>
+            <p class="lead text-white mx-auto">
+                We are a movement building a future where young leaders have the knowledge, skills,
+                and networks to succeed and inspire change.
+            </p>
+        </div>
+    </section>
+
+    <!-- INTRO / VISION / MISSION -->
+    <section class="about-content py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="content-block text-center mb-5 pb-4">
+                        <p class="intro-text">
+                            Alice Talk World is a Gen Z and youth-led movement that thrives on leadership, influence,
+                            and inclusiveness. We are dedicated to building a future where young leaders are equipped
+                            with the knowledge, skills, and networks to succeed. Our commitment is to social impact,
+                            empowering students with the skills and confidence to navigate their career paths.
+                        </p>
+                    </div>
+
+                    <div class="content-block mb-5">
+                        <h2 class="content-title">Our Vision</h2>
+                        <p>
+                            We envision a world where empowered young people are at the forefront of social change,
+                            leading with influence, inclusivity, and a deep commitment to their communities.
+                            A future where every student, regardless of background, has the confidence and skills
+                            to navigate their career paths and make a tangible, positive impact.
+                        </p>
+                    </div>
+
+                    <div class="content-block mb-5">
+                        <h2 class="content-title">Our Mission</h2>
+                        <p>
+                            Alice Talk World's mission is to ignite the potential of young leaders. We do this by
+                            providing transformative skills training, fostering mentorship, and creating platforms
+                            for hands-on social impact projects. Through initiatives like our health awareness
+                            campaigns and community support programs, we turn passion into action, building a
+                            network of changemakers dedicated to a more equitable and inspiring world.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="our-history-section">
+        <div class="container">
+            <div class="history-header">
+                <h2>OUR HISTORY</h2>
+            </div>
+            <div class="history-content row g-0">
+                <div class="col-lg-6">
+                    <img src="images/2024-conference.jpg"
+                         alt="Students and young leaders gathered at Alice Talk World conference"
+                         class="history-image w-100">
+                </div>
+                <div class="col-lg-6">
+                    <div class="history-text-block">
+                        <p>
+                            Building on this success, we transitioned to organizing free conferences, workshops,
+                            and awareness programs to reach and impact a larger audience. Over the years, our
+                            commitment to addressing critical issues facing students has remained unwavering.
+                        </p>
+                        <p>
+                            Our journey has only just begun, and we remain dedicated to driving meaningful change in
+                            the lives of students across the nation. Today, Alice TalkWorld stands as a beacon of
+                            innovation, leadership, and inclusiveness, committed to equipping Ghanaian students with
+                            the skills and networks needed to succeed academically, professionally, and socially.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THEMATIC AREAS -->
+    <section class="thematic-areas-section text-white">
+        <div class="container">
+            <h2 class="text-center">OUR THEMATIC AREAS</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-2">
+                    <div class="thematic-card h-100">
+                        <h3>WOMEN EMPOWERMENT</h3>
+                        <p>
+                            Championing gender equity and empowering women to excel as leaders, professionals,
+                            and changemakers.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <div class="thematic-card h-100">
+                        <h3>LEADERSHIP</h3>
+                        <p>
+                            Cultivating leadership skills and qualities that empower individuals to make a positive
+                            impact on their communities and the world.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <div class="thematic-card h-100">
+                        <h3>ENTREPRENEURSHIP</h3>
+                        <p>
+                            Fostering an entrepreneurial spirit and nurturing the next generation of business leaders
+                            and innovators.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <div class="thematic-card h-100">
+                        <h3>CLIMATE CHANGE</h3>
+                        <p>
+                            Dedicated to combating climate change through sustainable practices and environmental
+                            stewardship in the pursuit of a better future.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-2">
+                    <div class="thematic-card h-100">
+                        <h3>TECH SPACE</h3>
+                        <p>
+                            Advancing technological innovation and digital literacy as cornerstones for empowering
+                            the next generation of leaders.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OBJECTIVES -->
+    <section class="our-objectives-section">
+        <div class="container py-5">
+            <div class="row text-center">
+                <div class="col-12 mb-5">
+                    <h2 class="display-4 fw-bold">OBJECTIVES</h2>
+                </div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="objective-card">
+                        <div class="objective-icon-container">
+                            <svg class="objective-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19 4h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-5 14H8v-2h6v2zm3-4H8v-2h9v2zm0-4H8V8h9v2z" fill="#1E5631" />
+                            </svg>
+                        </div>
+                        <h3 class="objective-title">Inclusivity</h3>
+                        <p class="objective-text">
+                            Ensuring equal access to opportunities, representation, and resources for all students.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="objective-card">
+                        <div class="objective-icon-container">
+                            <svg class="objective-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-2-8h4v2h-4v-2zm-2-4h8v2h-8v-2z" fill="#1E5631" />
+                            </svg>
+                        </div>
+                        <h3 class="objective-title">Skill Development</h3>
+                        <p class="objective-text">
+                            Providing hands-on social impact projects, workshops, and training that build relevant,
+                            real-world skills.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="objective-card">
+                        <div class="objective-icon-container">
+                            <svg class="objective-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" fill="#1E5631"/>
+                                <path d="m14 11.414-2.5-2.5-2.5 2.5h5zm-5 1.172v.914l2.5 2.5 2.5-2.5v-.914l-2.5 2.5-2.5-2.5z" fill="#1E5631"/>
+                            </svg>
+                        </div>
+                        <h3 class="objective-title">Networking Opportunities</h3>
+                        <p class="objective-text">
+                            Building strong relationships between students, mentors, and industry leaders for
+                            long-term growth.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="objective-card">
+                        <div class="objective-icon-container">
+                            <svg class="objective-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-2-4h4v2h-4v-2zm-2-4h8v2h-8v-2z" fill="#1E5631" />
+                            </svg>
+                        </div>
+                        <h3 class="objective-title">Mentorship</h3>
+                        <p class="objective-text">
+                            Connecting students with experienced professionals who can guide, challenge, and support
+                            their growth.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="objective-card">
+                        <div class="objective-icon-container">
+                            <svg class="objective-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-2-4h4v2h-4v-2zm-2-4h8v2h-8v-2z" fill="#1E5631" />
+                            </svg>
+                        </div>
+                        <h3 class="objective-title">Innovation & Collaboration</h3>
+                        <p class="objective-text">
+                            Encouraging creative problem-solving, teamwork, and cross-sector collaboration to
+                            tackle real challenges.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="main-footer pt-5 pb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Alice Talk World Logo" class="footer-logo-img">
+                </a>
+            </div>
+
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <p class="mb-0">123 Liberation Road, Floor 5</p>
+                <p>+233 242 010 044 <br> +233 540 718 885</p>
+                <p>alicetalkworld22@gmail.com</p>
+            </div>
+
+            <div class="col-lg-4">
+                <ul class="list-unstyled footer-links">
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="about.html">FAQs</a></li>
+                    <li><a href="get-involved.html">Get Involved</a></li>
+                    <li><a href="donation.html">Donate</a></li>
+                    <li><a href="our-team.html">Our Team</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-3 mb-lg-0">
+                <div class="social-icons">
+                    <a href="https://web.facebook.com/alicetalkworld" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/alicetalkworld" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/alicetalkworld/" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.703.01 5.556 0 5.829 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.556 15.99 5.829 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.444.01 10.172 0 8 0z"/><path d="M8 4.938c-1.755 0-3.187 1.432-3.187 3.188 0 1.755 1.432 3.187 3.187 3.187 1.755 0 3.187-1.432 3.187-3.187 0-1.756-1.432-3.188-3.187-3.188zm0 5.156c-1.12 0-2.031-.91-2.031-2.031 0-1.12.91-2.031 2.031-2.031s2.031.91 2.031 2.031c0 1.12-.911 2.031-2.031 2.031zm4.492-6.23c-.328 0-.594.266-.594.594s.266.594.594.594.594-.266.594-.594-.266-.594-.594-.594z"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/alicetalkworld-gh-24b513243/" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="footer-legal text-lg-end">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <p class="mt-2 mb-0">&copy; 2025 Alice Talk World</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
