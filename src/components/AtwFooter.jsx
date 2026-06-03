@@ -57,7 +57,7 @@ export const AtwFooter = () => {
             <ul className="atw-footer-contact-list">
               <li>Accra, Ghana</li>
               <li>
-                <a href="mailto:atw@alicetalkworld.org">atw@alicetalkworld.org</a>
+                <a href="mailto:info@alicetalkworld.org">info@alicetalkworld.org</a>
               </li>
               <li>+233 XXX XXX XXX</li>
             </ul>

@@ -512,3 +512,337 @@
     height: 36px;
   }
 }
+
+/* Mentor Form Section (Light Theme) */
+.mtr-form-section {
+  padding: 80px 0;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mtr-form-section .mtr-section-title {
+  color: #111827;
+}
+
+.mtr-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.mtr-form-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 48px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.mtr-form-intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.mtr-form-intro p {
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.mtr-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .mtr-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .mtr-form-card {
+    padding: 24px;
+  }
+}
+
+.mtr-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mtr-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.mtr-form-label {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.mtr-form-input,
+.mtr-form-select,
+.mtr-form-textarea {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #1f2937;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.mtr-form-input::placeholder,
+.mtr-form-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.mtr-form-input:focus,
+.mtr-form-select:focus,
+.mtr-form-textarea:focus {
+  border-color: var(--atw-primary, #9d4edd);
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(157, 78, 221, 0.1);
+}
+
+.mtr-form-select option {
+  background: #ffffff;
+  color: #1f2937;
+}
+
+.mtr-form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.mtr-form-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.mtr-form-checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mtr-form-checkbox-option input {
+  cursor: pointer;
+}
+
+.mtr-form-checkbox-option label {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+}
+
+.mtr-form-radio-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.mtr-form-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mtr-form-radio-option input {
+  cursor: pointer;
+}
+
+.mtr-form-radio-option label {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+}
+
+.mtr-form-file-input {
+  border: 1px dashed #d1d5db;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.mtr-form-file-input:hover {
+  background: #f3f4f6;
+  border-color: var(--atw-primary, #9d4edd);
+}
+
+.mtr-form-file-input input {
+  display: none;
+}
+
+.mtr-form-file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.mtr-form-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.mtr-form-checkbox-group input {
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.mtr-form-checkbox-label {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.mtr-form-section-title-sub {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--atw-primary, #4a154b);
+  margin-top: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+  grid-column: 1 / -1;
+}
+
+.mtr-form-submit-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--atw-primary, #9d4edd);
+  color: #ffffff;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  font-weight: 800;
+  padding: 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-top: 24px;
+}
+
+.mtr-form-submit-btn:hover:not(:disabled) {
+  background-color: var(--atw-primary-hover, #7b2cbf);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(157, 78, 221, 0.3);
+}
+
+.mtr-form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mtr-success-card {
+  text-align: center;
+  padding: 48px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.mtr-success-icon {
+  color: #2ec4b6;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.mtr-success-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 28px;
+  color: #111827;
+  margin-bottom: 16px;
+}
+
+.mtr-success-text {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* Onboarding Pathway Section */
+.mtr-pathway-section {
+  padding: 80px 0;
+  background: rgba(255, 255, 255, 0.01);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.mtr-pathway-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.mtr-pathway-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px 24px 20px 64px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mtr-pathway-step-num {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--atw-accent, #ffb703);
+  color: #0f0a14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.mtr-pathway-card-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.mtr-pathway-arrow {
+  padding: 12px 0;
+  color: var(--atw-accent, #ffb703);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
