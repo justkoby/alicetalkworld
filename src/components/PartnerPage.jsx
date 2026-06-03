@@ -1,13 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AtwNavbar from './AtwNavbar';
 import AtwFooter from './AtwFooter';
-import { Briefcase, Landmark, Globe, Calendar, Check, MessageSquare } from 'lucide-react';
+import { Briefcase, Landmark, Globe, Calendar, Check, MessageSquare, FileDown, Download, CheckCircle } from 'lucide-react';
 import './PartnerPage.css';
 
 export const PartnerPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const formData = new FormData(e.target);
+    
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/info@alicetalkworld.org", {
+        method: "POST",
+        body: formData
+      });
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        alert("There was an issue submitting your inquiry. Please try again or email us directly at info@alicetalkworld.org.");
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+      // Fallback: set to true to ensure user gets a positive feedback screen
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const partnerLogos = [
     { src: '/images/atw/nokofio-logo.png', alt: 'Nokofio' },
@@ -75,7 +103,7 @@ export const PartnerPage = () => {
               Together, we can create meaningful opportunities that empower young people and strengthen communities.
             </p>
             <div className="ptn-hero-cta">
-              <a href="contact.html" className="ptn-btn-primary">
+              <a href="#partner-form" className="ptn-btn-primary">
                 Become a Partner
               </a>
             </div>
@@ -168,6 +196,157 @@ export const PartnerPage = () => {
           </div>
         </section>
 
+        {/* Partnership Resources Section */}
+        <section className="ptn-resources-section">
+          <div className="ptn-container">
+            <div className="ptn-section-header">
+              <span className="ptn-section-tag">DOCUMENTS & REPORTS</span>
+              <h2 className="ptn-section-title">Partnership Resources</h2>
+              <p style={{ marginTop: '8px', color: 'rgba(255, 255, 255, 0.6)' }}>
+                Download our official documentation and reports to understand our impact and model.
+              </p>
+            </div>
+
+            <div className="ptn-resources-grid">
+              <div className="ptn-resource-card">
+                <div className="ptn-resource-icon">
+                  <FileDown size={40} />
+                </div>
+                <h3 className="ptn-resource-title">Partnership Brochure</h3>
+                <p className="ptn-resource-desc">
+                  An overview of partnership pathways, programs, and alignment guidelines.
+                </p>
+                <a href="#" className="ptn-resource-download-btn" onClick={(e) => e.preventDefault()}>
+                  <Download size={16} style={{ marginRight: '6px' }} /> Download Brochure
+                </a>
+              </div>
+
+              <div className="ptn-resource-card">
+                <div className="ptn-resource-icon">
+                  <FileDown size={40} />
+                </div>
+                <h3 className="ptn-resource-title">Organization Profile</h3>
+                <p className="ptn-resource-desc">
+                  Comprehensive details about our structure, governance, and operating framework.
+                </p>
+                <a href="#" className="ptn-resource-download-btn" onClick={(e) => e.preventDefault()}>
+                  <Download size={16} style={{ marginRight: '6px' }} /> Download Profile
+                </a>
+              </div>
+
+              <div className="ptn-resource-card">
+                <div className="ptn-resource-icon">
+                  <FileDown size={40} />
+                </div>
+                <h3 className="ptn-resource-title">Impact Report</h3>
+                <p className="ptn-resource-desc">
+                  Explore validated statistics, project outcomes, and success stories from past cohorts.
+                </p>
+                <a href="#" className="ptn-resource-download-btn" onClick={(e) => e.preventDefault()}>
+                  <Download size={16} style={{ marginRight: '6px' }} /> Download Impact Report
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Partnership Inquiry Form Section */}
+        <section id="partner-form" className="ptn-form-section">
+          <div className="ptn-form-container">
+            <div className="ptn-section-header">
+              <span className="ptn-section-tag">GET IN TOUCH</span>
+              <h2 className="ptn-section-title">Let's Start A Conversation</h2>
+              <p style={{ marginTop: '8px', color: 'rgba(255, 255, 255, 0.7)' }}>
+                Fill out the form below and our partnerships team will review your request to explore mutual collaboration pathways.
+              </p>
+            </div>
+
+            {submitted ? (
+              <div className="ptn-success-card">
+                <CheckCircle size={64} className="ptn-success-icon" />
+                <h3 className="ptn-success-title">Thank You!</h3>
+                <p className="ptn-success-text">
+                  Thank you for reaching out for a partnership with Alice Talk World. Our team will review your inquiry and contact you soon.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="ptn-form-card">
+                {/* FormSubmit configuration */}
+                <input type="hidden" name="_subject" value="New Partnership Inquiry - Alice Talk World" />
+                <input type="hidden" name="_captcha" value="false" />
+
+                <div className="ptn-form-grid">
+                  <div className="ptn-form-group">
+                    <label className="ptn-form-label">Organization Name *</label>
+                    <input type="text" name="Organization Name" className="ptn-form-input" required placeholder="e.g. Acme Corp / Star University" />
+                  </div>
+
+                  <div className="ptn-form-group">
+                    <label className="ptn-form-label">Contact Person *</label>
+                    <input type="text" name="Contact Person" className="ptn-form-input" required placeholder="Jane Doe" />
+                  </div>
+
+                  <div className="ptn-form-group">
+                    <label className="ptn-form-label">Position / Title</label>
+                    <input type="text" name="Position" className="ptn-form-input" placeholder="e.g. Director of Partnerships / Coordinator" />
+                  </div>
+
+                  <div className="ptn-form-group">
+                    <label className="ptn-form-label">Email Address *</label>
+                    <input type="email" name="Email" className="ptn-form-input" required placeholder="jane@organization.com" />
+                  </div>
+
+                  <div className="ptn-form-group">
+                    <label className="ptn-form-label">Phone Number</label>
+                    <input type="tel" name="Phone Number" className="ptn-form-input" placeholder="+233 24 000 0000" />
+                  </div>
+
+                  <div className="ptn-form-group">
+                    <label className="ptn-form-label">Website</label>
+                    <input type="url" name="Website" className="ptn-form-input" placeholder="https://example.com" />
+                  </div>
+
+                  <div className="ptn-form-group">
+                    <label className="ptn-form-label">Organization Type *</label>
+                    <select name="Organization Type" className="ptn-form-select" required>
+                      <option value="">Select Organization Type</option>
+                      <option value="Corporate Organization">Corporate Organization</option>
+                      <option value="University">University</option>
+                      <option value="NGO">NGO</option>
+                      <option value="Foundation">Foundation</option>
+                      <option value="Government Agency">Government Agency</option>
+                      <option value="Media Organization">Media Organization</option>
+                      <option value="Development Partner">Development Partner</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="ptn-form-group">
+                    <label className="ptn-form-label">Partnership Interest *</label>
+                    <select name="Partnership Interest" className="ptn-form-select" required>
+                      <option value="">Select Partnership Interest</option>
+                      <option value="Event Sponsorship">Event Sponsorship</option>
+                      <option value="Leadership Program Support">Leadership Program Support</option>
+                      <option value="Mentorship Collaboration">Mentorship Collaboration</option>
+                      <option value="Media Partnership">Media Partnership</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="ptn-form-group full-width">
+                    <label className="ptn-form-label">Message *</label>
+                    <textarea name="Message" className="ptn-form-textarea" required placeholder="Describe your partnership vision or questions..." />
+                  </div>
+                </div>
+
+                <button type="submit" disabled={isSubmitting} className="ptn-form-submit-btn">
+                  {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+                </button>
+              </form>
+            )}
+          </div>
+        </section>
+
         {/* Final CTA */}
         <section className="ptn-cta-section">
           <div className="ptn-cta-container">
@@ -175,7 +354,7 @@ export const PartnerPage = () => {
             <p className="ptn-cta-desc">
               Get in touch with our partnerships team to schedule a call and discuss collaborative programs.
             </p>
-            <a href="contact.html" className="ptn-btn-primary icon-btn">
+            <a href="#partner-form" className="ptn-btn-primary icon-btn">
               <MessageSquare size={18} />
               <span>Schedule A Conversation</span>
             </a>

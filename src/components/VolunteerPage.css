@@ -378,3 +378,211 @@
     height: 250px;
   }
 }
+
+/* Volunteer Form Section */
+.vln-form-section {
+  padding: 80px 0;
+  background: rgba(255, 255, 255, 0.01);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.vln-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.vln-form-card {
+  background: rgba(8, 8, 16, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 48px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.vln-form-intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.vln-form-intro p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.vln-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 600px) {
+  .vln-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .vln-form-card {
+    padding: 24px;
+  }
+}
+
+.vln-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vln-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.vln-form-label {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.vln-form-input,
+.vln-form-select,
+.vln-form-textarea {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ffffff;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.vln-form-input:focus,
+.vln-form-select:focus,
+.vln-form-textarea:focus {
+  border-color: var(--atw-primary, #9d4edd);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 10px rgba(157, 78, 221, 0.15);
+}
+
+.vln-form-select option {
+  background: #080810;
+  color: #ffffff;
+}
+
+.vln-form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.vln-form-file-input {
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.01);
+  transition: all 0.3s ease;
+}
+
+.vln-form-file-input:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--atw-primary, #9d4edd);
+}
+
+.vln-form-file-input input {
+  display: none;
+}
+
+.vln-form-file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.vln-form-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.vln-form-checkbox-group input {
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.vln-form-checkbox-label {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.vln-form-submit-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--atw-primary, #9d4edd);
+  color: #ffffff;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  font-weight: 800;
+  padding: 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-top: 24px;
+}
+
+.vln-form-submit-btn:hover:not(:disabled) {
+  background-color: var(--atw-primary-hover, #7b2cbf);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(157, 78, 221, 0.3);
+}
+
+.vln-form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.vln-success-card {
+  text-align: center;
+  padding: 48px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+}
+
+.vln-success-icon {
+  color: #2ec4b6;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.vln-success-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.vln-success-text {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
