@@ -206,7 +206,7 @@ export const VolunteerPage = () => {
             <div className="vln-section-header">
               <span className="vln-section-tag">APPLY NOW</span>
               <h2 className="vln-section-title">Volunteer Application Form</h2>
-              <p style={{ marginTop: '8px', color: 'rgba(255, 255, 255, 0.7)' }}>
+              <p style={{ marginTop: '8px', color: '#374151' }}>
                 Interested in supporting our mission? Fill out the form below and our team will review your application and contact you with the next steps.
               </p>
             </div>

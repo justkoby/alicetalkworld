@@ -256,7 +256,7 @@ export const PartnerPage = () => {
             <div className="ptn-section-header">
               <span className="ptn-section-tag">GET IN TOUCH</span>
               <h2 className="ptn-section-title">Let's Start A Conversation</h2>
-              <p style={{ marginTop: '8px', color: 'rgba(255, 255, 255, 0.7)' }}>
+              <p style={{ marginTop: '8px', color: '#374151' }}>
                 Fill out the form below and our partnerships team will review your request to explore mutual collaboration pathways.
               </p>
             </div>
