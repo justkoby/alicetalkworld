@@ -1,0 +1,514 @@
+.mtr-root {
+  background: #080810;
+  color: #e8e8f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mtr-main {
+  flex-grow: 1;
+}
+
+/* Hero Section */
+.mtr-hero {
+  position: relative;
+  padding: 180px 0 100px;
+  background-image: url('/images/atw/Lenz IMG_0098.jpg');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.mtr-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 8, 16, 0.85) 0%,
+    rgba(8, 8, 16, 0.95) 100%
+  );
+  z-index: 1;
+}
+
+.mtr-hero-container {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.mtr-hero-eyebrow {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--atw-accent, #ffb703);
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.mtr-hero-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.mtr-hero-desc {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: clamp(16px, 2vw, 20px);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.mtr-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--atw-primary, #9d4edd);
+  color: #ffffff;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  font-weight: 800;
+  padding: 14px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.mtr-btn-primary:hover {
+  background-color: var(--atw-primary-hover, #7b2cbf);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(157, 78, 221, 0.3);
+}
+
+/* Why Mentor split */
+.mtr-why-section {
+  padding: 80px 0;
+}
+
+.mtr-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.mtr-why-split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.mtr-section-tag {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--atw-accent, #ffb703);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.mtr-why-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.mtr-why-text {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.mtr-why-text.highlight {
+  border-left: 3px solid var(--atw-primary, #9d4edd);
+  padding-left: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+}
+
+/* Who card */
+.mtr-who-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.mtr-who-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.mtr-who-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mtr-who-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mtr-who-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--atw-accent, #ffb703);
+  flex-shrink: 0;
+}
+
+.mtr-who-text {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 700;
+}
+
+/* What Mentors Do */
+.mtr-do-section {
+  padding: 80px 0;
+  background: rgba(255, 255, 255, 0.01);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.mtr-section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 56px;
+}
+
+.mtr-section-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 36px;
+  color: #ffffff;
+  margin-top: 8px;
+}
+
+.mtr-do-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+}
+
+.mtr-do-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px;
+  transition: all 0.3s ease;
+}
+
+.mtr-do-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mtr-do-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(157, 78, 221, 0.1);
+  color: var(--atw-primary, #9d4edd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.mtr-do-card-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.mtr-do-card-desc {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* Mentor Commitments split */
+.mtr-commit-section {
+  padding: 80px 0;
+}
+
+.mtr-commit-split {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.mtr-commit-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.mtr-commit-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.mtr-commit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mtr-commit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 16px 24px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.mtr-commit-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mtr-commit-marker {
+  color: var(--atw-accent, #ffb703);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.mtr-commit-text {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mtr-commit-visual {
+  height: 350px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mtr-commit-image-card {
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/atw/lenz Addict 219.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.mtr-commit-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 8, 16, 0.5) 0%, rgba(8, 8, 16, 0.1) 100%);
+}
+
+/* Benefits Grid */
+.mtr-benefits-section {
+  padding: 80px 0;
+  background: rgba(255, 255, 255, 0.01);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.mtr-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+.mtr-benefit-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.mtr-benefit-card-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--atw-accent, #ffb703);
+  margin-bottom: 12px;
+}
+
+.mtr-benefit-card-desc {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* Testimonial slider */
+.mtr-success-section {
+  padding: 100px 0;
+}
+
+.mtr-testimonial-slider {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.mtr-slide-arrow {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.mtr-slide-arrow:hover {
+  background: var(--atw-primary, #9d4edd);
+  border-color: var(--atw-primary, #9d4edd);
+}
+
+.mtr-testimonial-content {
+  flex-grow: 1;
+}
+
+.mtr-testimonial-quote {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: #ffffff;
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+.mtr-testimonial-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mtr-testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--atw-accent, #ffb703);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mtr-testimonial-author {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mtr-testimonial-role {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mtr-testimonial-location {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Final CTA */
+.mtr-cta-section {
+  padding: 100px 0 120px;
+  text-align: center;
+  background: linear-gradient(to top, rgba(157, 78, 221, 0.05) 0%, rgba(8, 8, 16, 0) 100%);
+}
+
+.mtr-cta-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.mtr-cta-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.mtr-cta-desc {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+@media (max-width: 900px) {
+  .mtr-why-split {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .mtr-commit-split {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .mtr-commit-visual {
+    height: 250px;
+  }
+  .mtr-testimonial-slider {
+    padding: 32px 24px;
+    gap: 16px;
+  }
+  .mtr-slide-arrow {
+    width: 36px;
+    height: 36px;
+  }
+}

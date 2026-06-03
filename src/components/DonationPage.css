@@ -1,0 +1,449 @@
+.dns-root {
+  background: #080810;
+  color: #e8e8f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dns-main {
+  flex-grow: 1;
+}
+
+/* Hero Section */
+.dns-hero {
+  position: relative;
+  padding: 180px 0 100px;
+  background-image: url('/images/atw/bg-14.jpg');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.dns-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 8, 16, 0.8) 0%,
+    rgba(8, 8, 16, 0.95) 100%
+  );
+  z-index: 1;
+}
+
+.dns-hero-container {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.dns-hero-eyebrow {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--atw-accent, #ffb703);
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.dns-hero-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.dns-hero-desc {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: clamp(16px, 2vw, 20px);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.dns-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--atw-primary, #9d4edd);
+  color: #ffffff;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  font-weight: 800;
+  padding: 14px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.dns-btn-primary:hover {
+  background-color: var(--atw-primary-hover, #7b2cbf);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(157, 78, 221, 0.3);
+}
+
+/* Calculator split */
+.dns-calculator-section {
+  padding: 60px 0 100px;
+}
+
+.dns-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.dns-calc-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.dns-calc-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.dns-section-tag {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--atw-accent, #ffb703);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.dns-calc-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.dns-calc-text {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.dns-calc-text.highlight {
+  border-left: 3px solid var(--atw-primary, #9d4edd);
+  padding-left: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+}
+
+/* Calculator Box */
+.dns-calc-box {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.dns-box-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.dns-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dns-preset-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 12px 6px;
+  border-radius: 8px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dns-preset-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dns-preset-btn.active {
+  background: var(--atw-primary, #9d4edd);
+  border-color: var(--atw-primary, #9d4edd);
+  box-shadow: 0 4px 15px rgba(157, 78, 221, 0.3);
+}
+
+.dns-custom-input-wrapper {
+  position: relative;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.dns-currency-symbol {
+  position: absolute;
+  left: 16px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 18px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.dns-custom-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 16px 12px 36px;
+  color: #ffffff;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.dns-custom-input:focus {
+  border-color: var(--atw-primary, #9d4edd);
+}
+
+.dns-box-donate-btn {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: #ff4d6d;
+  color: #ffffff;
+  padding: 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.dns-box-donate-btn:hover {
+  background: #ff708a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 77, 109, 0.3);
+}
+
+.dns-box-caption {
+  display: block;
+  text-align: center;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Supports section */
+.dns-supports-section {
+  padding: 80px 0;
+  background: rgba(255, 255, 255, 0.01);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.dns-section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 56px;
+}
+
+.dns-section-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 36px;
+  color: #ffffff;
+  margin-top: 8px;
+}
+
+.dns-supports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+}
+
+.dns-support-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px;
+  transition: all 0.3s ease;
+}
+
+.dns-support-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dns-support-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(157, 78, 221, 0.1);
+  color: var(--atw-primary, #9d4edd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.dns-support-card-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.dns-support-card-desc {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* Impact Metrics */
+.dns-impact-section {
+  position: relative;
+  padding: 100px 0;
+  background-image: url('/images/atw/bg-3.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.dns-impact-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 16, 0.9);
+}
+
+.dns-impact-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+
+.dns-impact-number {
+  display: block;
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  color: var(--atw-accent, #ffb703);
+  margin-bottom: 8px;
+}
+
+.dns-impact-label {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Ways Grid */
+.dns-ways-section {
+  padding: 80px 0 100px;
+}
+
+.dns-ways-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+.dns-way-card {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.dns-way-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dns-way-icon {
+  color: var(--atw-accent, #ffb703);
+}
+
+.dns-way-desc {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* Final CTA */
+.dns-cta-section {
+  padding: 100px 0 120px;
+  text-align: center;
+  background: linear-gradient(to top, rgba(157, 78, 221, 0.05) 0%, rgba(8, 8, 16, 0) 100%);
+}
+
+.dns-cta-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.dns-cta-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.dns-cta-desc {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+@media (max-width: 900px) {
+  .dns-calc-split {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .dns-impact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

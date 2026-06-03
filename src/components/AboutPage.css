@@ -1,0 +1,1203 @@
+/* ==========================================================================
+   ABOUT US & OUR STORY PAGE STYLE SYSTEM
+   ========================================================================== */
+
+.atw-about-root {
+  background-color: #faf9fb;
+  min-height: 100vh;
+  color: #1a081b;
+  font-family: 'Manrope', sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- Sticky Sub-Navigation Tab Bar --- */
+.atw-subnav-sticky {
+  position: sticky;
+  top: 75px; /* Directly below the main navbar */
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(74, 21, 75, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+.atw-subnav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.atw-subnav-tab {
+  background: none;
+  border: none;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #666670;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.atw-subnav-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background-color: #4a154b;
+  transition: all 0.3s ease;
+  border-radius: 3px 3px 0 0;
+}
+
+.atw-subnav-tab:hover {
+  color: #4a154b;
+}
+
+.atw-subnav-tab.active {
+  color: #4a154b;
+}
+
+.atw-subnav-tab.active::after {
+  width: 100%;
+}
+
+/* --- Fade In Animation --- */
+.fade-in {
+  animation: atwAboutFadeIn 0.6s ease forwards;
+}
+
+@keyframes atwAboutFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Hero Banner Section --- */
+.atw-about-hero {
+  position: relative;
+  height: 480px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 1;
+}
+
+.atw-about-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(30, 10, 31, 0.9) 0%, rgba(74, 21, 75, 0.75) 50%, rgba(15, 5, 15, 0.9) 100%);
+  z-index: -1;
+}
+
+.atw-about-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+}
+
+.atw-about-hero-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d9a74a;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.atw-about-hero-title {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.atw-about-hero-desc {
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* --- Introduce Organization Section --- */
+.atw-intro-section {
+  padding: 100px 40px;
+  background-color: #ffffff;
+}
+
+.atw-intro-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.atw-intro-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.atw-intro-tag {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #d9a74a;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.atw-intro-heading {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #4a154b;
+  margin-bottom: 24px;
+}
+
+.atw-intro-body p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #555560;
+  margin-bottom: 20px;
+}
+
+.atw-intro-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Impact Snapshot Card --- */
+.atw-intro-stats-card {
+  background: linear-gradient(145deg, #4a154b 0%, #2f0a30 100%);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(74, 21, 75, 0.15);
+  color: #ffffff;
+}
+
+.atw-stats-card-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.atw-stats-card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.atw-snapshot-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+}
+
+.atw-snapshot-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.atw-snapshot-number {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #d9a74a;
+}
+
+.atw-snapshot-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* --- Focus Areas Preview Section --- */
+.atw-focus-preview-section {
+  padding: 100px 40px;
+  background-color: #f7f6f8;
+}
+
+.atw-focus-preview-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.atw-focus-preview-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px auto;
+}
+
+.atw-focus-preview-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d9a74a;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.atw-focus-preview-title {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #4a154b;
+  margin-bottom: 16px;
+}
+
+.atw-focus-preview-subtitle {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666670;
+}
+
+.atw-focus-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.atw-focus-card {
+  background-color: #ffffff;
+  padding: 35px 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(74, 21, 75, 0.04);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.atw-focus-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(74, 21, 75, 0.06);
+  border-color: rgba(74, 21, 75, 0.1);
+}
+
+.atw-focus-card-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: rgba(74, 21, 75, 0.05);
+  color: #4a154b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+.atw-focus-card:hover .atw-focus-card-icon-wrapper {
+  background-color: #4a154b;
+  color: #ffffff;
+}
+
+.atw-focus-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #4a154b;
+}
+
+.atw-focus-card-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666670;
+  flex-grow: 1;
+}
+
+.atw-focus-preview-footer {
+  text-align: center;
+}
+
+.atw-focus-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #4a154b;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.atw-focus-link-btn:hover {
+  color: #d9a74a;
+  transform: translateX(3px);
+}
+
+/* --- Leadership Preview Section --- */
+.atw-leadership-preview-section {
+  padding: 100px 40px;
+  background-color: #ffffff;
+}
+
+.atw-leadership-preview-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.atw-leadership-preview-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px auto;
+}
+
+.atw-lead-preview-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d9a74a;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.atw-lead-preview-title {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #4a154b;
+  margin-bottom: 16px;
+}
+
+.atw-lead-preview-subtitle {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666670;
+}
+
+.atw-lead-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.atw-lead-preview-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(74, 21, 75, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+  transition: all 0.3s ease;
+}
+
+.atw-lead-preview-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(74, 21, 75, 0.05);
+  border-bottom: 3px solid #4a154b;
+}
+
+.atw-lead-img-container {
+  height: 320px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f7f6f8;
+}
+
+.atw-lead-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: all 0.5s ease;
+}
+
+.atw-lead-preview-card:hover .atw-lead-img {
+  filter: grayscale(0%);
+  transform: scale(1.03);
+}
+
+.atw-lead-info {
+  padding: 30px;
+}
+
+.atw-lead-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #4a154b;
+  margin-bottom: 6px;
+}
+
+.atw-lead-role {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #d9a74a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.atw-lead-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666670;
+}
+
+.atw-lead-preview-footer {
+  text-align: center;
+}
+
+.atw-lead-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #4a154b;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.atw-lead-link-btn:hover {
+  color: #d9a74a;
+  transform: translateX(3px);
+}
+
+/* --- Partners Preview Logo Section --- */
+.atw-partners-preview-section {
+  padding: 60px 40px;
+  background-color: #ffffff;
+  border-top: 1px solid rgba(74, 21, 75, 0.05);
+  border-bottom: 1px solid rgba(74, 21, 75, 0.05);
+}
+
+.atw-partners-preview-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.atw-partners-preview-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: #666670;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  min-width: 220px;
+  position: relative;
+  padding-right: 20px;
+}
+
+.atw-partners-preview-label::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 24px;
+  background-color: rgba(74, 21, 75, 0.15);
+}
+
+.atw-partners-preview-marquee {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, white 15%, white 85%, transparent);
+}
+
+.atw-partners-preview-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 60px;
+  animation: atwPartnersScroll 30s linear infinite;
+}
+
+.atw-partners-preview-marquee:hover .atw-partners-preview-track {
+  animation-play-state: paused;
+}
+
+/* --- CTA Section --- */
+.atw-about-cta-section {
+  background: linear-gradient(135deg, #2d052e 0%, #4a154b 50%, #681f6a 100%);
+  padding: 100px 40px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.atw-about-cta-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.atw-about-cta-title {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+
+.atw-about-cta-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.atw-about-cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.atw-about-cta-primary {
+  display: inline-block;
+  background-color: #d9a74a;
+  color: #1a081b;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.atw-about-cta-primary:hover {
+  background-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.atw-about-cta-secondary {
+  display: inline-block;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.atw-about-cta-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+
+/* --- OUR STORY TAB SPECIFICS --- */
+.atw-story-intro-section {
+  padding: 100px 40px;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(74, 21, 75, 0.05);
+}
+
+.atw-story-intro-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.atw-story-intro-content {
+  text-align: center;
+}
+
+.atw-story-intro-tag {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #d9a74a;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.atw-story-intro-heading {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  color: #4a154b;
+  margin-bottom: 30px;
+}
+
+.atw-story-intro-body p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #555560;
+  margin-bottom: 24px;
+}
+
+.atw-story-intro-body p:first-of-type {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a081b;
+}
+
+.atw-story-intro-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- The Challenge Section --- */
+.atw-challenge-section {
+  padding: 100px 40px;
+  background-color: #f7f6f8;
+}
+
+.atw-challenge-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.atw-challenge-header {
+  max-width: 800px;
+  margin-bottom: 60px;
+}
+
+.atw-challenge-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d9a74a;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.atw-challenge-title {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #4a154b;
+  margin-bottom: 20px;
+}
+
+.atw-challenge-subtitle {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #4a154b;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.atw-challenge-subtitle-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666670;
+}
+
+.atw-challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.atw-challenge-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(74, 21, 75, 0.03);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.atw-challenge-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px rgba(74, 21, 75, 0.08);
+  border-color: rgba(74, 21, 75, 0.08);
+}
+
+.atw-challenge-num {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: rgba(74, 21, 75, 0.08);
+  display: block;
+  line-height: 1;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.atw-challenge-card:hover .atw-challenge-num {
+  color: #4a154b;
+}
+
+.atw-challenge-card-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #4a154b;
+  margin-bottom: 16px;
+}
+
+.atw-challenge-card-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666670;
+  flex-grow: 1;
+}
+
+/* --- Interactive Timeline Section --- */
+.atw-timeline-section {
+  padding: 100px 40px;
+  background-color: #ffffff;
+}
+
+.atw-timeline-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.atw-timeline-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px auto;
+}
+
+.atw-timeline-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d9a74a;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.atw-timeline-title {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #4a154b;
+  margin-bottom: 16px;
+}
+
+.atw-timeline-subtitle {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666670;
+}
+
+/* --- Horizontal Year Track --- */
+.atw-timeline-scroll-wrapper {
+  overflow-x: auto;
+  padding: 20px 0 40px 0;
+  margin-bottom: 50px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(74, 21, 75, 0.2) transparent;
+}
+
+/* Webkit Scrollbars styling */
+.atw-timeline-scroll-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.atw-timeline-scroll-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.atw-timeline-scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(74, 21, 75, 0.15);
+  border-radius: 10px;
+}
+
+.atw-timeline-years-track {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 900px; /* Keep nodes laid out spaced apart on smaller screens */
+  padding: 0 40px;
+}
+
+.atw-timeline-node-wrapper {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.atw-timeline-node-wrapper:last-child {
+  flex-grow: 0;
+}
+
+.atw-timeline-year-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  outline: none;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.atw-year-txt {
+  font-size: 16px;
+  font-weight: 800;
+  color: #a0a0ab;
+  transition: all 0.3s ease;
+}
+
+.atw-year-indicator-dot {
+  font-size: 18px;
+  line-height: 1;
+  color: rgba(74, 21, 75, 0.2);
+  transition: all 0.3s ease;
+  height: 18px;
+}
+
+/* Inactive State Hover */
+.atw-timeline-year-btn:hover .atw-year-txt {
+  color: #4a154b;
+}
+
+/* Active Selected State */
+.atw-timeline-year-btn.selected .atw-year-txt {
+  color: #4a154b;
+  font-size: 20px;
+  transform: scale(1.1);
+}
+
+.atw-timeline-year-btn.selected .atw-year-indicator-dot {
+  color: #4a154b;
+  transform: scale(1.3);
+  text-shadow: 0 0 10px rgba(74, 21, 75, 0.4);
+}
+
+/* Connecting Line decoration */
+.atw-timeline-connector-line {
+  height: 2px;
+  background-color: rgba(74, 21, 75, 0.1);
+  flex-grow: 1;
+  margin: 0 -15px;
+  position: relative;
+  top: 15px; /* Offset to center line vertically with dots */
+  z-index: 1;
+  transition: all 0.4s ease;
+}
+
+.atw-timeline-connector-line.active {
+  background-color: #4a154b;
+}
+
+/* --- Timeline Display Card --- */
+.atw-timeline-display-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  background-color: #fcfbfe;
+  border: 1px solid rgba(74, 21, 75, 0.05);
+  border-radius: 24px;
+  padding: 50px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.015);
+  align-items: center;
+}
+
+.atw-timeline-display-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.atw-timeline-year-large {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 68px;
+  font-weight: 900;
+  color: rgba(74, 21, 75, 0.08);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.atw-timeline-year-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #4a154b;
+  margin-bottom: 20px;
+}
+
+.atw-timeline-year-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #666670;
+  margin-bottom: 30px;
+}
+
+/* Timeline specific metrics */
+.atw-timeline-metrics-box {
+  background: #ffffff;
+  border: 1px solid rgba(74, 21, 75, 0.06);
+  border-radius: 16px;
+  padding: 24px 30px;
+}
+
+.atw-metrics-box-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #4a154b;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.atw-timeline-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.atw-timeline-metric-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.atw-timeline-metric-value {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #d9a74a;
+  margin-bottom: 4px;
+}
+
+.atw-timeline-metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666670;
+  line-height: 1.3;
+}
+
+.atw-timeline-display-image-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 380px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.atw-timeline-display-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.atw-timeline-image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+  padding: 20px 24px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* --- Looking Ahead Section --- */
+.atw-looking-ahead-section {
+  padding: 100px 40px 120px 40px;
+  background-color: #ffffff;
+}
+
+.atw-looking-ahead-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.atw-looking-ahead-card {
+  background: linear-gradient(145deg, #1d071e 0%, #3a0d3b 100%);
+  border-radius: 28px;
+  padding: 70px 60px;
+  color: #ffffff;
+  box-shadow: 0 25px 60px rgba(74, 21, 75, 0.15);
+}
+
+.atw-looking-ahead-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #d9a74a;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.atw-looking-ahead-title {
+  font-family: 'Finlandica', 'Manrope', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.atw-looking-ahead-text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.atw-looking-ahead-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
+  padding-top: 40px;
+}
+
+.atw-la-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.atw-la-icon {
+  color: #d9a74a;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.atw-la-feature-item span {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+
+/* ==========================================================================
+   MEDIA RESPONSIVE QUERIES
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .atw-intro-container {
+    gap: 40px;
+  }
+  .atw-timeline-display-card {
+    gap: 45px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .atw-intro-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .atw-about-hero {
+    height: 400px;
+  }
+  .atw-about-hero-title {
+    font-size: 38px;
+  }
+  .atw-timeline-display-card {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .atw-timeline-display-image-wrapper {
+    height: 320px;
+  }
+  .atw-looking-ahead-card {
+    padding: 50px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .atw-subnav-container {
+    padding: 0 20px;
+    gap: 10px;
+  }
+  .atw-subnav-tab {
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+  .atw-about-hero {
+    padding: 0 20px;
+    height: 340px;
+  }
+  .atw-about-hero-title {
+    font-size: 32px;
+  }
+  .atw-about-hero-desc {
+    font-size: 15px;
+  }
+  .atw-intro-section,
+  .atw-focus-preview-section,
+  .atw-leadership-preview-section,
+  .atw-challenge-section,
+  .atw-timeline-section,
+  .atw-looking-ahead-section {
+    padding: 60px 20px;
+  }
+  .atw-intro-heading,
+  .atw-focus-preview-title,
+  .atw-lead-preview-title,
+  .atw-challenge-title,
+  .atw-timeline-title,
+  .atw-looking-ahead-title,
+  .atw-about-cta-title {
+    font-size: 28px;
+  }
+  .atw-partners-preview-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 0 20px;
+  }
+  .atw-partners-preview-label::after {
+    display: none;
+  }
+  .atw-about-cta-actions {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .atw-timeline-display-card {
+    padding: 30px 20px;
+  }
+  .atw-timeline-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .atw-timeline-year-large {
+    font-size: 52px;
+  }
+}

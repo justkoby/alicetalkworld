@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AtwNavbar from './components/AtwNavbar';
 import AtwHero from './components/AtwHero';
 import AtwFooter from './components/AtwFooter';
-import { Eye, Target, MapPin, ArrowRight } from 'lucide-react';
+import { Eye, Target, MapPin, ArrowRight, Users, UserCheck, BookOpen, Handshake } from 'lucide-react';
 import './atw.css';
 
 // Custom Instagram icon since it was deprecated/removed in newer lucide-react versions
@@ -74,6 +74,14 @@ function App() {
 
   const repeatedPartners = [...partnerLogos, ...partnerLogos, ...partnerLogos];
 
+  const statsData = [
+    { id: 1, number: "5,000+", label: "Youth Reached", icon: <Users size={22} /> },
+    { id: 2, number: "100+", label: "Mentors", icon: <UserCheck size={22} /> },
+    { id: 3, number: "25+", label: "Programs Delivered", icon: <BookOpen size={22} /> },
+    { id: 4, number: "15+", label: "Strategic Partners", icon: <Handshake size={22} /> },
+    { id: 5, number: "10+", label: "Communities Impacted", icon: <MapPin size={22} /> }
+  ];
+
   const highlightsImages = [
     '/images/atw/795A8620.jpg',
     '/images/atw/795A8545.jpg',
@@ -83,7 +91,12 @@ function App() {
   ];
 
   const breastImages = [
-    '/images/atw/breast.jpg'
+    '/images/atw/bba-01.jpg',
+    '/images/atw/bba-02.jpg',
+    '/images/atw/bba-03.jpg',
+    '/images/atw/bba-04.jpg',
+    '/images/atw/bba-05.jpg',
+    '/images/atw/bba-06.jpg'
   ];
 
   const tamaleImages = [
@@ -91,6 +104,16 @@ function App() {
     '/images/atw/2.jpg',
     '/images/atw/3.jpg',
     '/images/atw/4a.jpg'
+  ];
+
+  const knustImages = [
+    '/images/atw/kic-01.jpg',
+    '/images/atw/kic-02.jpg',
+    '/images/atw/kic-03.jpg',
+    '/images/atw/kic-04.jpg',
+    '/images/atw/kic-05.jpg',
+    '/images/atw/kic-06.jpg',
+    '/images/atw/kic-07.jpg'
   ];
 
   // Gallery images list split between Row 1 (Right to Left) and Row 2 (Left to Right)
@@ -149,6 +172,8 @@ function App() {
             </div>
           </div>
         </div>
+
+
       </section>
       
       {/* White background section with Vision and Mission Cards */}
@@ -156,42 +181,34 @@ function App() {
         <div className="atw-why-exist-container">
           {/* Left Column: Text Content */}
           <div className="atw-why-exist-text-col">
-            <span className="atw-why-exist-tagline">Why Alice Talk World Exists</span>
+            <span className="atw-why-exist-tagline">OUR ORGANISATION</span>
             <h2 className="atw-why-exist-main-statement">
-              Alice Talk World exists to bridge the gap between potential and opportunity, 
-              equipping young people to become leaders, innovators, and changemakers.
+              Alice TalkWorld (ATW)
             </h2>
             <p className="atw-why-exist-supporting">
-              Across Africa, millions of young people possess the talent and ambition to succeed, 
-              yet face barriers to mentorship, networks, career guidance, and leadership opportunities.
-            </p>
-            <p className="atw-why-exist-supporting">
-              We are committed to changing that reality.
+              Alice TalkWorld (ATW) is a transformative platform dedicated to bridging the gap between tertiary students and industry stakeholders. With a focus on employability skills, mentorship, and leadership, ATW inspires emerging leaders to create global impact.
             </p>
           </div>
 
-          {/* Middle Column: Vision Card */}
-          <div className="atw-card-vision">
-            <div className="atw-card-icon-wrapper vision-icon">
-              <Eye size={24} />
-            </div>
-            <h3 className="atw-card-title vision-title">Our Vision</h3>
-            <p className="atw-card-text vision-text">
-              To create an Africa where every young person has the opportunity, confidence, 
-              and support needed to thrive, lead, and create lasting impact.
-            </p>
-          </div>
-
-          {/* Right Column: Mission Card (Purple) */}
+          {/* Middle Column: Mission Card */}
           <div className="atw-card-mission">
             <div className="atw-card-icon-wrapper mission-icon">
               <Target size={24} />
             </div>
             <h3 className="atw-card-title mission-title">Our Mission</h3>
             <p className="atw-card-text mission-text">
-              To empower young people through leadership development, mentorship, 
-              skills training, and meaningful opportunities that foster growth, 
-              innovation, and community transformation.
+              A world where every young person has the confidence and opportunity to lead a sustainable, inclusive future.
+            </p>
+          </div>
+
+          {/* Right Column: Vision Card */}
+          <div className="atw-card-vision">
+            <div className="atw-card-icon-wrapper vision-icon">
+              <Eye size={24} />
+            </div>
+            <h3 className="atw-card-title vision-title">Our Vision</h3>
+            <p className="atw-card-text vision-text">
+              To bridge the gap between potential and purpose by equipping young leaders with the mentorship and opportunities to transform their communities.
             </p>
           </div>
         </div>
@@ -244,12 +261,12 @@ function App() {
         <div className="atw-impact-row">
           <div className="atw-impact-content-col">
             <span className="atw-impact-location">
-              <MapPin size={14} style={{ marginRight: '4px' }} /> Nigeria
+              <MapPin size={14} style={{ marginRight: '4px' }} /> Ghana
             </span>
             <h3 className="atw-impact-row-title">Breast Cancer Awareness Campaign</h3>
             <p className="atw-impact-row-text">
               Through our Breast Cancer Awareness Campaign, we coordinate outreach and health 
-              support systems in Nigeria, mobilizing young leaders to lead awareness sessions, 
+              support systems in Ghana, mobilizing young leaders to lead awareness sessions, 
               conduct screenings, and support women in vulnerable situations. By coupling 
               health education with local advocacy, we break taboos and empower communities 
               to prioritize preventative care.
@@ -287,6 +304,27 @@ function App() {
               <span className="atw-impact-tag">Community Support</span>
               <span className="atw-impact-tag">Empowerment</span>
             </div>
+          </div>
+        </div>
+
+        {/* Row 4: KUMASI (KNUST) - Inspire Conference 1.0 */}
+        <div className="atw-impact-row">
+          <div className="atw-impact-content-col">
+            <span className="atw-impact-location">
+              <MapPin size={14} style={{ marginRight: '4px' }} /> Kumasi, Ghana
+            </span>
+            <h3 className="atw-impact-row-title">KUMASI (KNUST) - Inspire Conference 1.0</h3>
+            <p className="atw-impact-row-text">
+              The inaugural Inspire Conference at KNUST united science and tech students with industry mentors, sparking bold conversations about Africa's future. By bridging the gap between academia and professional fields, we equipped students with the leadership tools and guidance needed to navigate their career paths successfully.
+            </p>
+            <div className="atw-impact-tags-wrapper">
+              <span className="atw-impact-tag">Education</span>
+              <span className="atw-impact-tag">Mentorship</span>
+              <span className="atw-impact-tag">Tech & Innovation</span>
+            </div>
+          </div>
+          <div className="atw-impact-image-container">
+            <AtwFadeSlider images={knustImages} />
           </div>
         </div>
       </section>
@@ -430,7 +468,7 @@ function App() {
         </div>
 
         <div className="atw-gallery-footer">
-          <a href="news.html" className="atw-gallery-view-link">
+          <a href="media-center.html" className="atw-gallery-view-link">
             View All Photos <ArrowRight size={16} />
           </a>
           <a 

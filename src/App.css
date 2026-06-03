@@ -80,7 +80,30 @@
     padding: 32px;
     @media (max-width: 1024px) {
       padding: 24px 20px;
-    }
+    }add it in the top navigation, but keep it subtle.
+
+Best placement:
+
+Search Icon  |  Language  |  Donate
+
+or on mobile:
+
+Menu
+Search
+Language
+Donate
+
+Label it as:
+
+🌐 Language
+
+Then when clicked, show:
+
+English
+French
+Portuguese
+Arabic
+Spanish
   }
 
   .icon {

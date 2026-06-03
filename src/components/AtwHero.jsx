@@ -11,8 +11,14 @@ const SLIDES_DATA = [
         Building a <span className="atw-highlight">future</span> where every young person can <span className="atw-highlight">lead</span> and <span className="atw-highlight">thrive</span>.
       </>
     ),
+    mobileHeading: (
+      <>
+        Empowering Africa's next generation of <span className="atw-highlight">changemakers</span>.
+      </>
+    ),
     subheading: "We equip young people—especially women—with the skills, mentorship, and opportunities to drive change in their communities and across Africa.",
     cta: "Explore Our Impact",
+    mobileCta: "Discover Our Story",
     link: "about.html"
   },
   {
@@ -118,7 +124,17 @@ const STATS_DATA = [
 export const AtwHero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const timerRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 900);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -169,13 +185,15 @@ export const AtwHero = () => {
               <div className="atw-hero-content-wrapper">
                 <div className="atw-hero-content-container">
                   <span className="atw-hero-prefix">{slide.prefix}</span>
-                  <h1 className="atw-hero-head">{slide.heading}</h1>
-                  <p className="atw-hero-sub">{slide.subheading}</p>
+                  <h1 className="atw-hero-head">
+                    {isMobile && slide.mobileHeading ? slide.mobileHeading : slide.heading}
+                  </h1>
+                  {!isMobile && <p className="atw-hero-sub">{slide.subheading}</p>}
                   <a 
                     href={slide.link} 
                     className="atw-hero-cta-btn"
                   >
-                    {slide.cta} <ArrowRight size={18} />
+                    {isMobile && slide.mobileCta ? slide.mobileCta : slide.cta} <ArrowRight size={18} />
                   </a>
                 </div>
               </div>
