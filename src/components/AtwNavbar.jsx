@@ -300,7 +300,7 @@ export const AtwNavbar = () => {
                       <span className="atw-mega-item-title">Annual Reports</span>
                       <span className="atw-mega-item-desc">Our transparency and yearly milestones.</span>
                     </a>
-                    <a href="conference-article.html" className="atw-mega-item-link">
+                    <a href="news.html" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Publications</span>
                       <span className="atw-mega-item-desc">Insights, research papers, and studies.</span>
                     </a>
@@ -318,7 +318,7 @@ export const AtwNavbar = () => {
                 </div>
               </div>
             </li>
-
+ 
             {/* Resources Dropdown */}
             <li 
               className="atw-nav-item"
@@ -339,7 +339,7 @@ export const AtwNavbar = () => {
                   <div className="atw-mega-links-grid">
                     <a href="news.html" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Blog / News</span>
-                      <span className="atw-mega-item-desc">Latest updates and articles from our team.</span>
+                      <span className="atw-mega-item-desc">Latest updates and stories from our team.</span>
                     </a>
                     <a href="ai-conference.html" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Events</span>

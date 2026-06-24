@@ -143,66 +143,111 @@ export const searchIndex = [
   },
   {
     id: "team-alice",
-    title: "Alice - Founder & Executive Director",
+    title: "Alice Yakubu - Founder & Executive Director",
     category: "People & Team",
     url: "/our-team.html#alice",
-    snippet: "Alice leads the overall strategic direction, vision, and growth of Alice Talk World. Read her bio about inspiring local youth and fostering educational programs.",
-    keywords: ["alice", "founder", "executive director", "leader", "team", "visionary", "leadership", "governance", "head", "alice yakubu"],
-    content: "Alice, Founder & Executive Director. Alice leads the overall strategic direction, vision, and growth of Alice Talk World, ensuring that the organization remains true to its mission of empowering young people across the continent."
+    snippet: "Alice leads the overall strategic direction, vision, and growth of Alice Talk World. Contact: 0242010044.",
+    keywords: ["alice", "founder", "executive director", "leader", "team", "visionary", "leadership", "governance", "head", "alice yakubu", "0242010044"],
+    content: "Alice Yakubu, Founder & Executive Director. Alice leads the overall strategic direction, vision, and growth of Alice Talk World, ensuring that the organization remains true to its mission of empowering young people across the continent. Contact: 0242010044."
   },
   {
     id: "team-david",
-    title: "David - Co-Founder & Director of Programs",
+    title: "David Yeboah - Chief Operating Officer (COO)",
     category: "People & Team",
     url: "/our-team.html#david",
-    snippet: "David oversees program development and execution. Read about his work in curriculum design, mentorship networks, and student engagement models.",
-    keywords: ["david", "co-founder", "programs", "director", "curriculum", "mentorship", "education", "execution", "baah tonkouru"],
-    content: "David, Co-Founder & Director of Programs. David oversees the design, implementation, and evaluation of all educational, mentorship, and leadership development programs, working closely with coordinators to deliver high-quality, impactful experiences."
+    snippet: "David Yeboah oversees the day-to-day operations and program implementation at Alice Talk World. Contact: 0540718885.",
+    keywords: ["david", "co-founder", "coo", "chief operating officer", "programs", "director", "curriculum", "mentorship", "education", "execution", "yeboah", "0540718885"],
+    content: "David Yeboah, Chief Operating Officer (COO). David oversees the design, implementation, and evaluation of all educational, mentorship, and leadership development programs. Contact: 0540718885."
   },
   {
     id: "team-gifty",
-    title: "Gifty - Co-Founder & Director of Finance & Operations",
+    title: "Elizabeth Otu - General Secretary",
     category: "People & Team",
     url: "/our-team.html#gifty",
-    snippet: "Gifty manages the financial health, resource allocation, and operational efficiency of the platform. Read her bio on sustainable development.",
-    keywords: ["gifty", "co-founder", "finance", "operations", "efficiency", "resources", "compliance", "funding", "gifty adobeah"],
-    content: "Gifty, Co-Founder & Director of Finance & Operations. Gifty manages the financial health, compliance, resource allocation, and overall operational efficiency of Alice Talk World, ensuring sustainability and transparency across all activities."
+    snippet: "Elizabeth Otu supports the governance, administration, and internal coordination of the organization.",
+    keywords: ["elizabeth", "otu", "secretary", "general secretary", "governance", "administration", "compliance", "gifty"],
+    content: "Elizabeth Otu, General Secretary. Elizabeth supports the governance and administration of the organization, ensuring effective coordination, documentation, and communication across departments."
+  },
+  {
+    id: "team-ksm",
+    title: "Kwadwo S. Manu - Special Project Lead",
+    category: "People & Team",
+    url: "/our-team.html#ksm",
+    snippet: "Kwadwo leads the planning and execution of strategic projects and special initiatives. Contact: 0242565871 / 0277803385.",
+    keywords: ["ksm", "kwadwo", "manu", "ksmofficial", "projects", "special project", "lead", "planning", "0242565871", "0277803385"],
+    content: "Kwadwo S. Manu, Special Project Lead. Kwadwo leads the planning and execution of strategic projects and special initiatives that advance Alice Talk World's mission and long-term goals. Contact: 0242565871 / 0277803385."
+  },
+  {
+    id: "team-johnson",
+    title: "Ettah Johnson Kwaku - Content Lead",
+    category: "People & Team",
+    url: "/our-team.html#johnson",
+    snippet: "Ettah Johnson Kwaku develops content strategy, copywriting, and campaign messaging. Contact: 0597968247 / 0504498983.",
+    keywords: ["ettah", "johnson", "kwaku", "content", "copywriting", "campaign", "strategy", "0597968247", "0504498983"],
+    content: "Ettah Johnson Kwaku, Content Lead. Ettah develops compelling content that informs, inspires, and engages the Alice Talk World community. Contact: 0597968247 / 0504498983."
+  },
+  {
+    id: "team-henry",
+    title: "Henry Nyamekye - Creative Lead",
+    category: "People & Team",
+    url: "/our-team.html#henry",
+    snippet: "Henry leads visual identity, brand creative direction, and graphic design. Contact: 0207422456.",
+    keywords: ["henry", "nyamekye", "creative", "branding", "design", "creative lead", "graphic design", "0207422456"],
+    content: "Henry Nyamekye, Creative Lead. Henry leads the visual identity and creative direction of Alice Talk World, ensuring consistent brand communication. Contact: 0207422456."
+  },
+  {
+    id: "team-jude",
+    title: "Jude K. Nartey - Lead, Public Relations (PR)",
+    category: "People & Team",
+    url: "/our-team.html#jude",
+    snippet: "Jude manages public relations, communications, and stakeholder engagement. Contact: 0548599235.",
+    keywords: ["jude", "nartey", "pr", "public relations", "communications", "engagement", "0548599235"],
+    content: "Jude K. Nartey, Lead, Public Relations (PR). Jude manages public relations efforts, strengthening the organization's visibility and relationships. Contact: 0548599235."
   },
   {
     id: "team-ghabby",
-    title: "Ghabby - Partnerships Lead",
+    title: "Gabriel Yenuman Konlaa - Partnership Lead",
     category: "People & Team",
     url: "/our-team.html#partnerships",
-    snippet: "Ghabby heads partnerships and external relations, cultivating relationships with strategic sponsors, institutions, and corporate stakeholders.",
-    keywords: ["ghabby", "partnerships", "external relations", "sponsor", "corporate", "stakeholders", "relations", "joseph agbozo"],
-    content: "Ghabby, Partnerships Lead. Ghabby leads partnership development efforts, cultivating relationships with organizations, institutions, and stakeholders that help expand the reach and impact of Alice Talk World. Focus: Strategic Partnerships, Business Development, Stakeholder Relations."
+    snippet: "Gabriel heads partnerships and external relations, cultivating relationships with strategic sponsors and corporate stakeholders. Contact: 0207456077.",
+    keywords: ["ghabby", "partnership", "external relations", "sponsor", "corporate", "stakeholders", "relations", "gabriel", "yenuman", "konlaa", "0207456077"],
+    content: "Gabriel Yenuman Konlaa, Partnership Lead. Gabriel leads partnership development efforts, cultivating relationships with organizations, institutions, and stakeholders that help expand the reach and impact of Alice Talk World. Contact: 0207456077."
   },
   {
     id: "team-adwoa",
-    title: "Adwoa - Gender Lead",
+    title: "Adwoa Amaniampong Brenya - Gender Lead",
     category: "People & Team",
     url: "/our-team.html#gender",
-    snippet: "Adwoa leads the Gender Department, designing initiatives that promote gender equity, mentorship for girls, and advocacy for women's leadership.",
-    keywords: ["adwoa", "gender", "lead", "women", "girls", "equity", "inclusion", "advocacy", "mentorship", "comfort obeng"],
-    content: "Adwoa, Gender Lead. Adwoa leads initiatives that promote gender equity, inclusion, and opportunities for women and girls through advocacy, mentorship, and leadership development programs. Focus: Gender Equity, Women's Leadership, Advocacy."
+    snippet: "Adwoa leads the Gender Department, designing initiatives that promote gender equity, girls' mentorship, and leadership development. Contact: 0202215827.",
+    keywords: ["adwoa", "gender", "lead", "women", "girls", "equity", "inclusion", "advocacy", "mentorship", "amaniampong", "brenya", "0202215827"],
+    content: "Adwoa Amaniampong Brenya, Gender Lead. Adwoa leads initiatives that promote gender equity, inclusion, and opportunities for women and girls. Contact: 0202215827."
   },
   {
     id: "team-lawrencia",
-    title: "Lawrencia - Co-Lead, Gender Department",
+    title: "Lawrencia Owusu - Co-Lead, Gender Department",
     category: "People & Team",
     url: "/our-team.html#gender",
-    snippet: "Lawrencia co-leads the Gender Department, coordinating programs that support female empowerment, inclusion, and local community outreach.",
-    keywords: ["lawrencia", "gender", "co-lead", "women", "girls", "inclusion", "empowerment", "coordination", "community"],
-    content: "Lawrencia, Co-Lead, Gender Department. Lawrencia supports the implementation of gender-focused initiatives and programs aimed at empowering women and fostering inclusive participation across communities. Focus: Program Coordination, Gender Inclusion, Community Engagement."
+    snippet: "Lawrencia co-leads the Gender Department, coordinating programs that support female empowerment and community engagement. Contact: 0553772970 / 0560097959.",
+    keywords: ["lawrencia", "gender", "co-lead", "women", "girls", "inclusion", "empowerment", "coordination", "community", "owusu", "0553772970", "0560097959"],
+    content: "Lawrencia Owusu, Co-Lead, Gender Department. Lawrencia supports the implementation of gender-focused initiatives and programs. Contact: 0553772970 / 0560097959."
   },
   {
     id: "team-richard",
-    title: "Richard - Climate Lead",
+    title: "Richard Yennunam Laarisson - Climate Lead",
     category: "People & Team",
     url: "/our-team.html#climate",
-    snippet: "Richard leads the Climate Department, driving youth-centered climate action campaigns, advocacy, and environmental sustainability initiatives.",
-    keywords: ["richard", "climate", "lead", "environment", "sustainability", "advocacy", "action", "green"],
-    content: "Richard, Climate Lead. Richard spearheads Alice Talk World's climate action initiatives, promoting environmental sustainability, awareness, and green leadership opportunities among youth. Focus: Climate Advocacy, Environmental Education, Sustainable Projects."
+    snippet: "Richard leads the Climate Department, driving youth-centered climate action campaigns and environmental sustainability. Contact: 0249745823.",
+    keywords: ["richard", "climate", "lead", "environment", "sustainability", "advocacy", "action", "green", "yennunam", "laarisson", "0249745823"],
+    content: "Richard Yennunam Laarisson, Climate Lead. Richard spearheads Alice Talk World's climate action initiatives, promoting environmental sustainability. Contact: 0249745823."
+  },
+  {
+    id: "team-chris",
+    title: "Chris Afari Addo - Climate Co-Lead",
+    category: "People & Team",
+    url: "/our-team.html#climate",
+    snippet: "Chris works alongside the Climate Lead to support environmental programs and mobilize youth. Contact: 0551725876.",
+    keywords: ["chris", "climate", "co-lead", "environment", "sustainability", "youth", "afari", "addo", "0551725876"],
+    content: "Chris Afari Addo, Climate Co-Lead. Chris works alongside the Climate Lead to support environmental programs and mobilize young people. Contact: 0551725876."
   },
   {
     id: "team-lydia",
@@ -212,6 +257,42 @@ export const searchIndex = [
     snippet: "Lydia directs the Innovation Department, fostering entrepreneurial mindsets, business incubation support, and digital skills workshops for youth.",
     keywords: ["lydia", "innovation", "lead", "incubation", "entrepreneurship", "business", "digital", "tech", "technology"],
     content: "Lydia, Innovation Lead. Lydia directs programs that foster creativity, entrepreneurship, and digital literacy, helping young changemakers design and launch innovative solutions to local problems. Focus: Entrepreneurship Incubation, Tech Skills, Social Innovation."
+  },
+  {
+    id: "team-godfred",
+    title: "Godfred Tabury - Creative Contributor",
+    category: "People & Team",
+    url: "/our-team.html#volunteers",
+    snippet: "Godfred contributes design skills for visual campaigns, web graphics, and branding assets. Contact: 0555598199 / 0272719598.",
+    keywords: ["godfred", "tabury", "volunteer", "designer", "branding", "graphic design", "creative contributor", "0555598199", "0272719598"],
+    content: "Godfred Tabury, Creative Contributor. Godfred contributes his design skills to craft stunning visual campaigns, social media assets, and event booklets. Contact: 0555598199 / 0272719598."
+  },
+  {
+    id: "team-joshua",
+    title: "Joshua AGBOZO - Volunteer / Publicity Assistant",
+    category: "People & Team",
+    url: "/our-team.html#volunteers",
+    snippet: "Joshua supports publicity campaigns, event promotion, and community outreach. Contact: 0553108760.",
+    keywords: ["joshua", "agbozo", "volunteer", "publicity", "outreach", "campaign", "promotion", "0553108760"],
+    content: "Joshua AGBOZO, Volunteer / Publicity Assistant. Joshua supports publicity and community mobilization efforts, raising awareness for Alice Talk World's initiatives. Contact: 0553108760."
+  },
+  {
+    id: "team-agyei",
+    title: "Agyei Kwame Akyea - Campus Ambassador",
+    category: "People & Team",
+    url: "/our-team.html#gender",
+    snippet: "Agyei assists in community outreach, local mobilization, and event operations. Contact: 0558529631.",
+    keywords: ["agyei", "kwame", "akyea", "ambassador", "campus", "community", "outreach", "mobilization", "0558529631"],
+    content: "Agyei Kwame Akyea, Campus Ambassador. Agyei helps coordinate field outreach programs and community relations, ensuring engagement. Contact: 0558529631."
+  },
+  {
+    id: "team-francisca",
+    title: "Francisca Arhinful - Volunteer",
+    category: "People & Team",
+    url: "/our-team.html#volunteers",
+    snippet: "Francisca supports general program operations, volunteer coordination, and event execution. Contact: 0503134751.",
+    keywords: ["francisca", "arhinful", "volunteer", "coordination", "operations", "event", "0503134751"],
+    content: "Francisca Arhinful, Volunteer. Francisca is an active volunteer contributor who helps coordinate participants and supports the planning and execution of our youth conferences and workshops. Contact: 0503134751."
   },
 
   // ─── MEDIA CENTER ─────────────────────────────────────────────────────────

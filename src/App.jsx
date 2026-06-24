@@ -3,6 +3,7 @@ import AtwNavbar from './components/AtwNavbar';
 import AtwHero from './components/AtwHero';
 import AtwFooter from './components/AtwFooter';
 import { Eye, Target, MapPin, ArrowRight, Users, UserCheck, BookOpen, Handshake } from 'lucide-react';
+import { storiesData } from './data/storiesData';
 import './atw.css';
 
 // Custom Instagram icon since it was deprecated/removed in newer lucide-react versions
@@ -333,95 +334,111 @@ function App() {
       <section className="atw-news-section">
         <div className="atw-news-container">
           <div className="atw-news-header">
-            <span className="atw-news-tagline">Latest Updates</span>
-            <h2 className="atw-news-title">Latest News & Insights</h2>
+            <span className="atw-news-tagline">Stories of Impact</span>
+            <h2 className="atw-news-title">News & Insights</h2>
             <div className="atw-news-divider"></div>
           </div>
 
-          <div className="atw-news-grid">
-            {/* Card 1 */}
-            <article className="atw-news-card">
-              <div className="atw-news-img-wrapper">
-                <img src="/images/atw/795A9243.jpg" alt="Anniversary Conference" className="atw-news-img" />
+          {/* Featured Story Section */}
+          <div className="atw-featured-story-section">
+            <h3 className="atw-news-section-subtitle">Featured Story</h3>
+            <article className="atw-featured-card">
+              <div className="atw-featured-img-wrapper">
+                <img src="/images/atw/795A9243.jpg" alt="Anniversary Conference" className="atw-featured-img" />
               </div>
-              <div className="atw-news-content">
-                <span className="atw-news-date">Jul 04, 2025</span>
-                <h3 className="atw-news-card-title">
+              <div className="atw-featured-content">
+                <div className="atw-featured-meta">
+                  <span className="atw-featured-category">Events</span>
+                  <span className="atw-featured-date">Jul 04, 2025</span>
+                </div>
+                <h4 className="atw-featured-card-title">
                   Alice Talk World @ 5: Anniversary Conference at the British Council
-                </h3>
-                <p className="atw-news-card-desc">
-                  Alice Talk World celebrated five years of Change, Empowerment and Impact with a 
-                  milestone anniversary conference at the British Council in Accra. Under the theme 
-                  “Shaping the Future: Leadership, Innovation and Global Impact,” students, young 
-                  professionals and partners gathered for a full day of conversations, networking and inspiration.
+                </h4>
+                <p className="atw-featured-card-desc">
+                  Alice Talk World celebrated five years of Change, Empowerment and Impact with a milestone anniversary conference at the British Council in Accra. Under the theme “Shaping the Future: Leadership, Innovation and Global Impact.”
                 </p>
-                <p className="atw-news-card-desc">
-                  The event featured keynote sessions, interactive dialogues and live experiences that 
-                  highlighted how Alice Talk World has supported youth leadership across West Africa since 2020.
-                </p>
-                <a href="conference-article.html" className="atw-news-readmore">
-                  Read Article <ArrowRight size={16} />
+                <a href="news.html?story=atw-5-anniversary" className="atw-news-readmore">
+                  Read Story <ArrowRight size={16} />
                 </a>
               </div>
             </article>
+          </div>
 
-            {/* Card 2 */}
-            <article className="atw-news-card">
-              <div className="atw-news-img-wrapper">
-                <img src="/images/atw/YOUTH PANEL - WEBSITE.jpg" alt="Youth Panel" className="atw-news-img" />
-              </div>
-              <div className="atw-news-content">
-                <span className="atw-news-date">Nov 01, 2025</span>
-                <h3 className="atw-news-card-title">
-                  Youth Panel: Shaping the Future of African Leadership
-                </h3>
-                <p className="atw-news-card-desc">
-                  The Youth Panel brought together dynamic young leaders including Dr Ekua Amoako, 
-                  Alfred Eli Dei, Dr Khadija Owusu, Paa Kwesi Foison and Mariam Majeed, with David 
-                  Quaye as moderator.
-                </p>
-                <p className="atw-news-card-desc">
-                  Together, they explored how young Africans can lead with courage, leverage technology, 
-                  and build careers that create real social impact. From personal stories to practical 
-                  advice, the conversation left attendees energized and ready to take action.
-                </p>
-                <a href="news.html" className="atw-news-readmore">
-                  Read Article <ArrowRight size={16} />
-                </a>
-              </div>
-            </article>
+          {/* Latest Insights Section */}
+          <div className="atw-latest-insights-section" style={{ marginTop: '60px' }}>
+            <h3 className="atw-news-section-subtitle">Latest Insights</h3>
+            <div className="atw-news-grid">
+              {/* Card 1 */}
+              <article className="atw-news-card">
+                <div className="atw-news-img-wrapper">
+                  <img src="/images/atw/YOUTH PANEL - WEBSITE.jpg" alt="Youth Panel" className="atw-news-img" />
+                </div>
+                <div className="atw-news-content">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span className="atw-news-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--atw-primary)', textTransform: 'uppercase' }}>Leadership</span>
+                    <span className="atw-news-date" style={{ margin: 0 }}>Nov 01, 2025</span>
+                  </div>
+                  <h4 className="atw-news-card-title" style={{ minHeight: '52px' }}>
+                    Youth Panel: Shaping the Future of African Leadership
+                  </h4>
+                  <p className="atw-news-card-desc two-line-limit">
+                    The Youth Panel brought together dynamic young leaders including Dr Ekua Amoako, Alfred Eli Dei, Dr Khadija Owusu, Paa Kwesi Foison and Mariam Majeed, with David Quaye as moderator.
+                  </p>
+                  <a href="news.html?story=youth-panel-african-leadership" className="atw-news-readmore">
+                    Read Story <ArrowRight size={16} />
+                  </a>
+                </div>
+              </article>
 
-            {/* Card 3 */}
-            <article className="atw-news-card">
-              <div className="atw-news-img-wrapper">
-                <img src="/images/atw/HIGH LEVEL PANEL - WEBSITE.jpg" alt="High Level Panel" className="atw-news-img" />
-              </div>
-              <div className="atw-news-content">
-                <span className="atw-news-date">Nov 01, 2025</span>
-                <h3 className="atw-news-card-title">
-                  High Level Panel: Policy, Innovation & Global Impact
-                </h3>
-                <p className="atw-news-card-desc">
-                  On the high level panel, leaders including Dr Augustine Blay, Prophet Prakash Pyne, 
-                  Sheena Sue Biney, Nana-Kwame Asafo-Adjei Ayen and Dr Vanessa Aseye Atikpui, moderated 
-                  by Mrs Belinda Boadu, discussed how policy, innovation and partnerships can unlock 
-                  opportunities for young people.
-                </p>
-                <p className="atw-news-card-desc">
-                  The panel highlighted the importance of strategic collaboration between government, 
-                  private sector and youth-led initiatives to drive sustainable development and inclusive 
-                  growth across the continent.
-                </p>
-                <a href="news.html" className="atw-news-readmore">
-                  Read Article <ArrowRight size={16} />
-                </a>
-              </div>
-            </article>
+              {/* Card 2 */}
+              <article className="atw-news-card">
+                <div className="atw-news-img-wrapper">
+                  <img src="/images/atw/HIGH LEVEL PANEL - WEBSITE.jpg" alt="High Level Panel" className="atw-news-img" />
+                </div>
+                <div className="atw-news-content">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span className="atw-news-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--atw-primary)', textTransform: 'uppercase' }}>Partnerships</span>
+                    <span className="atw-news-date" style={{ margin: 0 }}>Nov 01, 2025</span>
+                  </div>
+                  <h4 className="atw-news-card-title" style={{ minHeight: '52px' }}>
+                    High Level Panel: Policy, Innovation & Global Impact
+                  </h4>
+                  <p className="atw-news-card-desc two-line-limit">
+                    On the high level panel, leaders discussed how policy, innovation and partnerships can unlock opportunities for young people, moderated by Mrs Belinda Boadu.
+                  </p>
+                  <a href="news.html?story=high-level-panel-policy-innovation" className="atw-news-readmore">
+                    Read Story <ArrowRight size={16} />
+                  </a>
+                </div>
+              </article>
+
+              {/* Card 3 */}
+              <article className="atw-news-card">
+                <div className="atw-news-img-wrapper">
+                  <img src="/images/atw/nokofio-logo.png" alt="MTN and Nokofio Partnership" className="atw-news-img" style={{ objectFit: 'contain', padding: '16px', background: '#f9f9f9' }} />
+                </div>
+                <div className="atw-news-content">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span className="atw-news-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--atw-primary)', textTransform: 'uppercase' }}>Announcements</span>
+                    <span className="atw-news-date" style={{ margin: 0 }}>Jan 15, 2026</span>
+                  </div>
+                  <h4 className="atw-news-card-title" style={{ minHeight: '52px' }}>
+                    Announcing 2026 Cohort Partnerships with MTN and Nokofio
+                  </h4>
+                  <p className="atw-news-card-desc two-line-limit">
+                    Alice Talk World is thrilled to announce strategic partnerships with MTN and Nokofio to power digital literacy and financial masterclasses for our next cohort.
+                  </p>
+                  <a href="news.html?story=partnership-mtn-nokofio-2026" className="atw-news-readmore">
+                    Read Story <ArrowRight size={16} />
+                  </a>
+                </div>
+              </article>
+            </div>
           </div>
 
           <div className="atw-news-footer">
             <a href="news.html" className="atw-btn-partner">
-              Read All Articles
+              View All Stories
             </a>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AtwNavbar from './AtwNavbar';
 import AtwFooter from './AtwFooter';
-import { Mail, X, ArrowRight, Award, Target, HelpCircle } from 'lucide-react';
+import { Mail, X, ArrowRight, Award, Target, HelpCircle, Phone } from 'lucide-react';
 import './OurTeamPage.css';
 
 // Custom LinkedIn icon since it is not exported by this version of lucide-react
@@ -24,6 +24,20 @@ const Linkedin = ({ size = 24, ...props }) => (
   </svg>
 );
 
+// Custom WhatsApp icon
+const WhatsappIcon = ({ size = 24, ...props }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+  </svg>
+);
+
 // Initials generator for avatar placeholder
 const getInitials = (name) => {
   if (!name) return 'ATW';
@@ -41,23 +55,29 @@ export const OurTeamPage = () => {
     featured: {
       name: 'Alice Yakubu',
       role: 'Founder & Executive Director',
-      image: '/images/atw/alice.jpeg',
+      image: '/images/atw/alice-yakubu.webp',
       shortDesc: 'Leading youth empowerment, leadership development, and community impact initiatives.',
       bio: 'Alice Yakubu is the Founder and Executive Director of Alice Talk World. She provides strategic leadership for the organization, driving initiatives focused on youth empowerment, leadership development, mentorship, and community impact across Africa.',
       focusAreas: ['Organizational Leadership', 'Youth Development', 'Strategic Partnerships', 'Women\'s Empowerment'],
       linkedin: 'https://linkedin.com/in/alicetalkworld-gh-24b513243/',
-      email: 'alice@alicetalkworld.org'
+      email: 'alice@alicetalkworld.org',
+      phone: '0242010044',
+      whatsapp: '0242010044',
+      socials: 'All platforms'
     },
     executiveLeadership: [
       {
-        name: 'David Baah Tonkouru',
+        name: 'David Yeboah',
         role: 'Chief Operating Officer (COO)',
         image: '/images/atw/Baah Tonkouru David.jpg',
         shortDesc: 'Translating vision into measurable impact through operations and programs.',
         bio: 'David oversees the day-to-day operations of Alice Talk World, ensuring the successful execution of programs, partnerships, and organizational initiatives. He plays a key role in translating vision into measurable impact.',
         focusAreas: ['Operations Management', 'Program Implementation', 'Team Coordination', 'Organizational Growth'],
         linkedin: 'https://linkedin.com/in/david-baah-tonkouru',
-        email: 'david@alicetalkworld.org'
+        email: 'david@alicetalkworld.org',
+        phone: '0540718885',
+        whatsapp: '0540718885',
+        socials: '@tonkouru all platforms'
       },
       {
         name: 'Elizabeth Otu',
@@ -72,17 +92,20 @@ export const OurTeamPage = () => {
     ],
     departmentLeads: [
       {
-        name: 'KSM',
-        role: 'Special Projects Lead',
+        name: 'Kwadwo S. Manu',
+        role: 'Special Project Lead',
         image: 'placeholder',
         shortDesc: 'Leading the planning and execution of strategic projects and special initiatives.',
-        bio: 'KSM leads the planning and execution of strategic projects and special initiatives that advance Alice Talk World\'s mission and long-term goals.',
+        bio: 'Kwadwo leads the planning and execution of strategic projects and special initiatives that advance Alice Talk World\'s mission and long-term goals.',
         focusAreas: ['Strategic Projects', 'Program Innovation', 'Stakeholder Engagement'],
         linkedin: '#',
-        email: 'ksm@alicetalkworld.org'
+        email: 'ksm@alicetalkworld.org',
+        phone: '0242565871',
+        whatsapp: '0277803385',
+        socials: 'Facebook/TikTok/X/IG'
       },
       {
-        name: 'Vincent',
+        name: 'Vincent Yovo',
         role: 'Head of Media',
         image: 'placeholder',
         shortDesc: 'Overseeing media strategy, digital communications, and impact storytelling.',
@@ -92,86 +115,125 @@ export const OurTeamPage = () => {
         email: 'vincent@alicetalkworld.org'
       },
       {
-        name: 'Johnson',
+        name: 'Ettah Johnson Kwaku',
         role: 'Content Lead',
         image: 'placeholder',
         shortDesc: 'Developing compelling copywriting and content strategies to engage the community.',
-        bio: 'Johnson develops compelling content that informs, inspires, and engages the Alice Talk World community while amplifying the organization\'s mission and achievements.',
+        bio: 'Ettah develops compelling content that informs, inspires, and engages the Alice Talk World community while amplifying the organization\'s mission and achievements.',
         focusAreas: ['Content Strategy', 'Copywriting', 'Campaign Messaging'],
         linkedin: '#',
-        email: 'johnson@alicetalkworld.org'
+        email: 'johnson@alicetalkworld.org',
+        phone: '0597968247',
+        whatsapp: '0504498983',
+        socials: 'All platforms'
       },
       {
-        name: 'Henry',
+        name: 'Henry Nyamekye',
         role: 'Creative Lead',
         image: 'placeholder',
         shortDesc: 'Leading the visual identity and brand creative direction across all platforms.',
         bio: 'Henry leads the visual identity and creative direction of Alice Talk World, ensuring consistent and impactful brand communication across all platforms.',
         focusAreas: ['Branding', 'Graphic Design', 'Creative Direction'],
         linkedin: '#',
-        email: 'henry@alicetalkworld.org'
+        email: 'henry@alicetalkworld.org',
+        phone: '0207422456',
+        whatsapp: '0207422456',
+        socials: 'IG: @6thgrafx / 6th_civilian'
       },
       {
-        name: 'Jude',
-        role: 'Public Relations Lead',
+        name: 'Gabriel Yenuman Konlaa',
+        role: 'Partnership Lead',
+        image: 'placeholder',
+        shortDesc: 'Cultivating strategic partnerships and external relations with organizations.',
+        bio: 'Gabriel leads partnership development efforts, cultivating relationships with organizations, institutions, and stakeholders that help expand the reach and impact of Alice Talk World.',
+        focusAreas: ['Strategic Partnerships', 'Business Development', 'Stakeholder Relations'],
+        linkedin: '#',
+        email: 'ghabby@alicetalkworld.org',
+        phone: '0207456077',
+        whatsapp: '0207456077',
+        socials: 'LinkedIn & Tiktok: Gabriel Konlaa'
+      },
+      {
+        name: 'Jude K. Nartey',
+        role: 'Lead, Public Relations (PR)',
         image: 'placeholder',
         shortDesc: 'Managing public relations, media visibility, and stakeholder relationships.',
         bio: 'Jude manages public relations efforts, strengthening the organization\'s visibility and fostering meaningful relationships with stakeholders and the wider public.',
         focusAreas: ['Public Relations', 'Communications', 'Stakeholder Engagement'],
         linkedin: '#',
-        email: 'jude@alicetalkworld.org'
-      },
-      {
-        name: 'Ghabby',
-        role: 'Partnerships Lead',
-        image: 'placeholder',
-        shortDesc: 'Cultivating strategic partnerships and external relations with organizations.',
-        bio: 'Ghabby leads partnership development efforts, cultivating relationships with organizations, institutions, and stakeholders that help expand the reach and impact of Alice Talk World.',
-        focusAreas: ['Strategic Partnerships', 'Business Development', 'Stakeholder Relations'],
-        linkedin: '#',
-        email: 'ghabby@alicetalkworld.org'
+        email: 'jude@alicetalkworld.org',
+        phone: '0548599235',
+        whatsapp: '0548599235',
+        socials: 'Facebook/ LinkedIn'
       }
     ],
     thematicLeads: [
       {
-        name: 'Adwoa',
-        role: 'Gender Lead',
-        image: 'placeholder',
-        shortDesc: 'Promoting gender equity, inclusion, and advocacy for women and girls.',
-        bio: 'Adwoa leads initiatives that promote gender equity, inclusion, and opportunities for women and girls through advocacy, mentorship, and leadership development programs.',
-        focusAreas: ['Gender Equity', 'Women\'s Leadership', 'Advocacy'],
-        linkedin: '#',
-        email: 'adwoa@alicetalkworld.org'
-      },
-      {
-        name: 'Lawrencia',
-        role: 'Co-Lead, Gender Department',
-        image: 'placeholder',
-        shortDesc: 'Supporting implementation of gender-focused programs and outreach.',
-        bio: 'Lawrencia supports the implementation of gender-focused initiatives and programs aimed at empowering women and fostering inclusive participation across communities.',
-        focusAreas: ['Program Coordination', 'Gender Inclusion', 'Community Engagement'],
-        linkedin: '#',
-        email: 'lawrencia@alicetalkworld.org'
-      },
-      {
-        name: 'Richard',
+        name: 'Richard Yennunam Laarisson',
         role: 'Climate Lead',
         image: 'placeholder',
         shortDesc: 'Spearheading climate action, sustainability, and youth environmental advocacy.',
         bio: 'Richard spearheads Alice Talk World\'s climate action initiatives, promoting environmental awareness, sustainability, and youth-led solutions to climate challenges.',
         focusAreas: ['Climate Action', 'Sustainability', 'Environmental Advocacy'],
         linkedin: '#',
-        email: 'richard@alicetalkworld.org'
+        email: 'richard@alicetalkworld.org',
+        phone: '0249745823',
+        whatsapp: '0249745823',
+        socials: 'All platforms'
       },
       {
-        name: 'Chris',
+        name: 'Chris Afari Addo',
         role: 'Climate Co-Lead',
         image: 'placeholder',
         shortDesc: 'Mobilizing youth for climate and environmental sustainability programs.',
         bio: 'Chris works alongside the Climate Lead to support environmental programs and mobilize young people to participate in climate and sustainability initiatives.',
         focusAreas: ['Climate Education', 'Youth Engagement', 'Sustainability Programs'],
         linkedin: '#',
-        email: 'chris@alicetalkworld.org'
+        email: 'chris@alicetalkworld.org',
+        phone: '0551725876',
+        whatsapp: '0551725876',
+        socials: 'All Social Media Platforms'
+      },
+      {
+        name: 'Adwoa Amaniampong Brenya',
+        role: 'Gender Lead',
+        image: 'placeholder',
+        shortDesc: 'Promoting gender equity, inclusion, and advocacy for women and girls.',
+        bio: 'Adwoa leads initiatives that promote gender equity, inclusion, and opportunities for women and girls through advocacy, mentorship, and leadership development programs.',
+        focusAreas: ['Gender Equity', 'Women\'s Leadership', 'Advocacy'],
+        linkedin: '#',
+        email: 'adwoa@alicetalkworld.org',
+        phone: '0202215827',
+        whatsapp: '0202215827',
+        socials: 'Instagram & Tiktok: maameeee_xx, LinkedIn & Facebook: Adwoa Amaniampong Brenyah'
+      },
+      {
+        name: 'Lawrencia Owusu',
+        role: 'Co-Lead, Gender Department',
+        image: 'placeholder',
+        shortDesc: 'Supporting implementation of gender-focused programs and outreach.',
+        bio: 'Lawrencia supports the implementation of gender-focused initiatives and programs aimed at empowering women and fostering inclusive participation across communities.',
+        focusAreas: ['Program Coordination', 'Gender Inclusion', 'Community Engagement'],
+        linkedin: '#',
+        email: 'lawrencia@alicetalkworld.org',
+        phone: '0553772970',
+        phoneNote: 'Call Only',
+        whatsapp: '0560097959',
+        whatsappNote: 'WhatsApp Only',
+        socials: 'LinkedIn- Lawrencia Owusu'
+      },
+      {
+        name: 'Agyei Kwame Akyea',
+        role: 'Campus Ambassador',
+        image: 'placeholder',
+        shortDesc: 'Assisting in community outreach, local mobilization, and event operations.',
+        bio: 'Agyei helps coordinate field outreach programs and community relations, ensuring effective engagement and participation in our local activities.',
+        focusAreas: ['Community Engagement', 'Outreach Operations', 'Event Logistics'],
+        linkedin: '#',
+        email: 'agyei.akyea@alicetalkworld.org',
+        phone: '0558529631',
+        whatsapp: '0558529631',
+        socials: 'All'
       }
     ],
     operationsSupport: [
@@ -292,7 +354,36 @@ export const OurTeamPage = () => {
       bio: 'Godfred contributes his design skills to craft stunning visual campaigns, social media assets, and event booklets for our annual conferences.',
       focusAreas: ['Graphic Design', 'Brand Materials', 'Creative Support'],
       linkedin: 'https://linkedin.com',
-      email: 'godfred@alicetalkworld.org'
+      email: 'godfred@alicetalkworld.org',
+      phone: '0555598199',
+      whatsapp: '0272719598',
+      socials: 'tiktok (hvppi Pixels)'
+    },
+    {
+      name: 'Joshua AGBOZO',
+      role: 'Volunteer / Publicity Assistant',
+      image: 'placeholder',
+      shortDesc: 'Supporting public awareness campaigns, event promotion, and community outreach.',
+      bio: 'Joshua supports publicity and community mobilization efforts, raising awareness for Alice Talk World\'s initiatives across campus and local communities.',
+      focusAreas: ['Publicity', 'Community Mobilization', 'Event Support'],
+      linkedin: '#',
+      email: 'joshua.agbozo@alicetalkworld.org',
+      phone: '0553108760',
+      whatsapp: '0553108760',
+      socials: 'All platforms'
+    },
+    {
+      name: 'Francisca Arhinful',
+      role: 'Volunteer',
+      image: 'placeholder',
+      shortDesc: 'Supporting general program operations, volunteer coordination, and event execution.',
+      bio: 'Francisca is an active volunteer contributor who helps coordinate participants and supports the planning and execution of our youth conferences and workshops.',
+      focusAreas: ['Program Operations', 'Volunteer Support', 'Participant Engagement'],
+      linkedin: '#',
+      email: 'francisca.arhinful@alicetalkworld.org',
+      whatsapp: '0503134751',
+      whatsappNote: 'WhatsApp Only',
+      socials: 'All'
     }
   ];
 
@@ -645,14 +736,27 @@ export const OurTeamPage = () => {
               <h5 className="atw-modal-section-title">Biography</h5>
               <p className="atw-modal-bio">{selectedMember.bio}</p>
 
-              <h5 className="atw-modal-section-title">Areas of Expertise</h5>
-              <div className="atw-modal-skills-list">
-                {selectedMember.focusAreas.map((skill, index) => (
-                  <span key={index} className="atw-featured-skill-tag">{skill}</span>
-                ))}
-              </div>
+              {selectedMember.focusAreas && selectedMember.focusAreas.length > 0 && (
+                <>
+                  <h5 className="atw-modal-section-title">Areas of Expertise</h5>
+                  <div className="atw-modal-skills-list">
+                    {selectedMember.focusAreas.map((skill, index) => (
+                      <span key={index} className="atw-featured-skill-tag">{skill}</span>
+                    ))}
+                  </div>
+                </>
+              )}
 
-              <div className="atw-modal-contact-row">
+              {selectedMember.socials && (
+                <div style={{ marginBottom: '20px' }}>
+                  <h5 className="atw-modal-section-title">Active Social Media</h5>
+                  <p className="atw-modal-bio" style={{ marginBottom: 0, fontWeight: 500 }}>
+                    {selectedMember.socials}
+                  </p>
+                </div>
+              )}
+
+              <div className="atw-modal-contact-row" style={{ flexWrap: 'wrap', gap: '16px' }}>
                 {selectedMember.linkedin && selectedMember.linkedin !== '#' && (
                   <a
                     href={selectedMember.linkedin}
@@ -666,6 +770,21 @@ export const OurTeamPage = () => {
                 {selectedMember.email && (
                   <a href={`mailto:${selectedMember.email}`} className="atw-modal-contact-link">
                     <Mail size={18} /> Email
+                  </a>
+                )}
+                {selectedMember.phone && (
+                  <a href={`tel:${selectedMember.phone}`} className="atw-modal-contact-link">
+                    <Phone size={18} /> Call {selectedMember.phoneNote ? `(${selectedMember.phoneNote})` : selectedMember.phone}
+                  </a>
+                )}
+                {selectedMember.whatsapp && (
+                  <a
+                    href={`https://wa.me/233${selectedMember.whatsapp.replace(/^0/, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="atw-modal-contact-link"
+                  >
+                    <WhatsappIcon size={18} /> WhatsApp {selectedMember.whatsappNote ? `(${selectedMember.whatsappNote})` : selectedMember.whatsapp}
                   </a>
                 )}
               </div>

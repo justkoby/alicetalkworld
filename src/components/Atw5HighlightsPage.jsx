@@ -73,8 +73,8 @@ export const Atw5HighlightsPage = () => {
                   <h3>Anniversary Conference Coverage</h3>
                   <p>Read our full detailed press coverage of the Alice Talk World @ 5 Anniversary event at the British Council.</p>
                 </div>
-                <a href="conference-article.html" className="atw-btn-promo">
-                  Read Full Article <ArrowRight size={16} />
+                <a href="news.html?story=atw-5-anniversary" className="atw-btn-promo">
+                  Read Full Story <ArrowRight size={16} />
                 </a>
               </div>
             </div>
@@ -214,11 +214,11 @@ export const Atw5HighlightsPage = () => {
             </div>
 
             <div className="atw-next-article-box">
-              <h3>Next Article</h3>
+              <h3>Next Story</h3>
               <p className="atw-next-title">Alice Talk World @ 5: Anniversary Conference at the British Council</p>
               <p className="atw-next-desc">Read about the keynote addresses and partner engagements from the landmark session.</p>
-              <a href="conference-article.html" className="atw-next-btn">
-                Read Article <ArrowRight size={16} />
+              <a href="news.html?story=atw-5-anniversary" className="atw-next-btn">
+                Read Story <ArrowRight size={16} />
               </a>
             </div>
           </div>

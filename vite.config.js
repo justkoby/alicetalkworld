@@ -19,6 +19,7 @@ export default defineConfig({
         partner: resolve(__dirname, 'partner.html'),
         volunteer: resolve(__dirname, 'volunteer.html'),
         mentor: resolve(__dirname, 'mentor.html'),
+        news: resolve(__dirname, 'news.html'),
         atw5Highlights: resolve(__dirname, 'atw-5-highlights.html'),
       },
     },
