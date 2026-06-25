@@ -6,7 +6,7 @@ export const AtwFooter = () => {
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email.trim()) {
-      window.location.href = `mailto:info@alicetalkworld.org?subject=Newsletter Subscription Request - Alice Talk World&body=Please subscribe my email to the Alice Talk World newsletter: ${email}`;
+      window.location.href = `mailto:atw@alicetalkworld.org?subject=Newsletter Subscription Request - Alice Talk World&body=Please subscribe my email to the Alice Talk World newsletter: ${email}`;
       setEmail('');
     }
   };
@@ -57,9 +57,11 @@ export const AtwFooter = () => {
             <ul className="atw-footer-contact-list">
               <li>Accra, Ghana</li>
               <li>
-                <a href="mailto:info@alicetalkworld.org">info@alicetalkworld.org</a>
+                <a href="mailto:atw@alicetalkworld.org">atw@alicetalkworld.org</a>
               </li>
-              <li>+233 XXX XXX XXX</li>
+              <li>
+                <a href="tel:+233242010044">0242010044</a> / <a href="tel:+233550407543">+233 55 040 7543</a>
+              </li>
             </ul>
           </div>
 
