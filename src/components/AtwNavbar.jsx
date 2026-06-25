@@ -104,6 +104,7 @@ export const AtwNavbar = () => {
   const toggleDropdown = (menuName, e) => {
     if (window.innerWidth <= 900) {
       e.preventDefault();
+      e.stopPropagation();
       setActiveDropdown(activeDropdown === menuName ? null : menuName);
     }
   };
