@@ -31,14 +31,14 @@ export const MentorPage = () => {
     const formData = new FormData(e.target);
     
     try {
-      const response = await fetch("https://formsubmit.co/ajax/info@alicetalkworld.org", {
+      const response = await fetch("https://formsubmit.co/ajax/atw@alicetalkworld.org", {
         method: "POST",
         body: formData
       });
       if (response.ok) {
         setSubmitted(true);
       } else {
-        alert("There was an issue submitting your application. Please try again or email us directly at info@alicetalkworld.org.");
+        alert("There was an issue submitting your application. Please try again or email us directly at atw@alicetalkworld.org.");
       }
     } catch (error) {
       console.error("Error submitting form", error);
@@ -292,7 +292,7 @@ export const MentorPage = () => {
               <span className="mtr-section-tag">APPLY NOW</span>
               <h2 className="mtr-section-title">Mentor Application Form</h2>
               <p style={{ marginTop: '8px', color: '#374151' }}>
-                Fill out the application below to share your expertise, inspire young minds, and join our active global network of mentors.
+                Fill out the application below to share your expertise, inspire young minds, and join our active global network of mentors. Selected mentors will be published in our publications.
               </p>
             </div>
 

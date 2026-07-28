@@ -19,14 +19,14 @@ export const PartnerPage = () => {
     const formData = new FormData(e.target);
     
     try {
-      const response = await fetch("https://formsubmit.co/ajax/info@alicetalkworld.org", {
+      const response = await fetch("https://formsubmit.co/ajax/atw@alicetalkworld.org", {
         method: "POST",
         body: formData
       });
       if (response.ok) {
         setSubmitted(true);
       } else {
-        alert("There was an issue submitting your inquiry. Please try again or email us directly at info@alicetalkworld.org.");
+        alert("There was an issue submitting your inquiry. Please try again or email us directly at atw@alicetalkworld.org.");
       }
     } catch (error) {
       console.error("Error submitting form", error);
@@ -216,7 +216,7 @@ export const PartnerPage = () => {
                 <p className="ptn-resource-desc">
                   An overview of partnership pathways, programs, and alignment guidelines.
                 </p>
-                <a href="#" className="ptn-resource-download-btn" onClick={(e) => e.preventDefault()}>
+                <a href="mailto:atw@alicetalkworld.org?subject=Request%20for%20Partnership%20Brochure" className="ptn-resource-download-btn">
                   <Download size={16} style={{ marginRight: '6px' }} /> Download Brochure
                 </a>
               </div>
@@ -229,7 +229,7 @@ export const PartnerPage = () => {
                 <p className="ptn-resource-desc">
                   Comprehensive details about our structure, governance, and operating framework.
                 </p>
-                <a href="#" className="ptn-resource-download-btn" onClick={(e) => e.preventDefault()}>
+                <a href="mailto:atw@alicetalkworld.org?subject=Request%20for%20Organization%20Profile" className="ptn-resource-download-btn">
                   <Download size={16} style={{ marginRight: '6px' }} /> Download Profile
                 </a>
               </div>
@@ -242,7 +242,7 @@ export const PartnerPage = () => {
                 <p className="ptn-resource-desc">
                   Explore validated statistics, project outcomes, and success stories from past cohorts.
                 </p>
-                <a href="#" className="ptn-resource-download-btn" onClick={(e) => e.preventDefault()}>
+                <a href="mailto:atw@alicetalkworld.org?subject=Request%20for%20Impact%20Report" className="ptn-resource-download-btn">
                   <Download size={16} style={{ marginRight: '6px' }} /> Download Impact Report
                 </a>
               </div>

@@ -23,7 +23,7 @@
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(74, 21, 75, 0.95) 0%,
+    rgba(30, 92, 63, 0.95) 0%,
     rgba(15, 10, 20, 0.8) 50%,
     rgba(15, 10, 20, 0.4) 100%
   );
@@ -157,13 +157,13 @@
 
 .atw-team-tab-btn:hover {
   color: var(--atw-primary);
-  background-color: rgba(74, 21, 75, 0.05);
+  background-color: rgba(30, 92, 63, 0.05);
 }
 
 .atw-team-tab-btn.active {
   color: var(--atw-white);
   background-color: var(--atw-primary);
-  box-shadow: 0 6px 15px rgba(74, 21, 75, 0.2);
+  box-shadow: 0 6px 15px rgba(30, 92, 63, 0.2);
 }
 
 /* Members Section Grid */
@@ -226,14 +226,14 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(74, 21, 75, 0.08);
+  border: 1px solid rgba(30, 92, 63, 0.08);
   margin-bottom: 60px;
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
 .atw-featured-leader-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(74, 21, 75, 0.1);
+  box-shadow: 0 20px 40px rgba(30, 92, 63, 0.1);
   border-bottom: 3px solid #7C3AED;
 }
 
@@ -312,7 +312,7 @@
 }
 
 .atw-featured-skill-tag {
-  background-color: rgba(74, 21, 75, 0.05);
+  background-color: rgba(30, 92, 63, 0.05);
   color: var(--atw-primary);
   font-size: 12px;
   font-weight: 700;
@@ -364,7 +364,7 @@
 
 .atw-member-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(74, 21, 75, 0.08);
+  box-shadow: 0 15px 35px rgba(30, 92, 63, 0.08);
   border-bottom: 3px solid #7C3AED;
 }
 
@@ -394,7 +394,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(74, 21, 75, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(30, 92, 63, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
   color: var(--atw-primary);
   font-family: var(--font-display);
   font-size: 40px;
@@ -464,7 +464,7 @@
   grid-column: 1 / -1;
   margin-top: 40px;
   margin-bottom: 30px;
-  border-bottom: 2px solid rgba(74, 21, 75, 0.1);
+  border-bottom: 2px solid rgba(30, 92, 63, 0.1);
   padding-bottom: 12px;
 }
 
@@ -503,7 +503,7 @@
   animation: slideUp 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: grid;
   grid-template-columns: 1.1fr 1.5fr;
-  border: 1px solid rgba(74, 21, 75, 0.1);
+  border: 1px solid rgba(30, 92, 63, 0.1);
 }
 
 @keyframes fadeIn {

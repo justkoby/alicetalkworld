@@ -27,9 +27,9 @@ export const AboutPage = () => {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash;
-      if (hash === '#story' || hash === '#timeline' || hash === '#challenge') {
-        setActiveTab('our-story');
-        // Scroll to the respective section if exists
+      if (hash) {
+        const isStoryTab = hash === '#story' || hash === '#timeline' || hash === '#challenge';
+        setActiveTab(isStoryTab ? 'our-story' : 'who-we-are');
         setTimeout(() => {
           const el = document.getElementById(hash.substring(1));
           if (el) {
@@ -341,23 +341,34 @@ export const AboutPage = () => {
               <div className="atw-lead-preview-grid">
                 <div className="atw-lead-preview-card">
                   <div className="atw-lead-img-container">
-                    <img src="/images/atw/alice.jpeg" alt="Alice Yakubu" className="atw-lead-img" />
+                    <img src="/images/atw/Alice Yakubu.jpeg" alt="Alice Yakubu" className="atw-lead-img" />
                   </div>
                   <div className="atw-lead-info">
                     <h3 className="atw-lead-name">Alice Yakubu</h3>
                     <span className="atw-lead-role">Founder & Executive Director</span>
-                    <p className="atw-lead-desc">Leading youth empowerment, leadership development, and community impact initiatives.</p>
+                    <p className="atw-lead-desc">Empowering young people and women through mentorship, leadership development, and innovation.</p>
                   </div>
                 </div>
 
                 <div className="atw-lead-preview-card">
                   <div className="atw-lead-img-container">
-                    <img src="/images/atw/Baah Tonkouru David.jpg" alt="David Baah Tonkouru" className="atw-lead-img" />
+                    <img src="/images/atw/David Baah.jpeg" alt="David Tonkouru Baah" className="atw-lead-img" />
                   </div>
                   <div className="atw-lead-info">
-                    <h3 className="atw-lead-name">David Baah Tonkouru</h3>
-                    <span className="atw-lead-role">Chief Operating Officer (COO)</span>
-                    <p className="atw-lead-desc">Translating vision into measurable impact through operations and programs.</p>
+                    <h3 className="atw-lead-name">David Tonkouru Baah</h3>
+                    <span className="atw-lead-role">Co-Director</span>
+                    <p className="atw-lead-desc">Specializing in IT infrastructure management, digital transformation, and leadership support.</p>
+                  </div>
+                </div>
+
+                <div className="atw-lead-preview-card">
+                  <div className="atw-lead-img-container">
+                    <img src="/images/atw/David Yeboah.jpeg" alt="David Yeboah" className="atw-lead-img" />
+                  </div>
+                  <div className="atw-lead-info">
+                    <h3 className="atw-lead-name">David Yeboah</h3>
+                    <span className="atw-lead-role">Chief Operations Officer</span>
+                    <p className="atw-lead-desc">Project & Operations Management, AI/Cybersecurity researcher, and political strategist.</p>
                   </div>
                 </div>
 
@@ -367,8 +378,8 @@ export const AboutPage = () => {
                   </div>
                   <div className="atw-lead-info">
                     <h3 className="atw-lead-name">Elizabeth Otu</h3>
-                    <span className="atw-lead-role">General Secretary</span>
-                    <p className="atw-lead-desc">Supporting the governance, administration, and internal coordination of the organization.</p>
+                    <span className="atw-lead-role">Secretary</span>
+                    <p className="atw-lead-desc">Supporting report writing, meeting coordination, and community engagement workflows.</p>
                   </div>
                 </div>
               </div>

@@ -76,7 +76,7 @@ export const NewsPage = () => {
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (newsletterEmail.trim()) {
-      window.location.href = `mailto:info@alicetalkworld.org?subject=Newsletter Subscription Request - Alice Talk World&body=Please subscribe my email to the Alice Talk World newsletter: ${newsletterEmail}`;
+      window.location.href = `mailto:atw@alicetalkworld.org?subject=Newsletter Subscription Request - Alice Talk World&body=Please subscribe my email to the Alice Talk World newsletter: ${newsletterEmail}`;
       setNewsletterEmail('');
     }
   };
@@ -135,7 +135,7 @@ export const NewsPage = () => {
                       <a href="#gallery-section" className="news-mobile-action-btn btn-view-gallery">
                         <ImageIcon size={16} /> View Gallery
                       </a>
-                      <a href="mailto:info@alicetalkworld.org?subject=Request Conference Report - Alice Talk World" className="news-mobile-action-btn btn-download-report">
+                      <a href="mailto:atw@alicetalkworld.org?subject=Request Conference Report - Alice Talk World" className="news-mobile-action-btn btn-download-report">
                         <Download size={16} /> Download Report
                       </a>
                     </>
@@ -355,7 +355,7 @@ export const NewsPage = () => {
                     {activeStory.isConference && (
                       <div className="sidebar-section downloads-box">
                         <h4 className="sidebar-section-title">Resources</h4>
-                        <a href="mailto:info@alicetalkworld.org?subject=Request Conference Report - Alice Talk World" className="sidebar-action-btn btn-report">
+                        <a href="mailto:atw@alicetalkworld.org?subject=Request Conference Report - Alice Talk World" className="sidebar-action-btn btn-report">
                           <Download size={16} /> Download Report
                         </a>
                         <a href="#gallery-section" className="sidebar-action-btn btn-gallery">

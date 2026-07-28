@@ -27,7 +27,7 @@ export const GetInvolvedPage = () => {
       title: 'Become a Partner',
       tagline: 'Co-create Opportunities With Us',
       desc: 'Partner with Alice Talk World to support conferences, training programs, campus engagements, research, and community impact initiatives.',
-      link: 'partner.html',
+      link: 'mailto:atw@alicetalkworld.org?subject=Partnership%20Inquiry',
       btnText: 'Become a Partner',
       icon: <Handshake className="gi-card-icon text-partner" size={32} />,
       colorClass: 'gi-card-partner'

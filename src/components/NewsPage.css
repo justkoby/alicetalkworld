@@ -200,8 +200,8 @@
 
 .index-featured-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(74, 21, 75, 0.08);
-  border-color: rgba(74, 21, 75, 0.12);
+  box-shadow: 0 15px 40px rgba(30, 92, 63, 0.08);
+  border-color: rgba(30, 92, 63, 0.12);
 }
 
 .index-featured-img-wrapper {
@@ -309,8 +309,8 @@
 
 .index-story-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 45px rgba(74, 21, 75, 0.08);
-  border-color: rgba(74, 21, 75, 0.12);
+  box-shadow: 0 15px 45px rgba(30, 92, 63, 0.08);
+  border-color: rgba(30, 92, 63, 0.12);
 }
 
 .index-card-img-wrapper {

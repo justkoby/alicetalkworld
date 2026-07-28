@@ -12,7 +12,7 @@
 /* Banner Hero */
 .atw-search-hero {
   position: relative;
-  background: linear-gradient(135deg, #2b0c2c 0%, #4a154b 100%);
+  background: linear-gradient(135deg, #0b2518 0%, #1e5c3f 100%);
   padding: 180px 24px 100px 24px;
   display: flex;
   justify-content: center;
@@ -115,7 +115,7 @@
 }
 
 .atw-search-submit-btn:hover {
-  background: rgba(74, 21, 75, 0.9);
+  background: rgba(30, 92, 63, 0.9);
   transform: translateY(-1px);
 }
 
@@ -283,8 +283,8 @@
 
 .atw-search-result-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(74, 21, 75, 0.15);
-  box-shadow: 0 10px 25px rgba(74, 21, 75, 0.06);
+  border-color: rgba(30, 92, 63, 0.15);
+  box-shadow: 0 10px 25px rgba(30, 92, 63, 0.06);
 }
 
 .atw-card-top-meta {
@@ -447,7 +447,7 @@
   transform: translateY(-2px);
   background: var(--atw-white);
   border-color: var(--atw-primary);
-  box-shadow: 0 6px 15px rgba(74, 21, 75, 0.05);
+  box-shadow: 0 6px 15px rgba(30, 92, 63, 0.05);
 }
 
 /* Empty tips block */
@@ -493,7 +493,7 @@
 }
 
 .atw-back-to-all-btn:hover {
-  background: rgba(74, 21, 75, 0.9);
+  background: rgba(30, 92, 63, 0.9);
 }
 
 /* Keyframes animations */

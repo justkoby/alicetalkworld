@@ -21,6 +21,8 @@ export default defineConfig({
         mentor: resolve(__dirname, 'mentor.html'),
         news: resolve(__dirname, 'news.html'),
         atw5Highlights: resolve(__dirname, 'atw-5-highlights.html'),
+        contact: resolve(__dirname, 'contact.html'),
+        aiConference: resolve(__dirname, 'ai-conference.html'),
       },
     },
   },

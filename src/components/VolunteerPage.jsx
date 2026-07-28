@@ -28,14 +28,14 @@ export const VolunteerPage = () => {
     const formData = new FormData(e.target);
     
     try {
-      const response = await fetch("https://formsubmit.co/ajax/info@alicetalkworld.org", {
+      const response = await fetch("https://formsubmit.co/ajax/atw@alicetalkworld.org", {
         method: "POST",
         body: formData
       });
       if (response.ok) {
         setSubmitted(true);
       } else {
-        alert("There was an issue submitting your application. Please try again or email us directly at info@alicetalkworld.org.");
+        alert("There was an issue submitting your application. Please try again or email us directly at atw@alicetalkworld.org.");
       }
     } catch (error) {
       console.error("Error submitting form", error);

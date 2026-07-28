@@ -81,7 +81,7 @@ export const Atw5HighlightsPage = () => {
 
             <div className="atw-highlights-sidebar-col">
               <div className="atw-highlights-snapshot-card">
-                <img src="/images/MAIN FLYER WEBSITE.jpg" className="atw-snapshot-img" alt="Alice Talk World @ 5 main event flyer" />
+                <img src="/images/atw/MAIN FLYER WEBSITE.jpg" className="atw-snapshot-img" alt="Alice Talk World @ 5 main event flyer" />
                 <div className="atw-snapshot-body">
                   <h3 className="atw-snapshot-title">Event Snapshot</h3>
                   <ul className="atw-snapshot-list">
@@ -114,16 +114,16 @@ export const Atw5HighlightsPage = () => {
             <h3 className="atw-gallery-strip-title">Moments From the Day</h3>
             <div className="atw-gallery-strip-grid">
               <div className="atw-gallery-strip-item">
-                <img src="/images/atw@5-1.jpg" alt="Conference highlight 1" />
+                <img src="/images/atw/atw@5-1.jpg" alt="Conference highlight 1" />
               </div>
               <div className="atw-gallery-strip-item">
-                <img src="/images/atw@5-2.jpg" alt="Conference highlight 2" />
+                <img src="/images/atw/atw@5-2.jpg" alt="Conference highlight 2" />
               </div>
               <div className="atw-gallery-strip-item">
-                <img src="/images/atw@5-3.jpg" alt="Conference highlight 3" />
+                <img src="/images/atw/atw@5-3.jpg" alt="Conference highlight 3" />
               </div>
               <div className="atw-gallery-strip-item">
-                <img src="/images/atw@5-4.jpg" alt="Conference highlight 4" />
+                <img src="/images/atw/atw@5-4.jpg" alt="Conference highlight 4" />
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@ export const Atw5HighlightsPage = () => {
         <div className="atw-highlights-container">
           <div className="atw-panel-grid">
             <div className="atw-panel-img-col">
-              <img src="/images/YOUTH PANEL - WEBSITE.jpg" className="atw-panel-img" alt="Youth Panel flyer" />
+              <img src="/images/atw/YOUTH PANEL - WEBSITE.jpg" className="atw-panel-img" alt="Youth Panel flyer" />
             </div>
             <div className="atw-panel-info-col">
               <h2 className="atw-panel-title">Youth Panel: Voices Shaping the Future</h2>
@@ -165,7 +165,7 @@ export const Atw5HighlightsPage = () => {
         <div className="atw-highlights-container">
           <div className="atw-panel-grid atw-reverse">
             <div className="atw-panel-img-col">
-              <img src="/images/HIGH LEVEL PANEL - WEBSITE.jpg" className="atw-panel-img" alt="High Level Panel flyer" />
+              <img src="/images/atw/HIGH LEVEL PANEL - WEBSITE.jpg" className="atw-panel-img" alt="High Level Panel flyer" />
             </div>
             <div className="atw-panel-info-col">
               <h2 className="atw-panel-title">High Level Panel: Policy, Innovation & Global Impact</h2>

@@ -55,185 +55,113 @@ export const OurTeamPage = () => {
     featured: {
       name: 'Alice Yakubu',
       role: 'Founder & Executive Director',
-      image: '/images/atw/alice-yakubu.webp',
-      shortDesc: 'Leading youth empowerment, leadership development, and community impact initiatives.',
-      bio: 'Alice Yakubu is the Founder and Executive Director of Alice Talk World. She provides strategic leadership for the organization, driving initiatives focused on youth empowerment, leadership development, mentorship, and community impact across Africa.',
-      focusAreas: ['Organizational Leadership', 'Youth Development', 'Strategic Partnerships', 'Women\'s Empowerment'],
-      linkedin: 'https://linkedin.com/in/alicetalkworld-gh-24b513243/',
-      email: 'alice@alicetalkworld.org',
-      phone: '0242010044',
+      image: '/images/atw/Alice Yakubu.jpeg',
+      shortDesc: 'Founder of Alice TalkWorld, a platform connecting young people with opportunities.',
+      bio: 'Alice Yakubu is a Gender-Inclusive Youth Advocate and youth development leader dedicated to empowering young people and women through mentorship, leadership development, and innovation. She is the Founder of Alice TalkWorld, a platform that connects young people with opportunities for networking, entrepreneurship, and personal growth. Alice serves as a Member of the Gender Advocacy Working Group of the All-Africa Students Union, championing youth and gender inclusion initiatives across Africa. Passionate about leadership, women and girls\' empowerment, and community development, she works to equip the next generation with the skills and confidence to create meaningful impact.',
+      focusAreas: ['Youth Development', 'Mentorship', 'Leadership Development', 'Women & Girls\' Empowerment', 'Community Development'],
+      linkedin: 'https://www.linkedin.com/in/yakubu-alice?',
+      email: 'yakubualice99@gmail.com',
       whatsapp: '0242010044',
       socials: 'All platforms'
     },
     executiveLeadership: [
       {
+        name: 'David Tonkouru Baah',
+        role: 'Co-Director',
+        image: '/images/atw/David Baah.jpeg',
+        shortDesc: 'IT Professional with a passion for technology, innovation, and digital solutions.',
+        bio: 'David Tonkouru Baah is an IT Professional with a passion for technology, innovation, and digital solutions. He provides IT leadership and support to organizations and businesses, specializing in infrastructure management, systems support, networking, and digital transformation. He is committed to delivering reliable solutions that drive efficiency and growth.',
+        focusAreas: ['IT Infrastructure & Systems', 'Network & Security', 'Technical Support & Troubleshooting', 'Digital Solutions'],
+        linkedin: 'https://www.linkedin.com/in/david-tonkournu-baah-29228a1b3',
+        email: 'baahdavid54@gmail.com',
+        whatsapp: '0540718885'
+      },
+      {
         name: 'David Yeboah',
-        role: 'Chief Operating Officer (COO)',
-        image: '/images/atw/Baah Tonkouru David.jpg',
-        shortDesc: 'Translating vision into measurable impact through operations and programs.',
-        bio: 'David oversees the day-to-day operations of Alice Talk World, ensuring the successful execution of programs, partnerships, and organizational initiatives. He plays a key role in translating vision into measurable impact.',
-        focusAreas: ['Operations Management', 'Program Implementation', 'Team Coordination', 'Organizational Growth'],
-        linkedin: 'https://linkedin.com/in/david-baah-tonkouru',
-        email: 'david@alicetalkworld.org',
-        phone: '0540718885',
-        whatsapp: '0540718885',
-        socials: '@tonkouru all platforms'
+        role: 'Chief Operations Officer',
+        image: '/images/atw/David Yeboah.jpeg',
+        shortDesc: 'Project Manager, Operations Specialist, and strategic communications professional.',
+        bio: 'David Yeboah is a Project Manager, Operations Specialist, cybersecurity researcher, and strategic communications professional committed to driving innovation and sustainable development. His work combines technology, research, operations and digital communications to create impactful solutions, with a strong interest in artificial intelligence, climate action, and community development.',
+        focusAreas: ['Project & Operations Management', 'Cybersecurity & AI', 'Research & Policy Development', 'Digital Media Strategy', 'Climate Action & Sustainable Development', 'Political Strategist'],
+        linkedin: 'https://www.linkedin.com/in/davidyeboahexsqua',
+        whatsapp: '0550407543'
       },
       {
         name: 'Elizabeth Otu',
-        role: 'General Secretary',
+        role: 'Secretary',
         image: '/images/atw/Gifty Adobeah.jpg',
-        shortDesc: 'Supporting the governance, administration, and internal coordination of the organization.',
-        bio: 'Elizabeth supports the governance and administration of the organization, ensuring effective coordination, documentation, and communication across departments and leadership structures.',
-        focusAreas: ['Administration', 'Governance', 'Documentation', 'Internal Coordination'],
-        linkedin: 'https://linkedin.com/in/elizabeth-otu',
-        email: 'elizabeth@alicetalkworld.org'
+        shortDesc: 'Helping coordinate and maintain smooth workflow across the organization.',
+        bio: 'Elizabeth is the Secretary of Alice TalkWorld. She helps the organization coordinate and work smoothly. She supports communication, keeps records, writes reports, and helps plan meetings and activities. She also follows up on tasks and helps the team achieve its goals and create impact in the community.',
+        focusAreas: ['Report Writing', 'Meeting Coordination', 'Community Engagement', 'Organization Skills'],
+        linkedin: 'https://www.linkedin.com/in/elizabethotu',
+        email: 'otuelizabeth09@gmail.com',
+        whatsapp: '0552228114'
       }
     ],
     departmentLeads: [
       {
-        name: 'Kwadwo S. Manu',
-        role: 'Special Project Lead',
-        image: 'placeholder',
-        shortDesc: 'Leading the planning and execution of strategic projects and special initiatives.',
-        bio: 'Kwadwo leads the planning and execution of strategic projects and special initiatives that advance Alice Talk World\'s mission and long-term goals.',
-        focusAreas: ['Strategic Projects', 'Program Innovation', 'Stakeholder Engagement'],
-        linkedin: '#',
-        email: 'ksm@alicetalkworld.org',
-        phone: '0242565871',
-        whatsapp: '0277803385',
-        socials: 'Facebook/TikTok/X/IG'
-      },
-      {
-        name: 'Vincent Yovo',
-        role: 'Head of Media',
-        image: 'placeholder',
-        shortDesc: 'Overseeing media strategy, digital communications, and impact storytelling.',
-        bio: 'Vincent oversees the organization\'s media strategy, ensuring that Alice Talk World\'s stories, programs, and impact are effectively communicated across digital and traditional platforms.',
-        focusAreas: ['Media Relations', 'Storytelling', 'Digital Communications'],
-        linkedin: '#',
-        email: 'vincent@alicetalkworld.org'
-      },
-      {
-        name: 'Ettah Johnson Kwaku',
-        role: 'Content Lead',
-        image: 'placeholder',
-        shortDesc: 'Developing compelling copywriting and content strategies to engage the community.',
-        bio: 'Ettah develops compelling content that informs, inspires, and engages the Alice Talk World community while amplifying the organization\'s mission and achievements.',
-        focusAreas: ['Content Strategy', 'Copywriting', 'Campaign Messaging'],
-        linkedin: '#',
-        email: 'johnson@alicetalkworld.org',
-        phone: '0597968247',
-        whatsapp: '0504498983',
-        socials: 'All platforms'
-      },
-      {
-        name: 'Henry Nyamekye',
-        role: 'Creative Lead',
-        image: 'placeholder',
-        shortDesc: 'Leading the visual identity and brand creative direction across all platforms.',
-        bio: 'Henry leads the visual identity and creative direction of Alice Talk World, ensuring consistent and impactful brand communication across all platforms.',
-        focusAreas: ['Branding', 'Graphic Design', 'Creative Direction'],
-        linkedin: '#',
-        email: 'henry@alicetalkworld.org',
-        phone: '0207422456',
-        whatsapp: '0207422456',
-        socials: 'IG: @6thgrafx / 6th_civilian'
-      },
-      {
-        name: 'Gabriel Yenuman Konlaa',
-        role: 'Partnership Lead',
-        image: 'placeholder',
-        shortDesc: 'Cultivating strategic partnerships and external relations with organizations.',
-        bio: 'Gabriel leads partnership development efforts, cultivating relationships with organizations, institutions, and stakeholders that help expand the reach and impact of Alice Talk World.',
-        focusAreas: ['Strategic Partnerships', 'Business Development', 'Stakeholder Relations'],
-        linkedin: '#',
-        email: 'ghabby@alicetalkworld.org',
-        phone: '0207456077',
-        whatsapp: '0207456077',
-        socials: 'LinkedIn & Tiktok: Gabriel Konlaa'
-      },
-      {
-        name: 'Jude K. Nartey',
-        role: 'Lead, Public Relations (PR)',
-        image: 'placeholder',
-        shortDesc: 'Managing public relations, media visibility, and stakeholder relationships.',
-        bio: 'Jude manages public relations efforts, strengthening the organization\'s visibility and fostering meaningful relationships with stakeholders and the wider public.',
-        focusAreas: ['Public Relations', 'Communications', 'Stakeholder Engagement'],
-        linkedin: '#',
-        email: 'jude@alicetalkworld.org',
-        phone: '0548599235',
-        whatsapp: '0548599235',
-        socials: 'Facebook/ LinkedIn'
-      }
-    ],
-    thematicLeads: [
-      {
-        name: 'Richard Yennunam Laarisson',
-        role: 'Climate Lead',
-        image: 'placeholder',
-        shortDesc: 'Spearheading climate action, sustainability, and youth environmental advocacy.',
-        bio: 'Richard spearheads Alice Talk World\'s climate action initiatives, promoting environmental awareness, sustainability, and youth-led solutions to climate challenges.',
-        focusAreas: ['Climate Action', 'Sustainability', 'Environmental Advocacy'],
-        linkedin: '#',
-        email: 'richard@alicetalkworld.org',
-        phone: '0249745823',
-        whatsapp: '0249745823',
-        socials: 'All platforms'
-      },
-      {
-        name: 'Chris Afari Addo',
-        role: 'Climate Co-Lead',
-        image: 'placeholder',
-        shortDesc: 'Mobilizing youth for climate and environmental sustainability programs.',
-        bio: 'Chris works alongside the Climate Lead to support environmental programs and mobilize young people to participate in climate and sustainability initiatives.',
-        focusAreas: ['Climate Education', 'Youth Engagement', 'Sustainability Programs'],
-        linkedin: '#',
-        email: 'chris@alicetalkworld.org',
-        phone: '0551725876',
-        whatsapp: '0551725876',
-        socials: 'All Social Media Platforms'
-      },
-      {
-        name: 'Adwoa Amaniampong Brenya',
+        name: 'Adwoa Amaniampong Brenyah',
         role: 'Gender Lead',
         image: 'placeholder',
-        shortDesc: 'Promoting gender equity, inclusion, and advocacy for women and girls.',
-        bio: 'Adwoa leads initiatives that promote gender equity, inclusion, and opportunities for women and girls through advocacy, mentorship, and leadership development programs.',
-        focusAreas: ['Gender Equity', 'Women\'s Leadership', 'Advocacy'],
-        linkedin: '#',
-        email: 'adwoa@alicetalkworld.org',
-        phone: '0202215827',
-        whatsapp: '0202215827',
-        socials: 'Instagram & Tiktok: maameeee_xx, LinkedIn & Facebook: Adwoa Amaniampong Brenyah'
+        shortDesc: 'Gender Team Lead promoting equality, youth empowerment, and inclusive leadership.',
+        bio: 'Adwoa Amaniampong Brenyah is the Gender Team Lead at Alice Talk World. She leads initiatives that promote gender equality, youth empowerment, and inclusive leadership across Africa. Driven by purpose and service, she is committed to leading initiatives that inspire growth, strengthen communities, and create opportunities for young people to thrive.',
+        focusAreas: ['Youth Empowerment', 'Strategic Communication', 'Leadership Development'],
+        linkedin: 'https://www.linkedin.com/in/adwoa-amaniampong-brenyah-33910531',
+        email: 'maameadwoab23@gmail.com',
+        whatsapp: '0202215827'
       },
       {
         name: 'Lawrencia Owusu',
-        role: 'Co-Lead, Gender Department',
+        role: 'Co-Gender Lead',
         image: 'placeholder',
-        shortDesc: 'Supporting implementation of gender-focused programs and outreach.',
-        bio: 'Lawrencia supports the implementation of gender-focused initiatives and programs aimed at empowering women and fostering inclusive participation across communities.',
-        focusAreas: ['Program Coordination', 'Gender Inclusion', 'Community Engagement'],
-        linkedin: '#',
-        email: 'lawrencia@alicetalkworld.org',
-        phone: '0553772970',
-        phoneNote: 'Call Only',
-        whatsapp: '0560097959',
-        whatsappNote: 'WhatsApp Only',
-        socials: 'LinkedIn- Lawrencia Owusu'
+        shortDesc: 'Helping drive the gender agenda, equity, and Women\'s Connect cohorts.',
+        bio: 'Lawrencia Owusu is Co-Gender Lead at Alice Talk World, where she helps drive the organisation\'s gender agenda and ensures equity and inclusion run through its leadership and mentorship work. She currently co-champions the Women\'s Connect Cohort 2, a flagship initiative advancing women\'s voice, leadership, and opportunity across the communities.',
+        focusAreas: ['Gender Equality and Social Inclusion (GESI)', 'Monitoring and Evaluation', 'Safeguarding'],
+        linkedin: 'https://www.linkedin.com/in/lawrencia-owusu/',
+        email: 'Lawrenciaowusu00@gmail.com',
+        whatsapp: '0560097959'
       },
       {
-        name: 'Agyei Kwame Akyea',
-        role: 'Campus Ambassador',
-        image: 'placeholder',
-        shortDesc: 'Assisting in community outreach, local mobilization, and event operations.',
-        bio: 'Agyei helps coordinate field outreach programs and community relations, ensuring effective engagement and participation in our local activities.',
-        focusAreas: ['Community Engagement', 'Outreach Operations', 'Event Logistics'],
-        linkedin: '#',
-        email: 'agyei.akyea@alicetalkworld.org',
-        phone: '0558529631',
-        whatsapp: '0558529631',
-        socials: 'All'
+        name: 'Jude Nartey Jr',
+        role: 'Media & Communication Lead',
+        image: '/images/atw/Jude Nartey Jnr.jpeg',
+        shortDesc: 'Overseeing public image, storytelling, and communication strategies.',
+        bio: 'Jude Nartey Jr serves as the Public Relations Officer of Alice Talk World (ATW). He oversees the organization\'s public image, communication strategies and stakeholder engagement through effective storytelling, media relations, and digital communication.',
+        focusAreas: ['Communications', 'Media Relations', 'Brand Management', 'Content Creation & Storytelling', 'Social Media Management'],
+        linkedin: 'https://www.linkedin.com/in/jude-k-nartey-jr-17619235a',
+        email: 'judekofinarteyjunior@gmail.com',
+        whatsapp: '0271040525'
+      },
+      {
+        name: 'Kwadwo Arpong Manu',
+        role: 'Inclusive and Special Initiative Lead',
+        image: '/images/atw/Kwodwo Sarpong Manu.jpeg',
+        shortDesc: 'Directing special initiatives and inclusive programs for impact.',
+        bio: 'Kwadwo Arpong Manu directs inclusive and special initiative programs at Alice Talk World, ensuring that our projects cater to diverse needs and achieve strategic social outcomes.',
+        focusAreas: ['Inclusive Initiatives', 'Project Execution', 'Strategic Partnerships'],
+        linkedin: 'https://www.linkedin.com/in/kwadwo-s-manu-828716159?',
+        email: 'kwadwomanu16@gmail.com',
+        whatsapp: '0277803385'
+      },
+      {
+        name: 'Chris Afari Addo',
+        role: 'Lead, Climate Department',
+        image: '/images/atw/Chris Addo.jpeg',
+        shortDesc: 'Sustainability advocate reducing carbon footprint and waste.',
+        bio: 'Chris Afari Addo is a sustainability advocate dedicated to helping the film industry, events, and organizations reduce their carbon footprint and minimize waste to combat global warming. His expertise includes data management, communication, report writing, sustainability memo design, and crew engagement. He has contributed to sustainable film productions and community development projects in Ghana, with a primary focus on building strong relationships with crews and promoting sustainability through education and awareness initiatives.',
+        focusAreas: ['Sustainability Advocacy', 'Data Management', 'Crew Engagement', 'Report Writing'],
+        email: 'chrisaddo13@gmail.com',
+        whatsapp: '0240041515'
+      },
+      {
+        name: 'Richard Yennuam Laarison',
+        role: 'Co-Lead, Climate Department',
+        image: '/images/atw/Richard Laarison.jpeg',
+        shortDesc: 'Agribusiness Professional supporting climate and entrepreneurship.',
+        bio: 'Richard Yennuam Laarison is an Agribusiness Professional and the Deputy Head of Department for Climate and Entrepreneurship at Alice Talkworld. He supports the initiation and implementation of climate and entrepreneurship related projects.',
+        focusAreas: ['Agribusiness', 'Climate Projects', 'Entrepreneurship Support'],
+        email: 'laarisonrichard2002@gmail.com',
+        whatsapp: '0249745823'
       }
     ],
     operationsSupport: [
@@ -273,6 +201,23 @@ export const OurTeamPage = () => {
   // Advisors and Mentors data
   const advisors = [
     {
+      name: 'Benjamin Kusi',
+      role: 'Advisory Board Chair',
+      image: 'placeholder',
+      shortDesc: 'Guiding the organization\'s advisory board and governance direction.',
+      bio: 'Benjamin Kusi serves as the Advisory Board Chair for Alice Talk World, steering strategic governance and advisory board engagements.',
+      focusAreas: ['Strategic Advisory', 'Board Chairmanship', 'Governance Support'],
+      whatsapp: '0240398373'
+    },
+    {
+      name: 'Mr. Xorlali Victor Deletsu',
+      role: 'Consultant',
+      image: 'placeholder',
+      shortDesc: 'Advising on structures and organizational strategy consultations.',
+      bio: 'Mr. Xorlali Victor Deletsu is an experienced development and business Consultant providing strategic support and operational guidance to Alice Talk World.',
+      focusAreas: ['Consulting', 'Strategic Planning', 'Operational Support']
+    },
+    {
       name: 'Dr. Khadija Owusu',
       role: 'Medical Advisor & Youth Mentor',
       image: 'placeholder',
@@ -311,79 +256,6 @@ export const OurTeamPage = () => {
       focusAreas: ['Technology Education', 'Digital Skills', 'Workspace Strategy'],
       linkedin: 'https://linkedin.com',
       email: 'paakwesi@alicetalkworld.org'
-    }
-  ];
-
-  // Volunteers data
-  const volunteers = [
-    {
-      name: 'Mariam Majeed',
-      role: 'Project Coordinator',
-      image: 'placeholder',
-      shortDesc: 'Coordinating school outreaches and material distribution in Tamale.',
-      bio: 'Mariam plays a key role in coordinating logistical operations, community outreaches, and educational campaigns for our regional initiatives.',
-      focusAreas: ['Project Logistics', 'School Outreach', 'Community Relations'],
-      linkedin: 'https://linkedin.com',
-      email: 'mariam@alicetalkworld.org'
-    },
-    {
-      name: 'Joseph Agbozo',
-      role: 'Media Assistant',
-      image: 'placeholder',
-      shortDesc: 'Supporting digital communication, media campaigns, and photography.',
-      bio: 'Joseph works with our media team to document programs, edit video content, and manage visual archives for campaigns.',
-      focusAreas: ['Photography', 'Content Creation', 'Social Media Support'],
-      linkedin: 'https://linkedin.com',
-      email: 'joseph@alicetalkworld.org'
-    },
-    {
-      name: 'Abena Esaaba Kwofie',
-      role: 'Administrative Support',
-      image: 'placeholder',
-      shortDesc: 'Assisting with records, correspondence, and event coordination.',
-      bio: 'Abena supports the administrative office in documentation, correspondence, and managing communications with our volunteer base.',
-      focusAreas: ['Documentation', 'Event Administration', 'Correspondence'],
-      linkedin: 'https://linkedin.com',
-      email: 'abena@alicetalkworld.org'
-    },
-    {
-      name: 'Godfred Tabury',
-      role: 'Creative Contributor',
-      image: 'placeholder',
-      shortDesc: 'Designing campaign flyers, web graphics, and branding assets.',
-      bio: 'Godfred contributes his design skills to craft stunning visual campaigns, social media assets, and event booklets for our annual conferences.',
-      focusAreas: ['Graphic Design', 'Brand Materials', 'Creative Support'],
-      linkedin: 'https://linkedin.com',
-      email: 'godfred@alicetalkworld.org',
-      phone: '0555598199',
-      whatsapp: '0272719598',
-      socials: 'tiktok (hvppi Pixels)'
-    },
-    {
-      name: 'Joshua AGBOZO',
-      role: 'Volunteer / Publicity Assistant',
-      image: 'placeholder',
-      shortDesc: 'Supporting public awareness campaigns, event promotion, and community outreach.',
-      bio: 'Joshua supports publicity and community mobilization efforts, raising awareness for Alice Talk World\'s initiatives across campus and local communities.',
-      focusAreas: ['Publicity', 'Community Mobilization', 'Event Support'],
-      linkedin: '#',
-      email: 'joshua.agbozo@alicetalkworld.org',
-      phone: '0553108760',
-      whatsapp: '0553108760',
-      socials: 'All platforms'
-    },
-    {
-      name: 'Francisca Arhinful',
-      role: 'Volunteer',
-      image: 'placeholder',
-      shortDesc: 'Supporting general program operations, volunteer coordination, and event execution.',
-      bio: 'Francisca is an active volunteer contributor who helps coordinate participants and supports the planning and execution of our youth conferences and workshops.',
-      focusAreas: ['Program Operations', 'Volunteer Support', 'Participant Engagement'],
-      linkedin: '#',
-      email: 'francisca.arhinful@alicetalkworld.org',
-      whatsapp: '0503134751',
-      whatsappNote: 'WhatsApp Only',
-      socials: 'All'
     }
   ];
 
@@ -457,14 +329,6 @@ export const OurTeamPage = () => {
               onClick={() => setActiveTab('advisors')}
             >
               Advisors & Mentors
-            </button>
-          </li>
-          <li>
-            <button
-              className={`atw-team-tab-btn ${activeTab === 'volunteers' ? 'active' : ''}`}
-              onClick={() => setActiveTab('volunteers')}
-            >
-              Volunteers
             </button>
           </li>
         </ul>
@@ -568,32 +432,7 @@ export const OurTeamPage = () => {
                 ))}
               </div>
 
-              {/* Subsection: Thematic Leads */}
-              <div className="atw-team-subsection-divider">
-                <h4 className="atw-team-subsection-title">Thematic Leads</h4>
-              </div>
 
-              <div className="atw-team-grid">
-                {executives.thematicLeads.map((member, index) => (
-                  <div key={index} className="atw-member-card">
-                    <div className="atw-member-img-wrapper">
-                      {renderCardImage(member)}
-                    </div>
-                    <div className="atw-member-info">
-                      <h4 className="atw-member-name">{member.name}</h4>
-                      <p className="atw-member-role">{member.role}</p>
-                      <p className="atw-member-desc">{member.shortDesc}</p>
-                      <button
-                        className="atw-member-link"
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                        onClick={() => setSelectedMember(member)}
-                      >
-                        View Profile <ArrowRight size={14} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
 
               {/* Subsection: Operations & Support */}
               <div className="atw-team-subsection-divider">
@@ -647,39 +486,6 @@ export const OurTeamPage = () => {
                         className="atw-member-link"
                         style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
                         onClick={() => setSelectedMember(advisor)}
-                      >
-                        View Profile <ArrowRight size={14} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'volunteers' && (
-            <div>
-              <div className="atw-team-section-header">
-                <h3 className="atw-team-section-title">Our Volunteers</h3>
-                <p className="atw-team-section-desc">
-                  The active coordinate and campaign leads making local development outreach happen.
-                </p>
-              </div>
-
-              <div className="atw-team-grid">
-                {volunteers.map((volunteer, index) => (
-                  <div key={index} className="atw-member-card">
-                    <div className="atw-member-img-wrapper">
-                      {renderCardImage(volunteer)}
-                    </div>
-                    <div className="atw-member-info">
-                      <h4 className="atw-member-name">{volunteer.name}</h4>
-                      <p className="atw-member-role">{volunteer.role}</p>
-                      <p className="atw-member-desc">{volunteer.shortDesc}</p>
-                      <button
-                        className="atw-member-link"
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                        onClick={() => setSelectedMember(volunteer)}
                       >
                         View Profile <ArrowRight size={14} />
                       </button>

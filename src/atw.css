@@ -6,9 +6,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Finlandica:ital,wght@0,400..700;1,400..700&family=Manrope:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  --atw-primary: #4a154b; /* Deep premium purple from mockup logo */
-  --atw-primary-hover: #380d39;
-  --atw-primary-rgb: 74, 21, 75;
+  --atw-primary: #1e5c3f; /* Premium Forest Green */
+  --atw-primary-hover: #143e2a; /* Darker Forest Green */
+  --atw-primary-rgb: 30, 92, 63;
   --atw-accent: #fabc09; /* Warm golden yellow */
   --atw-dark: #0f0a14;
   --atw-dark-rgb: 15, 10, 20;

@@ -236,7 +236,7 @@ export const AtwNavbar = () => {
               <div className={`atw-mega-menu ${activeDropdown === 'work' ? 'show' : ''}`}>
                 <div className="atw-mega-container">
                   <div className="atw-mega-links-grid">
-                    <a href="ai-conference.html" className="atw-mega-item-link">
+                    <a href="about.html#work" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Leadership Development</span>
                       <span className="atw-mega-item-desc">Cultivating visionary African leaders.</span>
                     </a>
@@ -350,9 +350,9 @@ export const AtwNavbar = () => {
                       <span className="atw-mega-item-title">Media Center</span>
                       <span className="atw-mega-item-desc">Photo albums and event galleries from our campaigns.</span>
                     </a>
-                    <a href="news.html" className="atw-mega-item-link">
+                    <a href="mailto:atw@alicetalkworld.org?subject=Request%20for%20Training%20Manuals%20and%20Concept%20Notes%20-%20Alice%20Talk%20World" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Downloads</span>
-                      <span className="atw-mega-item-desc">Access templates, guides, and worksheets.</span>
+                      <span className="atw-mega-item-desc">Request training manuals and concept notes directly.</span>
                     </a>
                   </div>
                   <div className="atw-mega-sidebar">

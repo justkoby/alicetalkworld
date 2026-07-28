@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import AtwNavbar from './AtwNavbar';
 import AtwFooter from './AtwFooter';
-import { Heart, Award, Users, Calendar, Handshake, CheckCircle } from 'lucide-react';
+import { Heart, Award, Users, Calendar, Handshake, CheckCircle, X, Info, Phone, Mail } from 'lucide-react';
 import './DonationPage.css';
 
 export const DonationPage = () => {
   const [selectedAmount, setSelectedAmount] = useState('50');
   const [customAmount, setCustomAmount] = useState('');
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -154,16 +155,15 @@ export const DonationPage = () => {
                     />
                   </div>
 
-                  <a 
-                    href={getDonationLink()} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
+                   <button 
+                    onClick={() => setShowPaymentModal(true)} 
                     className="dns-box-donate-btn"
+                    style={{ border: 'none', cursor: 'pointer', width: '100%', display: 'block', textAlign: 'center' }}
                   >
                     Donate Now
-                  </a>
+                  </button>
                   <span className="dns-box-caption">
-                    You will be redirected to our secure payment partner, Paystack.
+                    Click to view payment methods and direct support options.
                   </span>
                 </div>
               </div>
@@ -250,6 +250,61 @@ export const DonationPage = () => {
       </main>
 
       <AtwFooter />
+
+      {/* Payment details / Paystack setup info modal */}
+      {showPaymentModal && (
+        <div className="atw-modal-overlay" onClick={() => setShowPaymentModal(false)} style={{ zIndex: 1100 }}>
+          <div className="atw-modal-container" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+            <button className="atw-modal-close-btn" onClick={() => setShowPaymentModal(false)} aria-label="Close modal">
+              <X size={20} />
+            </button>
+            <div className="atw-modal-content" style={{ padding: '10px 0' }}>
+              <h3 className="atw-modal-name" style={{ color: 'var(--atw-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Heart size={24} fill="var(--atw-primary)" /> Support Alice Talk World
+              </h3>
+              <p className="atw-modal-bio" style={{ margin: '12px 0 20px 0' }}>
+                Thank you for your willingness to donate! We support multiple options for processing your contribution.
+              </p>
+
+              {/* Direct MoMo details */}
+              <div style={{ backgroundColor: '#f3f4f6', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>
+                <h4 style={{ margin: '0 0 10px 0', fontSize: '15px', color: '#111827' }}>Option 1: Mobile Money (Direct Transfer)</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e5e7eb', paddingBottom: '4px' }}>
+                    <span>MTN MoMo:</span>
+                    <strong>0242010044 (Alice Yakubu)</strong>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '4px' }}>
+                    <span>MTN MoMo:</span>
+                    <strong>0550407543 (David Yeboah)</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Inquiry details */}
+              <div style={{ backgroundColor: '#f3f4f6', borderRadius: '12px', padding: '16px', marginBottom: '20px' }}>
+                <h4 style={{ margin: '0 0 10px 0', fontSize: '15px', color: '#111827' }}>Option 2: Alternative Transfer / Inquiries</h4>
+                <p style={{ fontSize: '13px', margin: '0 0 10px 0', lineHeight: '1.4' }}>
+                  To coordinate other donation methods (Bank transfer, corporate matches, or international contributions), reach out to our finance department:
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                  <a href="mailto:atw@alicetalkworld.org?subject=Donation%20Inquiry" className="atw-modal-contact-link" style={{ margin: 0 }}>
+                    <Mail size={16} /> Email Finance
+                  </a>
+                  <a href="https://wa.me/233242010044" target="_blank" rel="noopener noreferrer" className="atw-modal-contact-link" style={{ margin: 0 }}>
+                    <Phone size={16} /> WhatsApp Admin
+                  </a>
+                </div>
+              </div>
+
+              {/* Configuration advice */}
+              <div style={{ borderLeft: '3px solid var(--atw-accent)', paddingLeft: '12px', fontSize: '12px', color: '#6b7280', lineHeight: '1.5' }}>
+                <strong>For Administrators:</strong> To activate Paystack credit/debit card checkouts, create Payment Pages on your Paystack Dashboard and update the <code>paystackLinks</code> variable inside the <code>DonationPage.jsx</code> source file.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
