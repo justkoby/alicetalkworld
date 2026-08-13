@@ -374,12 +374,12 @@ export const AboutPage = () => {
 
                 <div className="atw-lead-preview-card">
                   <div className="atw-lead-img-container">
-                    <img src="/images/atw/Gifty Adobeah.jpg" alt="Elizabeth Otu" className="atw-lead-img" />
+                    <img src="/images/atw/Gifty Adobeah.jpg" alt="Gifty Adobeah" className="atw-lead-img" />
                   </div>
                   <div className="atw-lead-info">
-                    <h3 className="atw-lead-name">Elizabeth Otu</h3>
-                    <span className="atw-lead-role">Secretary</span>
-                    <p className="atw-lead-desc">Supporting report writing, meeting coordination, and community engagement workflows.</p>
+                    <h3 className="atw-lead-name">Gifty Adobeah</h3>
+                    <span className="atw-lead-role">Campus Coordinator Lead</span>
+                    <p className="atw-lead-desc">Leading campus coordination, student engagement, and outreach across campuses.</p>
                   </div>
                 </div>
               </div>

@@ -1,0 +1,453 @@
+/* ==========================================================================
+   RESOURCES PAGE STYLES
+   Matches the Alice Talk World premium theme.
+   ========================================================================== */
+
+.res-root {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  background-color: var(--atw-light, #f7f5f8);
+  color: var(--atw-text-dark, #2d2633);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.res-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
+.res-hero {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 160px 24px 100px;
+  overflow: hidden;
+}
+
+.res-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/atw/bg-4.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.res-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 10, 20, 0.78) 0%,
+    rgba(15, 10, 20, 0.88) 100%
+  );
+  z-index: 1;
+}
+
+.res-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+}
+
+.res-hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--atw-accent, #fabc09);
+  margin-bottom: 16px;
+}
+
+.res-hero-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(38px, 6vw, 68px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #ffffff;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+
+.res-hero-desc {
+  font-size: clamp(16px, 2vw, 19px);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto 28px;
+}
+
+.res-hero-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.res-hero-breadcrumb a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.res-hero-breadcrumb a:hover {
+  color: var(--atw-accent, #fabc09);
+}
+
+.res-hero-breadcrumb span {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   SECTION HEADERS
+   ========================================================================== */
+
+.res-section-header {
+  margin-bottom: 48px;
+}
+
+.res-section-header--center {
+  text-align: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.res-section-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--atw-primary, #1e5c3f);
+  margin-bottom: 12px;
+}
+
+.res-section-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--atw-dark, #0f0a14);
+  margin: 0 0 16px;
+}
+
+.res-section-subtitle {
+  font-size: 16px;
+  color: var(--atw-text-gray, #6b6370);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0;
+}
+
+.res-section-header--center .res-section-subtitle {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   FEATURED REPORT SECTION
+   ========================================================================== */
+
+.res-featured-section {
+  padding: 90px 0 70px;
+  background-color: var(--atw-light, #f7f5f8);
+}
+
+.res-report-card {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(15, 10, 20, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.res-report-preview {
+  background-color: #f0eeef;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.res-pdf-viewer-wrapper {
+  flex: 1;
+  width: 100%;
+  min-height: 520px;
+}
+
+.res-pdf-object {
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  border: none;
+  display: block;
+}
+
+.res-pdf-fallback {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.res-pdf-fallback-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.res-pdf-fallback-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px;
+  background: rgba(15, 10, 20, 0.72);
+  border-radius: 16px;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.res-report-info {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.res-report-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.res-report-badge,
+.res-report-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 30px;
+}
+
+.res-report-badge {
+  background-color: rgba(30, 92, 63, 0.1);
+  color: var(--atw-primary, #1e5c3f);
+}
+
+.res-report-date {
+  background-color: rgba(250, 188, 9, 0.12);
+  color: #9a7a00;
+}
+
+.res-report-title {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--atw-dark, #0f0a14);
+  margin: 0 0 16px;
+}
+
+.res-report-desc {
+  font-size: 16px;
+  color: var(--atw-text-gray, #6b6370);
+  line-height: 1.7;
+  margin: 0 0 32px;
+}
+
+.res-report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.res-btn-primary,
+.res-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  padding: 14px 24px;
+  border-radius: 30px;
+  transition: var(--transition-fast, all 0.2s ease);
+  cursor: pointer;
+  border: none;
+}
+
+.res-btn-primary {
+  background-color: var(--atw-primary, #1e5c3f);
+  color: #ffffff;
+}
+
+.res-btn-primary:hover {
+  background-color: var(--atw-primary-hover, #143e2a);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 92, 63, 0.25);
+}
+
+.res-btn-secondary {
+  background-color: #ffffff;
+  color: var(--atw-primary, #1e5c3f);
+  border: 2px solid var(--atw-primary, #1e5c3f);
+}
+
+.res-btn-secondary:hover {
+  background-color: var(--atw-primary, #1e5c3f);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   MORE RESOURCES / REQUEST SECTION
+   ========================================================================== */
+
+.res-more-section {
+  padding: 70px 0 110px;
+  background-color: #ffffff;
+}
+
+.res-request-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 92, 63, 0.06) 0%,
+    rgba(250, 188, 9, 0.06) 100%
+  );
+  border: 1px solid rgba(30, 92, 63, 0.12);
+  border-radius: 20px;
+}
+
+.res-request-text h3 {
+  font-family: var(--font-display, 'Finlandica', sans-serif);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--atw-dark, #0f0a14);
+  margin: 0 0 8px;
+}
+
+.res-request-text p {
+  font-size: 15px;
+  color: var(--atw-text-gray, #6b6370);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .res-report-card {
+    grid-template-columns: 1fr;
+  }
+
+  .res-report-preview {
+    min-height: 420px;
+  }
+
+  .res-pdf-viewer-wrapper,
+  .res-pdf-object,
+  .res-pdf-fallback {
+    min-height: 420px;
+    height: 420px;
+  }
+
+  .res-report-info {
+    padding: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .res-hero {
+    min-height: 360px;
+    padding: 130px 20px 70px;
+  }
+
+  .res-featured-section {
+    padding: 60px 0 50px;
+  }
+
+  .res-more-section {
+    padding: 50px 0 80px;
+  }
+
+  .res-section-inner {
+    padding: 0 16px;
+  }
+
+  .res-report-info {
+    padding: 28px;
+  }
+
+  .res-report-actions {
+    flex-direction: column;
+  }
+
+  .res-btn-primary,
+  .res-btn-secondary {
+    width: 100%;
+  }
+
+  .res-request-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 24px;
+  }
+
+  .res-request-text {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .res-report-preview {
+    min-height: 320px;
+  }
+
+  .res-pdf-viewer-wrapper,
+  .res-pdf-object,
+  .res-pdf-fallback {
+    min-height: 320px;
+    height: 320px;
+  }
+}

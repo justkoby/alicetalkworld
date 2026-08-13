@@ -161,12 +161,12 @@ export const searchIndex = [
   },
   {
     id: "team-gifty",
-    title: "Elizabeth Otu - General Secretary",
+    title: "Gifty Adobeah - Campus Coordinator Lead",
     category: "People & Team",
     url: "/our-team.html#gifty",
-    snippet: "Elizabeth Otu supports the governance, administration, and internal coordination of the organization.",
-    keywords: ["elizabeth", "otu", "secretary", "general secretary", "governance", "administration", "compliance", "gifty"],
-    content: "Elizabeth Otu, General Secretary. Elizabeth supports the governance and administration of the organization, ensuring effective coordination, documentation, and communication across departments."
+    snippet: "Gifty Adobeah leads campus coordination, student engagement, and outreach across the organization.",
+    keywords: ["gifty", "adobeah", "campus coordinator", "campus lead", "student engagement", "outreach", "campus"],
+    content: "Gifty Adobeah, Campus Coordinator Lead. Gifty leads campus-based coordination, student engagement, and outreach efforts, building strong campus relationships and creating opportunities for young people to connect with Alice Talk World's programs."
   },
   {
     id: "team-ksm",
@@ -304,6 +304,26 @@ export const searchIndex = [
     snippet: "Explore the moments, milestones, conferences, and community initiatives that continue to shape Alice Talk World's journey of empowering young people across Africa.",
     keywords: ["media", "center", "photos", "pictures", "gallery", "albums", "events", "conferences", "moments", "stories", "impact", "visual"],
     content: "Media Center. Stories of Impact in Pictures. Browse photo albums from leadership conferences, campus engagements, women empowerment events, community outreach, and special celebrations. All albums hosted on Google Drive and Google Photos."
+  },
+
+  // ─── RESOURCES ────────────────────────────────────────────────────────────
+  {
+    id: "resources-page",
+    title: "Resources — Reports & Publications",
+    category: "Pages",
+    url: "/resources.html",
+    snippet: "Download and view Alice Talk World reports, publications, and resources, including the ATW Annual Report.",
+    keywords: ["resources", "reports", "publications", "annual report", "downloads", "pdf", "documents", "training manuals", "concept notes"],
+    content: "Resources. Reports & Publications. Explore and download Alice Talk World reports, annual reports, concept notes, training manuals, and other publications documenting our impact and programs."
+  },
+  {
+    id: "resources-annual-report",
+    title: "ATW Annual Report",
+    category: "Resources",
+    url: "/resources.html#report",
+    snippet: "The Alice Talk World Annual Report captures our impact, programs, partnerships, and milestones over the past year.",
+    keywords: ["annual report", "atw report", "pdf", "download", "impact report", "milestones", "partnerships", "programs"],
+    content: "ATW Annual Report. A comprehensive overview of Alice Talk World's impact, programs, partnerships, and milestones over the past year. View or download the PDF."
   },
   {
     id: "media-atw5",

@@ -297,7 +297,7 @@ export const AtwNavbar = () => {
                       <span className="atw-mega-item-title">Projects</span>
                       <span className="atw-mega-item-desc">Current and past campaigns.</span>
                     </a>
-                    <a href="about.html#reports" className="atw-mega-item-link">
+                    <a href="resources.html" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Annual Reports</span>
                       <span className="atw-mega-item-desc">Our transparency and yearly milestones.</span>
                     </a>
@@ -327,7 +327,7 @@ export const AtwNavbar = () => {
               onMouseLeave={handleMouseLeave}
             >
               <a 
-                href="news.html" 
+                href="resources.html" 
                 className="atw-nav-link"
                 onClick={(e) => toggleDropdown('resources', e)}
               >
@@ -338,6 +338,10 @@ export const AtwNavbar = () => {
               <div className={`atw-mega-menu ${activeDropdown === 'resources' ? 'show' : ''}`}>
                 <div className="atw-mega-container">
                   <div className="atw-mega-links-grid">
+                    <a href="resources.html" className="atw-mega-item-link">
+                      <span className="atw-mega-item-title">Reports & Publications</span>
+                      <span className="atw-mega-item-desc">Annual reports, concept notes, and downloadable documents.</span>
+                    </a>
                     <a href="news.html" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Blog / News</span>
                       <span className="atw-mega-item-desc">Latest updates and stories from our team.</span>
@@ -349,10 +353,6 @@ export const AtwNavbar = () => {
                     <a href="media-center.html" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Media Center</span>
                       <span className="atw-mega-item-desc">Photo albums and event galleries from our campaigns.</span>
-                    </a>
-                    <a href="mailto:atw@alicetalkworld.org?subject=Request%20for%20Training%20Manuals%20and%20Concept%20Notes%20-%20Alice%20Talk%20World" className="atw-mega-item-link">
-                      <span className="atw-mega-item-title">Downloads</span>
-                      <span className="atw-mega-item-desc">Request training manuals and concept notes directly.</span>
                     </a>
                   </div>
                   <div className="atw-mega-sidebar">

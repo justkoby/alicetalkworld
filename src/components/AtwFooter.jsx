@@ -120,8 +120,8 @@ export const AtwFooter = () => {
           <div className="atw-footer-col atw-footer-desktop-only">
             <h4 className="atw-footer-col-title">Resources</h4>
             <ul className="atw-footer-links-list">
+              <li><a href="resources.html">Reports & Publications</a></li>
               <li><a href="news.html">News & Updates</a></li>
-              <li><a href="about.html#reports">Reports</a></li>
               <li><a href="media-center.html">Gallery</a></li>
               <li><a href="about.html#faqs">FAQs</a></li>
             </ul>

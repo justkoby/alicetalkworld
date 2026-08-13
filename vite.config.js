@@ -23,6 +23,7 @@ export default defineConfig({
         atw5Highlights: resolve(__dirname, 'atw-5-highlights.html'),
         contact: resolve(__dirname, 'contact.html'),
         aiConference: resolve(__dirname, 'ai-conference.html'),
+        resources: resolve(__dirname, 'resources.html'),
       },
     },
   },

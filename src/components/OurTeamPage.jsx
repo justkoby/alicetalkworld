@@ -87,22 +87,21 @@ export const OurTeamPage = () => {
         whatsapp: '0550407543'
       },
       {
-        name: 'Elizabeth Otu',
-        role: 'Secretary',
+        name: 'Gifty Adobeah',
+        role: 'Campus Coordinator Lead',
         image: '/images/atw/Gifty Adobeah.jpg',
-        shortDesc: 'Helping coordinate and maintain smooth workflow across the organization.',
-        bio: 'Elizabeth is the Secretary of Alice TalkWorld. She helps the organization coordinate and work smoothly. She supports communication, keeps records, writes reports, and helps plan meetings and activities. She also follows up on tasks and helps the team achieve its goals and create impact in the community.',
-        focusAreas: ['Report Writing', 'Meeting Coordination', 'Community Engagement', 'Organization Skills'],
-        linkedin: 'https://www.linkedin.com/in/elizabethotu',
-        email: 'otuelizabeth09@gmail.com',
-        whatsapp: '0552228114'
+        shortDesc: 'Leading campus coordination and student engagement across the organization.',
+        bio: 'Gifty is the Campus Coordinator Lead at Alice TalkWorld. She leads campus-based coordination, student engagement, and outreach efforts. She supports the team in building strong campus relationships, organizing student-focused activities, and creating opportunities for young people to connect with the organization’s programs and impact.',
+        focusAreas: ['Campus Coordination', 'Student Engagement', 'Community Outreach', 'Program Support'],
+        linkedin: '#',
+        email: 'gifty@alicetalkworld.org'
       }
     ],
     departmentLeads: [
       {
         name: 'Adwoa Amaniampong Brenyah',
         role: 'Gender Lead',
-        image: 'placeholder',
+        image: '/images/atw/Adwoa Amaniampong Brenyah.jpg',
         shortDesc: 'Gender Team Lead promoting equality, youth empowerment, and inclusive leadership.',
         bio: 'Adwoa Amaniampong Brenyah is the Gender Team Lead at Alice Talk World. She leads initiatives that promote gender equality, youth empowerment, and inclusive leadership across Africa. Driven by purpose and service, she is committed to leading initiatives that inspire growth, strengthen communities, and create opportunities for young people to thrive.',
         focusAreas: ['Youth Empowerment', 'Strategic Communication', 'Leadership Development'],
