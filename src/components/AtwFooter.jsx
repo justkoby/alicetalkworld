@@ -18,7 +18,13 @@ export const AtwFooter = () => {
           {/* Column 1: Logo, Mission & Social Icons */}
           <div className="atw-footer-logo-col">
             <a href="/">
-              <img src="/images/atw/logo.png" alt="Alice Talk World Logo" className="atw-footer-logo-img" />
+              <img
+                src="/images/atw/logo.png"
+                alt="Alice Talk World Logo"
+                className="atw-footer-logo-img"
+                loading="lazy"
+                decoding="async"
+              />
             </a>
             <p className="atw-footer-mission">
               Empowering young people through leadership, mentorship, innovation, and community impact across Africa.

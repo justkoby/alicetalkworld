@@ -60,6 +60,8 @@ export const AtwHero = () => {
   const [error, setError] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [renderedIndices, setRenderedIndices] = useState(() => new Set([0]));
+  const [failedSlides, setFailedSlides] = useState(() => new Set());
   const timerRef = useRef(null);
 
   const loadHero = useCallback(async () => {
@@ -125,6 +127,19 @@ export const AtwHero = () => {
     };
   }, [startTimer]);
 
+  // Preload upcoming slide and ensure current slide is marked as rendered
+  useEffect(() => {
+    if (slides.length <= 1) return;
+    const nextIdx = (currentIndex + 1) % slides.length;
+    setRenderedIndices((prev) => {
+      if (prev.has(currentIndex) && prev.has(nextIdx)) return prev;
+      const updated = new Set(prev);
+      updated.add(currentIndex);
+      updated.add(nextIdx);
+      return updated;
+    });
+  }, [currentIndex, slides.length]);
+
   // Ensure currentIndex stays within range when slides change
   useEffect(() => {
     if (currentIndex >= slides.length && slides.length > 0) {
@@ -133,8 +148,17 @@ export const AtwHero = () => {
   }, [slides.length, currentIndex]);
 
   const handleDotClick = (index) => {
+    setRenderedIndices((prev) => {
+      const updated = new Set(prev);
+      updated.add(index);
+      if (slides.length > 1) {
+        updated.add((index + 1) % slides.length);
+      }
+      return updated;
+    });
     setCurrentIndex(index);
   };
+
 
   // Loading state skeleton
   if (loading) {
@@ -217,6 +241,10 @@ export const AtwHero = () => {
       <div className="atw-hero-track">
         {displaySlides.map((slide, index) => {
           const isActive = index === currentIndex;
+          const shouldRender = renderedIndices.has(index);
+          const isFirstSlide = index === 0;
+          const isFailed = failedSlides.has(index);
+
           return (
             <div
               key={index}
@@ -224,11 +252,27 @@ export const AtwHero = () => {
               role="img"
               aria-label={slide.alt_text || 'Alice Talk World'}
             >
-              {/* Background Image */}
-              <div
-                className="atw-slide-bg"
-                style={slide.image_url ? { backgroundImage: `url("${slide.image_url}")` } : undefined}
-              />
+              {/* Background Image Container */}
+              <div className="atw-slide-bg">
+                {shouldRender && slide.image_url && !isFailed && (
+                  <img
+                    src={slide.image_url}
+                    alt={slide.alt_text || 'Alice Talk World'}
+                    className="atw-slide-img"
+                    loading={isFirstSlide ? 'eager' : 'lazy'}
+                    fetchPriority={isFirstSlide ? 'high' : 'auto'}
+                    decoding={isFirstSlide ? 'sync' : 'async'}
+                    onError={() => {
+                      setFailedSlides((prev) => {
+                        const s = new Set(prev);
+                        s.add(index);
+                        return s;
+                      });
+                    }}
+                  />
+                )}
+              </div>
+
 
               {/* Overlay gradients */}
               <div className="atw-slide-overlay" />

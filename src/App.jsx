@@ -49,32 +49,85 @@ const Instagram = ({ size = 24, ...props }) => (
 );
 
 
-// A premium image slider with cross-fade transition
+// A premium image slider with cross-fade transition and lazy image loading
 const AtwFadeSlider = ({ images, interval = 4000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [renderedIndices, setRenderedIndices] = useState(() => new Set([0]));
+  const [failedImages, setFailedImages] = useState(() => new Set());
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (!images || images.length <= 1) return;
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
+      if (!isHovered) {
+        setCurrentIndex((prev) => {
+          const next = (prev + 1) % images.length;
+          setRenderedIndices((curr) => {
+            if (curr.has(next)) return curr;
+            const updated = new Set(curr);
+            updated.add(next);
+            return updated;
+          });
+          return next;
+        });
+      }
     }, interval);
     return () => clearInterval(timer);
-  }, [images, interval]);
+  }, [images, interval, isHovered]);
+
+  // Preload upcoming slide
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+    const nextIdx = (currentIndex + 1) % images.length;
+    setRenderedIndices((curr) => {
+      if (curr.has(nextIdx)) return curr;
+      const updated = new Set(curr);
+      updated.add(nextIdx);
+      return updated;
+    });
+  }, [currentIndex, images]);
 
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="atw-fade-slider">
-      {images.map((img, idx) => (
-        <div
-          key={idx}
-          className={`atw-fade-slide ${idx === currentIndex ? 'active' : ''}`}
-          style={{ backgroundImage: `url(${img})` }}
-        />
-      ))}
+    <div
+      className="atw-fade-slider"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {images.map((img, idx) => {
+        const shouldRender = renderedIndices.has(idx);
+        const isActive = idx === currentIndex;
+        const isFailed = failedImages.has(img);
+
+        return (
+          <div
+            key={idx}
+            className={`atw-fade-slide ${isActive ? 'active' : ''}`}
+          >
+            {shouldRender && !isFailed && (
+              <img
+                src={img}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="atw-fade-slide-img"
+                onError={() => {
+                  setFailedImages((prev) => {
+                    const s = new Set(prev);
+                    s.add(img);
+                    return s;
+                  });
+                }}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };
+
 
 // Helper: get up to 2 initials from a partner name
 const getPartnerInitials = (name) => {
@@ -94,6 +147,17 @@ function App() {
   const handleLogoError = useCallback((id) => {
     setFailedLogos((prev) => { const s = new Set(prev); s.add(id); return s; });
   }, []);
+
+  const [failedNewsCovers, setFailedNewsCovers] = useState(() => new Set());
+  const handleNewsCoverError = useCallback((id) => {
+    setFailedNewsCovers((prev) => { const s = new Set(prev); s.add(id); return s; });
+  }, []);
+
+  const [failedGalleryUrls, setFailedGalleryUrls] = useState(() => new Set());
+  const handleGalleryError = useCallback((url) => {
+    setFailedGalleryUrls((prev) => { const s = new Set(prev); s.add(url); return s; });
+  }, []);
+
 
   const loadPartners = useCallback(async () => {
     setPartnersLoading(true);
@@ -322,6 +386,8 @@ function App() {
                     <img
                       src={p.logo}
                       alt={p.name}
+                      loading="lazy"
+                      decoding="async"
                       onError={() => handleLogoError(p.id)}
                     />
                   );
@@ -669,11 +735,14 @@ function App() {
               ) : featuredStory ? (
                 <article className="atw-featured-card">
                   <div className="atw-featured-img-wrapper">
-                    {featuredStory.cover ? (
+                    {featuredStory.cover && !failedNewsCovers.has(featuredStory.id) ? (
                       <img
                         src={featuredStory.cover}
                         alt={featuredStory.title}
                         className="atw-featured-img"
+                        loading="lazy"
+                        decoding="async"
+                        onError={() => handleNewsCoverError(featuredStory.id)}
                       />
                     ) : (
                       <div className="atw-featured-img atw-news-img-missing" aria-hidden="true" />
@@ -721,16 +790,20 @@ function App() {
                   latestStories.map((story) => (
                     <article key={story.id} className="atw-news-card">
                       <div className="atw-news-img-wrapper">
-                        {story.cover ? (
+                        {story.cover && !failedNewsCovers.has(story.id) ? (
                           <img
                             src={story.cover}
                             alt={story.title}
                             className="atw-news-img"
+                            loading="lazy"
+                            decoding="async"
+                            onError={() => handleNewsCoverError(story.id)}
                           />
                         ) : (
                           <div className="atw-news-img atw-news-img-missing" aria-hidden="true" />
                         )}
                       </div>
+
                       <div className="atw-news-content">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                           <span className="atw-news-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--atw-primary)', textTransform: 'uppercase' }}>
@@ -855,28 +928,42 @@ function App() {
               {/* Row 1: Scrolling Right to Left */}
               <div className="atw-marquee-row">
                 <div className="atw-marquee-track atw-marquee-track-left">
-                  {repeatedRow1.map((img, idx) => (
-                    <img
-                      key={`r1-${idx}`}
-                      src={img.url}
-                      alt={img.altText}
-                      className="atw-gallery-img-item"
-                    />
-                  ))}
+                  {repeatedRow1
+                    .filter((img) => !failedGalleryUrls.has(img.url))
+                    .map((img, idx) => (
+                      <img
+                        key={`r1-${idx}`}
+                        src={img.url}
+                        alt={img.altText}
+                        className="atw-gallery-img-item"
+                        loading="lazy"
+                        decoding="async"
+                        width="280"
+                        height="190"
+                        onError={() => handleGalleryError(img.url)}
+                      />
+                    ))}
                 </div>
               </div>
 
               {/* Row 2: Scrolling Left to Right */}
               <div className="atw-marquee-row">
                 <div className="atw-marquee-track atw-marquee-track-right">
-                  {repeatedRow2.map((img, idx) => (
-                    <img
-                      key={`r2-${idx}`}
-                      src={img.url}
-                      alt={img.altText}
-                      className="atw-gallery-img-item"
-                    />
-                  ))}
+                  {repeatedRow2
+                    .filter((img) => !failedGalleryUrls.has(img.url))
+                    .map((img, idx) => (
+                      <img
+                        key={`r2-${idx}`}
+                        src={img.url}
+                        alt={img.altText}
+                        className="atw-gallery-img-item"
+                        loading="lazy"
+                        decoding="async"
+                        width="280"
+                        height="190"
+                        onError={() => handleGalleryError(img.url)}
+                      />
+                    ))}
                 </div>
               </div>
             </div>
