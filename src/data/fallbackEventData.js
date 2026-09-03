@@ -62,7 +62,7 @@ export const fallbackEvents = [
     description: {
       text: 'Held at the Kwame Nkrumah University of Science and Technology (KNUST), this conference featured keynote presentations from industry titans on AI upskilling, personal branding, and ethical tech adoption.'
     },
-    cover_image_url: '/images/atw/IMG_4473.JPG',
+    cover_image_url: '/images/atw/ai-image.jpeg',
     start_at: '2025-08-06T10:00:00.000Z',
     end_at: '2025-08-06T16:00:00.000Z',
     timezone: 'Africa/Accra',

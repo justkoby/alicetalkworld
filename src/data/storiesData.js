@@ -53,7 +53,7 @@ The panel emphasized the importance of continuous learning, resilience, collabor
           role: 'Moderator',
           takeaway: 'Leadership begins with service and a commitment to creating value.',
           quote: 'Young people must see themselves not only as beneficiaries of change but as active architects of Africa\'s future.',
-          image: '/images/YOUTH PANEL - WEBSITE.jpg'
+          image: '/images/atw/YOUTH PANEL - WEBSITE.jpg'
         }
       },
       {
@@ -70,7 +70,7 @@ Panelists shared insights on leadership, innovation, entrepreneurship, and polic
           { name: 'Nana-Kwame Asafo-Adjei Ayeh', role: 'Member of Parliament, Bosome Freho' },
           { name: 'Dr Vanessa Aseye Aitkpu', role: 'Medical Doctor & Founder' }
         ],
-        speakerImage: '/images/HIGH LEVEL PANEL - WEBSITE.jpg'
+        speakerImage: '/images/atw/HIGH LEVEL PANEL - WEBSITE.jpg'
       }
     ],
     pullQuote: 'The future belongs to young people who are prepared to lead with courage, innovation, and purpose.',
@@ -103,7 +103,7 @@ The anniversary conference was not simply a celebration of what has been achieve
     date: 'November 01, 2025',
     readTime: '4 min read',
     author: 'Alice Talk World Editorial',
-    image: '/images/YOUTH PANEL - WEBSITE.jpg',
+    image: '/images/atw/YOUTH PANEL - WEBSITE.jpg',
     excerpt: 'The Youth Panel brought together dynamic emerging leaders to explore how young Africans can lead with courage and create meaningful impact.',
     featured: false,
     isConference: false,
@@ -135,7 +135,7 @@ Mentorship was singled out as a critical accelerator, turning raw ambition into 
     date: 'November 01, 2025',
     readTime: '6 min read',
     author: 'Alice Talk World Editorial',
-    image: '/images/HIGH LEVEL PANEL - WEBSITE.jpg',
+    image: '/images/atw/HIGH LEVEL PANEL - WEBSITE.jpg',
     excerpt: 'A distinguished panel of policymakers, entrepreneurs, and civic leaders explored collaboration for sustainable youth development.',
     featured: false,
     isConference: false,

@@ -32,11 +32,11 @@ export const fallbackGalleryContent = {
       alt_text: 'Young leaders networking and collaborating',
     },
     {
-      url: '/images/atw/1.webp',
+      url: '/images/atw/1.jpg',
       alt_text: 'Leadership seminar discussion group',
     },
     {
-      url: '/images/atw/3.webp',
+      url: '/images/atw/3.jpg',
       alt_text: 'Students participating in interactive workshop',
     },
     {
