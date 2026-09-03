@@ -1,14 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import AtwNavbar from './AtwNavbar';
 import AtwFooter from './AtwFooter';
-import { BookOpen, Compass, Award, Share2, Heart, Award as Star, ChevronLeft, ChevronRight, User, Upload, CheckCircle } from 'lucide-react';
+import { BookOpen, Compass, Award, Share2, Heart, Award as Star, ChevronLeft, ChevronRight, User, Upload, CheckCircle, RotateCw } from 'lucide-react';
+import { getActiveTestimonials, getTestimonialInitials } from '../services/testimonialService.js';
 import './MentorPage.css';
 
 export const MentorPage = () => {
+  const [testimonials, setTestimonials] = useState([]);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [testimonialsLoading, setTestimonialsLoading] = useState(true);
+  const [testimonialsError, setTestimonialsError] = useState(false);
+
+  const loadTestimonials = async () => {
+    try {
+      setTestimonialsLoading(true);
+      setTestimonialsError(false);
+      const res = await getActiveTestimonials();
+      setTestimonials(res.data || []);
+      setActiveTestimonial(0);
+      if (res.error) {
+        setTestimonialsError(true);
+      }
+    } catch {
+      setTestimonialsError(true);
+    } finally {
+      setTestimonialsLoading(false);
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    loadTestimonials();
   }, []);
 
   const [submitted, setSubmitted] = useState(false);
@@ -100,32 +122,13 @@ export const MentorPage = () => {
     { title: 'Inspire Future Leaders', desc: 'Unlock new perspectives and pass on hard-earned life lessons to ambitious students.' }
   ];
 
-  const testimonials = [
-    {
-      quote: "Being a mentor at Alice Talk World allowed me to guide a young developer in Accra. Watching her secure her first engineering role was incredibly rewarding.",
-      author: "David Kwadwo",
-      role: "Senior Software Engineer & ATW Mentor",
-      location: "Accra, Ghana"
-    },
-    {
-      quote: "The monthly sessions are structured yet flexible. It is a fantastic network of professionals who are genuinely dedicated to lifting others up.",
-      author: "Gifty Amah",
-      role: "Operations Consultant & ATW Mentor",
-      location: "Lagos, Nigeria"
-    },
-    {
-      quote: "My mentor helped me refine my business plan and pitching style. Today, our startup employs six young people, and that started with a simple intro chat.",
-      author: "Alice Mensah",
-      role: "Mentee & Youth Founder",
-      location: "Kumasi, Ghana"
-    }
-  ];
-
   const nextTestimonial = () => {
+    if (testimonials.length <= 1) return;
     setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
+    if (testimonials.length <= 1) return;
     setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
@@ -250,40 +253,96 @@ export const MentorPage = () => {
         </section>
 
         {/* Success Stories Slider */}
-        <section className="mtr-success-section">
-          <div className="mtr-container">
-            <div className="mtr-section-header">
-              <span className="mtr-section-tag">TESTIMONIALS</span>
-              <h2 className="mtr-section-title">Success Stories</h2>
-            </div>
-
-            <div className="mtr-testimonial-slider">
-              <button onClick={prevTestimonial} className="mtr-slide-arrow left" aria-label="Previous story">
-                <ChevronLeft size={24} />
-              </button>
-
-              <div className="mtr-testimonial-content">
-                <p className="mtr-testimonial-quote">
-                  "{testimonials[activeTestimonial].quote}"
-                </p>
-                <div className="mtr-testimonial-meta">
-                  <div className="mtr-testimonial-avatar">
-                    <User size={20} />
-                  </div>
-                  <div>
-                    <h4 className="mtr-testimonial-author">{testimonials[activeTestimonial].author}</h4>
-                    <span className="mtr-testimonial-role">{testimonials[activeTestimonial].role}</span>
-                    <span className="mtr-testimonial-location"> &bull; {testimonials[activeTestimonial].location}</span>
-                  </div>
+        {testimonialsLoading ? (
+          <section className="mtr-success-section mtr-testimonials-loading" aria-label="Loading testimonials">
+            <div className="mtr-container">
+              <div className="mtr-section-header">
+                <span className="mtr-section-tag">TESTIMONIALS</span>
+                <h2 className="mtr-section-title">Success Stories</h2>
+              </div>
+              <div className="mtr-testimonial-slider" style={{ opacity: 0.6 }}>
+                <div className="mtr-testimonial-content" style={{ textAlign: 'center', padding: '20px 0' }}>
+                  <p className="mtr-testimonial-quote" style={{ fontStyle: 'normal', color: 'rgba(255,255,255,0.4)' }}>
+                    Loading stories...
+                  </p>
                 </div>
               </div>
+            </div>
+          </section>
+        ) : testimonials.length > 0 ? (
+          <section className="mtr-success-section">
+            <div className="mtr-container">
+              <div className="mtr-section-header">
+                <span className="mtr-section-tag">TESTIMONIALS</span>
+                <h2 className="mtr-section-title">Success Stories</h2>
+              </div>
 
-              <button onClick={nextTestimonial} className="mtr-slide-arrow right" aria-label="Next story">
-                <ChevronRight size={24} />
+              <div className="mtr-testimonial-slider">
+                {testimonials.length > 1 && (
+                  <button onClick={prevTestimonial} className="mtr-slide-arrow left" aria-label="Previous story">
+                    <ChevronLeft size={24} />
+                  </button>
+                )}
+
+                <div className="mtr-testimonial-content">
+                  {testimonials[activeTestimonial]?.quote && (
+                    <p className="mtr-testimonial-quote">
+                      "{testimonials[activeTestimonial].quote}"
+                    </p>
+                  )}
+                  <div className="mtr-testimonial-meta">
+                    <div className="mtr-testimonial-avatar">
+                      {testimonials[activeTestimonial]?.imageUrl ? (
+                        <img 
+                          src={testimonials[activeTestimonial].imageUrl} 
+                          alt={testimonials[activeTestimonial].fullName || 'Testimonial'} 
+                          style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+                        />
+                      ) : testimonials[activeTestimonial]?.fullName ? (
+                        <span style={{ fontWeight: 700, fontSize: '15px' }}>
+                          {getTestimonialInitials(testimonials[activeTestimonial].fullName)}
+                        </span>
+                      ) : (
+                        <User size={20} />
+                      )}
+                    </div>
+                    <div>
+                      {testimonials[activeTestimonial]?.fullName && (
+                        <h4 className="mtr-testimonial-author">{testimonials[activeTestimonial].fullName}</h4>
+                      )}
+                      {(testimonials[activeTestimonial]?.roleTitle || testimonials[activeTestimonial]?.organisation) && (
+                        <span className="mtr-testimonial-role">
+                          {[testimonials[activeTestimonial].roleTitle, testimonials[activeTestimonial].organisation].filter(Boolean).join(' • ')}
+                        </span>
+                      )}
+                      {testimonials[activeTestimonial]?.location && (
+                        <span className="mtr-testimonial-location"> &bull; {testimonials[activeTestimonial].location}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {testimonials.length > 1 && (
+                  <button onClick={nextTestimonial} className="mtr-slide-arrow right" aria-label="Next story">
+                    <ChevronRight size={24} />
+                  </button>
+                )}
+              </div>
+            </div>
+          </section>
+        ) : testimonialsError ? (
+          <section className="mtr-success-section" style={{ padding: '40px 0' }}>
+            <div className="mtr-container" style={{ textAlign: 'center' }}>
+              <button 
+                onClick={loadTestimonials} 
+                className="mtr-slide-arrow" 
+                style={{ width: 'auto', padding: '8px 16px', borderRadius: '8px', display: 'inline-flex', gap: '8px', fontSize: '14px' }}
+              >
+                <RotateCw size={14} /> Retry loading testimonials
               </button>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
         {/* Mentor Application Form Section */}
         <section id="mentor-form" className="mtr-form-section">

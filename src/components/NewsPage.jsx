@@ -18,7 +18,11 @@ import {
   Users,
   Compass
 } from 'lucide-react';
+import { getPublishedPostBySlug } from '../services/newsService.js';
+import { useDetailSeo } from '../hooks/useDetailSeo.js';
 import './NewsPage.css';
+
+
 
 export const NewsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -93,8 +97,81 @@ export const NewsPage = () => {
     return matchesCategory && matchesSearch;
   });
 
-  // Find the current active story
-  const activeStory = storiesData.find(story => story.slug === currentStorySlug);
+  const [cmsDetailStory, setCmsDetailStory] = useState(null);
+  const [isDetailLoading, setIsDetailLoading] = useState(false);
+
+  useEffect(() => {
+    if (!currentStorySlug) {
+      setCmsDetailStory(null);
+      setIsDetailLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+    setIsDetailLoading(true);
+
+    getPublishedPostBySlug(currentStorySlug)
+      .then((post) => {
+        if (isMounted) {
+          setCmsDetailStory(post);
+          setIsDetailLoading(false);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setIsDetailLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentStorySlug]);
+
+  const localStory = storiesData.find((story) => story.slug === currentStorySlug);
+  const activeStory = cmsDetailStory
+    ? {
+        ...localStory,
+        ...cmsDetailStory,
+        title: cmsDetailStory.title || localStory?.title || '',
+        excerpt: cmsDetailStory.excerpt || localStory?.excerpt || '',
+        image: cmsDetailStory.cover || cmsDetailStory.cover_image_url || localStory?.image,
+        author: cmsDetailStory.author || cmsDetailStory.author_name || localStory?.author || 'Alice Talk World Editorial',
+        category: cmsDetailStory.category || localStory?.category || 'News',
+        seoTitle: cmsDetailStory.seoTitle || cmsDetailStory.seo_title || localStory?.seoTitle,
+        seoDescription: cmsDetailStory.seoDescription || cmsDetailStory.seo_description || localStory?.seoDescription,
+        sections: localStory?.sections || (cmsDetailStory.content?.text ? [{
+          heading: cmsDetailStory.title,
+          content: cmsDetailStory.content.text
+        }] : []),
+      }
+    : localStory;
+
+  const isDetail = Boolean(currentStorySlug);
+  const isNotFound = isDetail && !isDetailLoading && !activeStory;
+
+  useDetailSeo({
+    isDetail,
+    isNotFound,
+    slug: currentStorySlug,
+    title: activeStory?.title,
+    seoTitle: activeStory?.seoTitle || activeStory?.seo_title,
+    excerpt: activeStory?.excerpt,
+    seoDescription: activeStory?.seoDescription || activeStory?.seo_description,
+    content: activeStory?.content || activeStory?.introduction,
+    coverImage: activeStory?.image || activeStory?.cover || activeStory?.cover_image_url,
+    publishedAt: activeStory?.published_at || activeStory?.publishedAt,
+    authorName: activeStory?.author || activeStory?.author_name,
+    pathname: '/news.html',
+    queryParamKey: 'story',
+    type: 'article',
+    defaultMetadata: {
+      title: 'News & Insights | Alice Talk World',
+      description:
+        'Explore stories of impact, leadership journeys, community events, and partnerships from Alice Talk World.',
+      pathname: '/news.html',
+    },
+  });
 
   // Get related stories (excluding current)
   const relatedStories = activeStory 
@@ -106,12 +183,17 @@ export const NewsPage = () => {
       <AtwNavbar />
 
       <main className="news-main">
-        {activeStory ? (
+        {isDetailLoading ? (
+          <div className="news-loading-detail" style={{ textAlign: 'center', padding: '140px 20px', color: 'rgba(255,255,255,0.7)' }}>
+            <p>Loading story details...</p>
+          </div>
+        ) : activeStory ? (
           /* ==========================================
              SINGLE STORY DETAIL VIEW
              ========================================== */
           <div className="news-detail-view">
             {/* HERO SECTION */}
+
             <section 
               className="news-detail-hero" 
               style={{ backgroundImage: `url(${activeStory.image})` }}
@@ -398,9 +480,22 @@ export const NewsPage = () => {
             </section>
 
           </div>
+        ) : isNotFound ? (
+          <div className="news-not-found-view" style={{ textAlign: 'center', padding: '140px 20px', color: '#ffffff' }}>
+            <h1 style={{ fontFamily: 'var(--font-display, Finlandica)', fontSize: '2.4rem', fontWeight: 700, marginBottom: '16px' }}>
+              Content Not Found
+            </h1>
+            <p style={{ color: 'rgba(255,255,255,0.65)', maxWidth: '480px', margin: '0 auto 32px', fontSize: '1.05rem', lineHeight: 1.6 }}>
+              The story you are looking for might have been removed, unpublished, or does not exist.
+            </p>
+            <button onClick={() => navigateToStory('')} className="news-back-btn" style={{ margin: '0 auto', display: 'inline-flex' }}>
+              <ArrowLeft size={16} /> Back to Stories
+            </button>
+          </div>
         ) : (
           /* ==========================================
              STORIES INDEX / GRID VIEW
+
              ========================================== */
           <div className="news-index-view">
             {/* Header banner */}

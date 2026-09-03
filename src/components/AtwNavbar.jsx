@@ -346,10 +346,11 @@ export const AtwNavbar = () => {
                       <span className="atw-mega-item-title">Blog / News</span>
                       <span className="atw-mega-item-desc">Latest updates and stories from our team.</span>
                     </a>
-                    <a href="ai-conference.html" className="atw-mega-item-link">
+                    <a href="events.html" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Events</span>
                       <span className="atw-mega-item-desc">Upcoming webinars, conferences, and meetups.</span>
                     </a>
+
                     <a href="media-center.html" className="atw-mega-item-link">
                       <span className="atw-mega-item-title">Media Center</span>
                       <span className="atw-mega-item-desc">Photo albums and event galleries from our campaigns.</span>

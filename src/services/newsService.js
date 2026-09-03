@@ -1,8 +1,9 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { supabase, isSupabaseConfigured } from '../lib/supabaseClient.js';
+import { storiesData } from '../data/storiesData.js';
 
-// Fields needed for homepage + news list (no full content/gallery needed on homepage)
+// Fields needed for homepage + news list + SEO
 const POST_SELECT =
-  'id, title, slug, excerpt, category, author_name, cover_image_url, is_featured, published_at, status';
+  'id, title, slug, excerpt, category, author_name, cover_image_url, is_featured, published_at, status, seo_title, seo_description';
 
 // Shared public visibility filter
 const applyPublicFilters = (query) =>
@@ -24,6 +25,8 @@ export const normalizePost = (row) => ({
   author: row.author_name || 'Alice Talk World Editorial',
   cover: row.cover_image_url || null,
   isFeatured: Boolean(row.is_featured),
+  seoTitle: row.seo_title || null,
+  seoDescription: row.seo_description || null,
   date: row.published_at
     ? new Date(row.published_at).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -33,6 +36,7 @@ export const normalizePost = (row) => ({
     : '',
   publishedAt: row.published_at || null,
 });
+
 
 /**
  * Fetch all published posts ordered by published_at descending.
@@ -80,3 +84,44 @@ export function resolveHomepagePosts(posts) {
 
   return { featured, latest };
 }
+
+/**
+ * Fetch a single published post by slug from Supabase, including full content and SEO fields.
+ * Returns post object or null if not found/unpublished/soft-deleted.
+ */
+export async function getPublishedPostBySlug(slug) {
+  if (!slug || typeof slug !== 'string') return null;
+
+  if (!isSupabaseConfigured) {
+    const local = storiesData.find((s) => s.slug === slug.trim());
+    return local || null;
+  }
+
+  try {
+    const nowIso = new Date().toISOString();
+    const { data, error } = await supabase
+      .from('posts')
+      .select('id, title, slug, excerpt, content, category, author_name, cover_image_url, gallery, location, seo_title, seo_description, published_at, status')
+      .eq('slug', slug.trim())
+      .eq('status', 'published')
+      .is('deleted_at', null)
+      .not('published_at', 'is', null)
+      .lte('published_at', nowIso)
+      .maybeSingle();
+
+    if (error || !data) {
+      return null;
+    }
+
+    return {
+      ...data,
+      seoTitle: data.seo_title || null,
+      seoDescription: data.seo_description || null,
+      author: data.author_name || 'Alice Talk World Editorial',
+      cover: data.cover_image_url || null,
+    };
+  } catch {
+    return null;
+  }
+}
+

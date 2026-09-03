@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { supabase, isSupabaseConfigured } from '../lib/supabaseClient.js';
 
 const PROGRAM_SELECT =
   'id, title, slug, summary, description, cover_image_url, gallery, location, external_url, is_featured, display_order, published_at';
@@ -93,3 +93,33 @@ export function normalizeProgramImages(program) {
 
   return normalized;
 }
+
+/**
+ * Fetch a single published program by slug.
+ */
+export async function getPublishedProgramBySlug(slug) {
+  if (!slug || typeof slug !== 'string') return null;
+
+  if (!isSupabaseConfigured) {
+    return null;
+  }
+
+  try {
+    const nowIso = new Date().toISOString();
+    const { data, error } = await supabase
+      .from('programs')
+      .select(PROGRAM_SELECT)
+      .eq('slug', slug.trim())
+      .eq('status', 'published')
+      .is('deleted_at', null)
+      .not('published_at', 'is', null)
+      .lte('published_at', nowIso)
+      .maybeSingle();
+
+    if (error || !data) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+

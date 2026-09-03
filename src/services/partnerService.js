@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabaseClient';
+import { supabase, isSupabaseConfigured } from '../lib/supabaseClient.js';
 
 const PARTNER_SELECT = 'id, name, logo_url, website_url, partner_type, display_order';
 

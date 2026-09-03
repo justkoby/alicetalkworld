@@ -24,7 +24,9 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
         aiConference: resolve(__dirname, 'ai-conference.html'),
         resources: resolve(__dirname, 'resources.html'),
+        events: resolve(__dirname, 'events.html'),
       },
+
     },
   },
 })
