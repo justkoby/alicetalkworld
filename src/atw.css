@@ -729,6 +729,107 @@ body {
   }
 }
 
+/* Hero Button Group & Secondary CTA */
+.atw-hero-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.atw-hero-cta-btn--secondary {
+  background-color: transparent;
+  color: var(--atw-white);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+}
+
+.atw-hero-cta-btn--secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--atw-white);
+  color: var(--atw-white);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.atw-hero-slide.active .atw-hero-cta-btn--secondary {
+  animation: atwCtaSlideIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.8s both;
+}
+
+/* Skeleton & Error states for Hero */
+.atw-hero-skeleton {
+  position: relative;
+  background-color: #0d0a14;
+  overflow: hidden;
+}
+
+.atw-hero-skeleton-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 25%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.02) 75%
+  );
+  background-size: 200% 100%;
+  animation: atw-hero-shimmer 1.8s infinite;
+}
+
+@keyframes atw-hero-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.atw-hero-skeleton-line {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.09) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: atw-hero-shimmer 1.8s infinite;
+  border-radius: 4px;
+}
+
+.atw-hero-error {
+  position: relative;
+  background-color: #0f0a14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.atw-hero-error-content {
+  text-align: center;
+  padding: 40px 20px;
+  z-index: 4;
+}
+
+.atw-hero-error-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.atw-hero-retry-btn {
+  background-color: var(--atw-white);
+  color: var(--atw-primary);
+  border: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.atw-hero-retry-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+
 /* Slide Indicators (Dots aligned with the left text margin) */
 .atw-hero-dots-outer {
   position: absolute;
@@ -961,6 +1062,93 @@ body {
     height: 35px;
   }
 }
+
+/* Partner link wrapper — preserve logo hover behaviour when clickable */
+.atw-partner-logo-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Initials fallback when logo_url is null or fails to load */
+.atw-partner-initials {
+  height: 45px;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(74, 21, 75, 0.08);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--atw-text-gray);
+  letter-spacing: 1px;
+  filter: grayscale(100%);
+  opacity: 0.5;
+  transition: var(--transition-smooth);
+  padding: 0 12px;
+}
+
+.atw-partner-logo-item:hover .atw-partner-initials {
+  filter: grayscale(0%);
+  opacity: 1;
+  background: rgba(74, 21, 75, 0.12);
+}
+
+/* Skeleton shimmer for loading state */
+@keyframes atw-partner-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.atw-partner-skeleton {
+  height: 45px;
+  min-width: 100px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-partner-shimmer 1.5s infinite;
+}
+
+/* Static track variant (used during loading — no scroll animation) */
+.atw-partners-marquee-track--static {
+  animation: none;
+  width: 100%;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+/* Notice / empty-state / error box */
+.atw-partners-notice {
+  padding: 20px 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.atw-partners-notice p {
+  color: var(--atw-text-gray);
+  font-size: 13px;
+  margin: 0 0 10px;
+  opacity: 0.7;
+}
+
+.atw-partners-retry-btn {
+  background: var(--atw-primary);
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.atw-partners-retry-btn:hover {
+  opacity: 0.88;
+}
+
 
 .atw-why-we-exist-section {
   background-color: var(--atw-white);
@@ -2719,5 +2907,250 @@ body {
     padding: 2px 4px 2px 14px;
   }
 }
+
+
+/* ─── Homepage News Section — Skeleton / Loading States ─────────────────────── */
+@keyframes atw-news-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.atw-news-skeleton-card {
+  pointer-events: none;
+}
+
+.atw-news-skeleton-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-news-shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+.atw-news-skeleton-line {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-news-shimmer 1.5s infinite;
+  border-radius: 4px;
+  display: block;
+}
+
+/* ─── Image missing placeholder ─────────────────────────────────────────────── */
+.atw-news-img-missing {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f5f5 0%, #ececec 100%);
+  display: block;
+}
+
+/* ─── Notice / empty-state / error box ──────────────────────────────────────── */
+.atw-news-notice {
+  padding: 36px 24px;
+  text-align: center;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  margin: 24px 0;
+}
+
+.atw-news-notice p {
+  color: var(--atw-text-gray);
+  font-size: 14px;
+  margin: 0 0 14px;
+  opacity: 0.75;
+}
+
+.atw-news-retry-btn {
+  background: var(--atw-primary);
+  color: #fff;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.atw-news-retry-btn:hover {
+  opacity: 0.88;
+}
+
+/* ─── Organisation Section — Skeleton / Loading & Error States ─────────────── */
+.atw-org-skeleton-card {
+  pointer-events: none;
+}
+
+.atw-org-skeleton-line {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-news-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.atw-card-mission .atw-org-skeleton-line {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12) 25%, rgba(255, 255, 255, 0.22) 50%, rgba(255, 255, 255, 0.12) 75%);
+  background-size: 200% 100%;
+  animation: atw-news-shimmer 1.5s infinite;
+}
+
+.atw-org-skeleton-box {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-news-shimmer 1.5s infinite;
+}
+
+.atw-card-mission .atw-org-skeleton-box {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12) 25%, rgba(255, 255, 255, 0.22) 50%, rgba(255, 255, 255, 0.12) 75%);
+  background-size: 200% 100%;
+  animation: atw-news-shimmer 1.5s infinite;
+}
+
+.atw-org-notice {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 36px 24px;
+  text-align: center;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+.atw-org-notice p {
+  color: var(--atw-text-gray);
+  font-size: 14px;
+  margin: 0 0 14px;
+  opacity: 0.75;
+}
+
+.atw-org-retry-btn {
+  background: var(--atw-primary);
+  color: #fff;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.atw-org-retry-btn:hover {
+  opacity: 0.88;
+}
+
+/* ─── Impact Section — Skeleton / Loading, Notice & Retry ───────────────────── */
+.atw-impact-skeleton-line {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: atw-impact-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.atw-impact-skeleton-img {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(255, 255, 255, 0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: atw-impact-shimmer 1.5s infinite;
+}
+
+@keyframes atw-impact-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.atw-impact-notice {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 36px 24px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.atw-impact-notice p {
+  color: var(--atw-text-muted);
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+
+.atw-impact-retry-btn {
+  background: var(--atw-primary);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 9px 22px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.atw-impact-retry-btn:hover {
+  opacity: 0.88;
+  background: var(--atw-accent);
+}
+
+/* ─── Gallery Section — Skeleton / Loading, Notice & Retry ──────────────────── */
+.atw-gallery-skeleton-line {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-news-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.atw-gallery-skeleton-item {
+  width: 280px;
+  height: 200px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e4e4e4 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-news-shimmer 1.5s infinite;
+  flex-shrink: 0;
+}
+
+.atw-gallery-notice {
+  max-width: 600px;
+  margin: 30px auto 40px auto;
+  padding: 36px 24px;
+  text-align: center;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+.atw-gallery-notice p {
+  color: var(--atw-text-gray);
+  font-size: 14px;
+  margin: 0 0 14px;
+  opacity: 0.75;
+}
+
+.atw-gallery-retry-btn {
+  background: var(--atw-primary);
+  color: #fff;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.atw-gallery-retry-btn:hover {
+  opacity: 0.88;
+}
+
 
 

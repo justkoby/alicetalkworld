@@ -1,166 +1,220 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import AtwNavbar from './AtwNavbar';
 import AtwFooter from './AtwFooter';
-import { Images, Calendar, ArrowRight, Camera, ExternalLink, ChevronDown } from 'lucide-react';
+import { Images, Calendar, ArrowRight, Camera, ExternalLink, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { getPublishedAlbums } from '../services/mediaService';
+import { fallbackAlbums, fallbackCollage } from '../data/fallbackMediaData';
+import { isSupabaseConfigured } from '../lib/supabaseClient';
 import './MediaCenterPage.css';
 
-// ─── Album Data ───────────────────────────────────────────────────────────────
-// Each album links to its real Google Drive / Google Photos folder.
-const albums = [
-  {
-    id: 1,
-    title: 'ATW @5 Anniversary Event',
-    description:
-      'Celebrating five years of empowering young leaders, fostering mentorship, and creating opportunities for impact — a landmark anniversary event.',
-    category: 'special',
-    categoryLabel: 'Special Event',
-    date: '2025',
-    cover: '/images/atw/795A9243.jpg',
-    albumUrl: 'https://drive.google.com/drive/folders/1FOt2W3og2saHxQ1Zao_KVDUb_E434xmb',
-  },
-  {
-    id: 2,
-    title: 'Alice Talk World Conference 2024',
-    description:
-      'Bringing together young leaders, professionals, and changemakers to inspire dialogue, collaboration, and growth across Africa.',
-    category: 'leadership',
-    categoryLabel: 'Leadership Conference',
-    date: '2024',
-    cover: '/images/atw/2024-conference.jpg',
-    albumUrl: 'https://drive.google.com/drive/folders/146eg98cPIBrJtOffvXd3WUxmi6q7QTqf',
-  },
-  {
-    id: 3,
-    title: 'Alice Talk World Conference 2023',
-    description:
-      'A defining moment for youth leadership in West Africa — bringing together emerging changemakers, mentors, and innovators for a full day of inspiration.',
-    category: 'leadership',
-    categoryLabel: 'Leadership Conference',
-    date: '2023',
-    cover: '/images/atw/bg-12.jpg',
-    albumUrl:
-      'https://photos.google.com/share/AF1QipNzUopTJZtT7jbj3afA8_S4KeUGZMWXoufR9MwrqoeJhO1b2lMNSDbXDfIq0ngv-g?key=dURsNU9JQjR1Z01MYmRIeXZ5alE3bFBDU2pzdi1n',
-  },
-  {
-    id: 4,
-    title: 'Cape Coast (UCC) — Pioneers of Change Conference',
-    description:
-      'Empowering students at the University of Cape Coast through our Pioneers of Change conference series, igniting leadership potential on campus.',
-    category: 'campus',
-    categoryLabel: 'Campus Engagement',
-    date: '2024',
-    cover: '/images/atw/bg-16.jpg',
-    albumUrl: 'https://drive.google.com/drive/folders/1OirKAkwnYUsKXbpLcjdlwEKBwmGJE_z5',
-  },
-  {
-    id: 5,
-    title: 'Kumasi (KNUST) — Inspire Conference 1.0',
-    description:
-      'The inaugural Inspire Conference at KNUST united science and tech students with industry mentors, sparking bold conversations about Africa\'s future.',
-    category: 'campus',
-    categoryLabel: 'Campus Engagement',
-    date: '2024',
-    cover: '/images/atw/bg-14.jpg',
-    albumUrl: 'https://drive.google.com/drive/folders/1E9JaSC7LhNXpr0-E-X4iDOOfls5NjE6Z',
-  },
-  {
-    id: 6,
-    title: 'Breast Cancer Awareness Campaign',
-    description:
-      'Mobilizing young leaders to run awareness sessions, conduct screenings, and support women — coupling health education with local advocacy to break taboos.',
-    category: 'women',
-    categoryLabel: 'Women Empowerment',
-    date: '2024',
-    cover: '/images/atw/breast.jpg',
-    albumUrl: 'https://drive.google.com/drive/folders/1QFp21ZNmSvio9JIdur4mdXd5CQTsxAmi',
-  },
-  {
-    id: 7,
-    title: 'Tamale — Leadership Conference',
-    description:
-      'Taking leadership development to Northern Ghana, this conference equipped young people from Tamale with the tools, networks, and confidence to lead.',
-    category: 'leadership',
-    categoryLabel: 'Leadership Conference',
-    date: '2024',
-    cover: '/images/atw/3.jpg',
-    albumUrl: 'https://drive.google.com/drive/folders/1MAW2SFeQhyn82IN7PzoAsYvrNZMhYbgA',
-  },
-  {
-    id: 8,
-    title: 'Tamale — Group Excursion',
-    description:
-      'Delivering hygiene resources, conducting peer workshops, and building sustainable health awareness pathways for communities and young girls in Northern Ghana.',
-    category: 'community',
-    categoryLabel: 'Community Outreach',
-    date: '2024',
-    cover: '/images/atw/1.jpg',
-    albumUrl: 'https://drive.google.com/drive/folders/1b4BNYoGwuIPaRk08IsLSyldrmnxfZ9IJ',
-  },
-];
-
-// ─── Category Filter Config ───────────────────────────────────────────────────
-const categories = [
-  { id: 'all', label: 'All Events' },
-  { id: 'leadership', label: 'Leadership Conferences' },
-  { id: 'campus', label: 'Campus Engagements' },
-  { id: 'women', label: 'Women Empowerment' },
-  { id: 'community', label: 'Community Outreach' },
-  { id: 'special', label: 'Special Events' },
-];
-
-// Badge variant mapping
-const badgeClass = {
-  special: 'mc-badge-special',
-  leadership: 'mc-badge-leadership',
-  campus: 'mc-badge-campus',
-  women: 'mc-badge-women',
-  community: 'mc-badge-community',
+// ─── Badge class mapping ───────────────────────────────────────────────────────
+// Keys match the full category labels stored in Supabase.
+const badgeClassFor = (category) => {
+  if (!category) return 'mc-badge-default';
+  const c = category.toLowerCase();
+  if (c.includes('special')) return 'mc-badge-special';
+  if (c.includes('leadership')) return 'mc-badge-leadership';
+  if (c.includes('campus')) return 'mc-badge-campus';
+  if (c.includes('women')) return 'mc-badge-women';
+  if (c.includes('community')) return 'mc-badge-community';
+  return 'mc-badge-default';
 };
 
-// Open album in new tab
+// Safe external album opener.
 const openAlbum = (url) => window.open(url, '_blank', 'noopener,noreferrer');
+
+// Build collage columns from available cover images, repeating to fill desired length.
+const buildCollageColumn = (covers, length = 6) => {
+  const valid = covers.filter(Boolean);
+  if (valid.length === 0) return [];
+  const result = [];
+  while (result.length < length) {
+    result.push(...valid);
+  }
+  return result.slice(0, length);
+};
+
+// ─── Skeleton Components ───────────────────────────────────────────────────────
+const FeaturedSkeleton = () => (
+  <div className="mc-featured-banner mc-skeleton-card" aria-hidden="true" style={{ cursor: 'default' }}>
+    <div className="mc-featured-img mc-skeleton-shimmer" style={{ position: 'static', width: '100%', height: '100%' }} />
+    <div className="mc-featured-content">
+      <div className="mc-featured-text">
+        <div className="mc-skeleton-line" style={{ height: 16, width: '25%', marginBottom: 12 }} />
+        <div className="mc-skeleton-line" style={{ height: 28, width: '65%', marginBottom: 10 }} />
+        <div className="mc-skeleton-line" style={{ height: 14, width: '80%', marginBottom: 6 }} />
+        <div className="mc-skeleton-line" style={{ height: 14, width: '60%' }} />
+      </div>
+    </div>
+  </div>
+);
+
+const AlbumCardSkeleton = () => (
+  <article className="mc-album-card mc-skeleton-card" style={{ cursor: 'default' }} aria-hidden="true">
+    <div className="mc-album-img-wrapper mc-skeleton-shimmer" style={{ height: 220 }} />
+    <div className="mc-album-body">
+      <div className="mc-skeleton-line" style={{ height: 14, width: '35%', marginBottom: 10 }} />
+      <div className="mc-skeleton-line" style={{ height: 20, width: '80%', marginBottom: 8 }} />
+      <div className="mc-skeleton-line" style={{ height: 13, width: '95%', marginBottom: 4 }} />
+      <div className="mc-skeleton-line" style={{ height: 13, width: '70%', marginBottom: 16 }} />
+      <div className="mc-skeleton-line" style={{ height: 13, width: '40%' }} />
+    </div>
+  </article>
+);
+
+// ─── Internal Gallery Modal ────────────────────────────────────────────────────
+const GalleryModal = ({ album, onClose }) => {
+  const [index, setIndex] = useState(0);
+  const overlayRef = useRef(null);
+
+  const prev = useCallback(() => setIndex((i) => (i - 1 + album.images.length) % album.images.length), [album.images.length]);
+  const next = useCallback(() => setIndex((i) => (i + 1) % album.images.length), [album.images.length]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose, prev, next]);
+
+  if (!album.images.length) return null;
+
+  return (
+    <div
+      className="mc-gallery-overlay"
+      ref={overlayRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Gallery: ${album.title}`}
+      onClick={(e) => e.target === overlayRef.current && onClose()}
+    >
+      <button className="mc-gallery-close" onClick={onClose} aria-label="Close gallery">
+        <X size={22} />
+      </button>
+      <button className="mc-gallery-nav mc-gallery-nav--prev" onClick={prev} aria-label="Previous image">
+        <ChevronLeft size={28} />
+      </button>
+      <div className="mc-gallery-content">
+        <img
+          src={album.images[index]}
+          alt={`${album.title} — image ${index + 1} of ${album.images.length}`}
+          className="mc-gallery-img"
+        />
+        <p className="mc-gallery-counter">{index + 1} / {album.images.length}</p>
+      </div>
+      <button className="mc-gallery-nav mc-gallery-nav--next" onClick={next} aria-label="Next image">
+        <ChevronRight size={28} />
+      </button>
+    </div>
+  );
+};
 
 // ─── Main Page Component ──────────────────────────────────────────────────────
 const MediaCenterPage = () => {
+  const [albums, setAlbums] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isFallback, setIsFallback] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [galleryAlbum, setGalleryAlbum] = useState(null);
 
-  // Featured = ATW @5 (first album)
-  const featuredAlbum = albums[0];
+  const loadAlbums = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    const result = await getPublishedAlbums();
+    if (result.isFallback) {
+      setIsFallback(true);
+      setAlbums(fallbackAlbums);
+    } else if (result.error) {
+      setError(result.error);
+      setAlbums([]);
+      setIsFallback(false);
+    } else {
+      setIsFallback(false);
+      setAlbums(result.data || []);
+    }
+    setLoading(false);
+  }, []);
 
-  const filteredAlbums =
-    activeCategory === 'all'
-      ? albums
-      : albums.filter((a) => a.category === activeCategory);
+  useEffect(() => {
+    loadAlbums();
+  }, [loadAlbums]);
+
+  // ── Featured album ──────────────────────────────────────────────────────────
+  const featuredAlbum = albums.find((a) => a.isFeatured) || albums[0] || null;
+
+  // ── Category filter options — derived from returned albums ─────────────────
+  const categoryOptions = (() => {
+    const seen = new Set();
+    const cats = [{ id: 'all', label: 'All Events' }];
+    albums.forEach((a) => {
+      if (a.category && !seen.has(a.category)) {
+        seen.add(a.category);
+        cats.push({ id: a.category, label: a.category });
+      }
+    });
+    return cats;
+  })();
 
   const countFor = (catId) =>
     catId === 'all' ? albums.length : albums.filter((a) => a.category === catId).length;
 
-  // ── Collage image sets (3 columns, doubled for seamless loop) ──────────────
-  const col1 = [
-    '/images/atw/795A9243.jpg',
-    '/images/atw/breast.jpg',
-    '/images/atw/bg-16.jpg',
-    '/images/atw/lenz Addict 219.jpg',
-    '/images/atw/bg-4.jpg',
-    '/images/atw/3.jpg',
-  ];
-  const col2 = [
-    '/images/atw/2024-conference.jpg',
-    '/images/atw/bg-1.jpg',
-    '/images/atw/YOUTH PANEL - WEBSITE.jpg',
-    '/images/atw/1.jpg',
-    '/images/atw/bg-12.jpg',
-    '/images/atw/795A8620.jpg',
-  ];
-  const col3 = [
-    '/images/atw/HIGH LEVEL PANEL - WEBSITE.jpg',
-    '/images/atw/bg-14.jpg',
-    '/images/atw/img-2a.jpg',
-    '/images/atw/4a.jpg',
-    '/images/atw/795A9195.jpg',
-    '/images/atw/Lenz IMG_0098.jpg',
-  ];
+  // ── Filtered albums — excludes the featured album from the grid ─────────────
+  const gridAlbums = (() => {
+    const base =
+      activeCategory === 'all'
+        ? albums
+        : albums.filter((a) => a.category === activeCategory);
+    // Remove featured from grid to avoid duplication, unless filter is active
+    // and would result in zero grid items.
+    if (featuredAlbum && activeCategory === 'all') {
+      const withoutFeatured = base.filter((a) => a.id !== featuredAlbum.id);
+      // Only de-duplicate in "all" view; keep in category-filtered view.
+      return withoutFeatured;
+    }
+    return base;
+  })();
 
+  // ── Collage columns ─────────────────────────────────────────────────────────
+  const collageCovers = albums
+    .map((a) => a.cover)
+    .filter(Boolean);
+
+  const useStaticCollage = isFallback || collageCovers.length === 0;
+
+  const col1 = useStaticCollage
+    ? fallbackCollage.col1
+    : buildCollageColumn(collageCovers.slice(0, Math.ceil(collageCovers.length / 3)), 6);
+  const col2 = useStaticCollage
+    ? fallbackCollage.col2
+    : buildCollageColumn(
+        collageCovers.slice(
+          Math.ceil(collageCovers.length / 3),
+          Math.ceil((2 * collageCovers.length) / 3)
+        ),
+        6
+      );
+  const col3 = useStaticCollage
+    ? fallbackCollage.col3
+    : buildCollageColumn(collageCovers.slice(Math.ceil((2 * collageCovers.length) / 3)), 6);
+
+  // ── Album action handler ────────────────────────────────────────────────────
+  const handleAlbumAction = (album, e) => {
+    if (e) e.stopPropagation();
+    if (album.albumUrl) {
+      openAlbum(album.albumUrl);
+    } else if (album.images.length > 0) {
+      setGalleryAlbum(album);
+    }
+    // Neither available → no action (button/link is hidden or disabled).
+  };
+
+  const hasAction = (album) => Boolean(album?.albumUrl) || (album?.images?.length > 0);
+
+  // ── Render ──────────────────────────────────────────────────────────────────
   return (
     <div className="mc-root">
       <AtwNavbar />
@@ -196,9 +250,8 @@ const MediaCenterPage = () => {
           </nav>
         </div>
 
-        {/* RIGHT: Scrolling photo collage — fades in via CSS mask-image */}
+        {/* RIGHT: Scrolling photo collage */}
         <div className="mc-hero-collage" aria-hidden="true">
-
           {/* Column 1 — slow */}
           <div className="mc-collage-col">
             <div className="mc-collage-track mc-collage-track--up-slow">
@@ -231,59 +284,91 @@ const MediaCenterPage = () => {
       {/* ── FEATURED EVENT ───────────────────────────────────────── */}
       <section className="mc-featured-section">
         <div className="mc-section-eyebrow">FEATURED EVENT</div>
-        <div
-          className="mc-featured-banner"
-          onClick={() => openAlbum(featuredAlbum.albumUrl)}
-          role="button"
-          tabIndex={0}
-          aria-label={`View album: ${featuredAlbum.title}`}
-          onKeyDown={(e) => e.key === 'Enter' && openAlbum(featuredAlbum.albumUrl)}
-        >
-          <img
-            src={featuredAlbum.cover}
-            alt={featuredAlbum.title}
-            className="mc-featured-img"
-          />
-          <div className="mc-featured-overlay" />
-          <div className="mc-featured-badge">
-            {featuredAlbum.categoryLabel}
+
+        {loading ? (
+          <FeaturedSkeleton />
+        ) : error ? (
+          <div className="mc-notice-box">
+            <p>Unable to load the featured album.</p>
+            <button onClick={loadAlbums} className="mc-retry-btn">Retry</button>
           </div>
-          <div className="mc-featured-content">
-            <div className="mc-featured-text">
-              <h2 className="mc-featured-title">{featuredAlbum.title}</h2>
-              <p className="mc-featured-desc">{featuredAlbum.description}</p>
+        ) : !featuredAlbum ? (
+          <div className="mc-notice-box"><p>No featured albums available.</p></div>
+        ) : (
+          <div
+            className="mc-featured-banner"
+            onClick={hasAction(featuredAlbum) ? () => handleAlbumAction(featuredAlbum, null) : undefined}
+            role={hasAction(featuredAlbum) ? 'button' : undefined}
+            tabIndex={hasAction(featuredAlbum) ? 0 : undefined}
+            aria-label={hasAction(featuredAlbum) ? `View album: ${featuredAlbum.title}` : undefined}
+            onKeyDown={hasAction(featuredAlbum) ? (e) => e.key === 'Enter' && handleAlbumAction(featuredAlbum, null) : undefined}
+            style={!hasAction(featuredAlbum) ? { cursor: 'default' } : undefined}
+          >
+            {featuredAlbum.cover ? (
+              <img
+                src={featuredAlbum.cover}
+                alt={featuredAlbum.title}
+                className="mc-featured-img"
+              />
+            ) : (
+              <div className="mc-featured-img mc-cover-missing" aria-hidden="true" />
+            )}
+            <div className="mc-featured-overlay" />
+            <div className="mc-featured-badge">{featuredAlbum.category}</div>
+            <div className="mc-featured-content">
+              <div className="mc-featured-text">
+                <h2 className="mc-featured-title">{featuredAlbum.title}</h2>
+                <p className="mc-featured-desc">{featuredAlbum.description}</p>
+              </div>
+              {featuredAlbum.albumUrl ? (
+                <a
+                  href={featuredAlbum.albumUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mc-featured-btn"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Camera size={15} />
+                  View Album
+                </a>
+              ) : featuredAlbum.images.length > 0 ? (
+                <button
+                  className="mc-featured-btn"
+                  onClick={(e) => { e.stopPropagation(); setGalleryAlbum(featuredAlbum); }}
+                >
+                  <Camera size={15} />
+                  View Photos
+                </button>
+              ) : null}
             </div>
-            <a
-              href={featuredAlbum.albumUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mc-featured-btn"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Camera size={15} />
-              View Album
-            </a>
           </div>
-        </div>
+        )}
       </section>
 
       {/* ── CATEGORY FILTER ──────────────────────────────────────── */}
       <section className="mc-filter-section">
         <div className="mc-filter-title">Browse by Category</div>
         <div className="mc-filter-tabs" role="tablist">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              role="tab"
-              aria-selected={activeCategory === cat.id}
-              className={`mc-filter-tab ${activeCategory === cat.id ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat.id)}
-              id={`mc-tab-${cat.id}`}
-            >
-              {cat.label}
-              <span className="mc-filter-count">{countFor(cat.id)}</span>
+          {loading ? (
+            // Show only "All Events" as placeholder during load
+            <button className="mc-filter-tab active" role="tab" aria-selected="true" id="mc-tab-all">
+              All Events <span className="mc-filter-count">—</span>
             </button>
-          ))}
+          ) : (
+            categoryOptions.map((cat) => (
+              <button
+                key={cat.id}
+                role="tab"
+                aria-selected={activeCategory === cat.id}
+                className={`mc-filter-tab ${activeCategory === cat.id ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
+                id={`mc-tab-${cat.id}`}
+              >
+                {cat.label}
+                <span className="mc-filter-count">{countFor(cat.id)}</span>
+              </button>
+            ))
+          )}
         </div>
       </section>
 
@@ -293,61 +378,90 @@ const MediaCenterPage = () => {
           <div className="mc-section-eyebrow" style={{ marginBottom: 0 }}>
             PHOTO ALBUMS
           </div>
-          <p className="mc-albums-count">
-            Showing <strong>{filteredAlbums.length}</strong>{' '}
-            {filteredAlbums.length === 1 ? 'album' : 'albums'}
-          </p>
+          {!loading && !error && (
+            <p className="mc-albums-count">
+              Showing <strong>{gridAlbums.length}</strong>{' '}
+              {gridAlbums.length === 1 ? 'album' : 'albums'}
+            </p>
+          )}
         </div>
 
-        {filteredAlbums.length === 0 ? (
+        {loading ? (
+          <div className="mc-albums-grid">
+            <AlbumCardSkeleton />
+            <AlbumCardSkeleton />
+            <AlbumCardSkeleton />
+            <AlbumCardSkeleton />
+            <AlbumCardSkeleton />
+            <AlbumCardSkeleton />
+          </div>
+        ) : error ? (
+          <div className="mc-notice-box">
+            <p>Unable to load albums right now.</p>
+            <button onClick={loadAlbums} className="mc-retry-btn">Retry</button>
+          </div>
+        ) : gridAlbums.length === 0 && isSupabaseConfigured ? (
           <div className="mc-no-results">
-            <div className="mc-no-results-icon">
-              <Images size={24} />
-            </div>
+            <div className="mc-no-results-icon"><Images size={24} /></div>
+            <h3>No albums found</h3>
+            <p>
+              {activeCategory === 'all'
+                ? 'No published albums are available at this time.'
+                : 'Try selecting a different category above.'}
+            </p>
+          </div>
+        ) : gridAlbums.length === 0 ? (
+          <div className="mc-no-results">
+            <div className="mc-no-results-icon"><Images size={24} /></div>
             <h3>No albums found</h3>
             <p>Try selecting a different category above.</p>
           </div>
         ) : (
           <div className="mc-albums-grid">
-            {filteredAlbums.map((album) => (
+            {gridAlbums.map((album) => (
               <article
                 key={album.id}
                 className="mc-album-card"
-                onClick={() => openAlbum(album.albumUrl)}
-                role="button"
-                tabIndex={0}
-                aria-label={`Open album: ${album.title}`}
-                onKeyDown={(e) => e.key === 'Enter' && openAlbum(album.albumUrl)}
+                onClick={hasAction(album) ? (e) => handleAlbumAction(album, e) : undefined}
+                role={hasAction(album) ? 'button' : undefined}
+                tabIndex={hasAction(album) ? 0 : undefined}
+                aria-label={hasAction(album) ? `Open album: ${album.title}` : undefined}
+                onKeyDown={hasAction(album) ? (e) => e.key === 'Enter' && handleAlbumAction(album, e) : undefined}
+                style={!hasAction(album) ? { cursor: 'default' } : undefined}
               >
                 {/* Image */}
                 <div className="mc-album-img-wrapper">
-                  <img
-                    src={album.cover}
-                    alt={album.title}
-                    className="mc-album-img"
-                    loading="lazy"
-                  />
+                  {album.cover ? (
+                    <img
+                      src={album.cover}
+                      alt={album.title}
+                      className="mc-album-img"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="mc-album-img mc-cover-missing" aria-hidden="true" />
+                  )}
                   <div className="mc-album-img-overlay" />
-                  <div className="mc-album-view-btn">
-                    <div className="mc-album-view-pill">
-                      <ExternalLink size={12} />
-                      View Full Album
+                  {hasAction(album) && (
+                    <div className="mc-album-view-btn">
+                      <div className="mc-album-view-pill">
+                        <ExternalLink size={12} />
+                        View Full Album
+                      </div>
                     </div>
-                  </div>
-                  <div className="mc-album-photo-count">
-                    <Camera size={11} />
-                    View on Drive
-                  </div>
+                  )}
+                  {album.albumUrl && (
+                    <div className="mc-album-photo-count">
+                      <Camera size={11} />
+                      View on Drive
+                    </div>
+                  )}
                 </div>
 
                 {/* Body */}
                 <div className="mc-album-body">
-                  <span
-                    className={`mc-album-category-badge ${
-                      badgeClass[album.category] || 'mc-badge-default'
-                    }`}
-                  >
-                    {album.categoryLabel}
+                  <span className={`mc-album-category-badge ${badgeClassFor(album.category)}`}>
+                    {album.category}
                   </span>
                   <h3 className="mc-album-title">{album.title}</h3>
                   <p className="mc-album-desc">{album.description}</p>
@@ -356,15 +470,25 @@ const MediaCenterPage = () => {
                       <Calendar size={12} />
                       {album.date}
                     </span>
-                    <a
-                      href={album.albumUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mc-album-link"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      View Photos <ArrowRight size={12} />
-                    </a>
+                    {album.albumUrl ? (
+                      <a
+                        href={album.albumUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mc-album-link"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        View Photos <ArrowRight size={12} />
+                      </a>
+                    ) : album.images.length > 0 ? (
+                      <button
+                        className="mc-album-link"
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                        onClick={(e) => { e.stopPropagation(); setGalleryAlbum(album); }}
+                      >
+                        View Photos <ArrowRight size={12} />
+                      </button>
+                    ) : null}
                   </div>
                 </div>
               </article>
@@ -374,6 +498,11 @@ const MediaCenterPage = () => {
       </section>
 
       <AtwFooter />
+
+      {/* ── Internal Gallery Modal ────────────────────────────────── */}
+      {galleryAlbum && galleryAlbum.images.length > 0 && (
+        <GalleryModal album={galleryAlbum} onClose={() => setGalleryAlbum(null)} />
+      )}
     </div>
   );
 };

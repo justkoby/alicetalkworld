@@ -1,10 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import AtwNavbar from './components/AtwNavbar';
 import AtwHero from './components/AtwHero';
 import AtwFooter from './components/AtwFooter';
 import { Eye, Target, MapPin, ArrowRight, Users, UserCheck, BookOpen, Handshake } from 'lucide-react';
-import { storiesData } from './data/storiesData';
+import { getActivePartners } from './services/partnerService';
+import { fallbackPartners } from './data/fallbackPartnerData';
+import { getPublishedPosts, resolveHomepagePosts } from './services/newsService';
+import { fallbackFeaturedStory, fallbackLatestStories } from './data/fallbackNewsData';
+import { getHomepageSection, normalizeGalleryImages } from './services/homepageService';
+import { fallbackOrganisationContent } from './data/fallbackOrganisationData';
+import { getPublishedProgramsByIds, normalizeProgramImages } from './services/programService';
+import { fallbackImpactSection, fallbackImpactPrograms } from './data/fallbackImpactData';
+import { fallbackGalleryContent } from './data/fallbackGalleryData';
 import './atw.css';
+
+const isExternalUrl = (url) => {
+  if (!url || typeof url !== 'string') return false;
+  const trimmed = url.trim().toLowerCase();
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    try {
+      const parsed = new URL(url.trim(), window.location.origin);
+      return parsed.origin !== window.location.origin;
+    } catch {
+      return true;
+    }
+  }
+  return false;
+};
 
 // Custom Instagram icon since it was deprecated/removed in newer lucide-react versions
 const Instagram = ({ size = 24, ...props }) => (
@@ -54,100 +76,200 @@ const AtwFadeSlider = ({ images, interval = 4000 }) => {
   );
 };
 
-function App() {
-  const partnerLogos = [
-    { src: '/images/atw/nokofio-logo.png', alt: 'Nokofio' },
-    { src: '/images/atw/MTN-Logo.png', alt: 'MTN' },
-    { src: '/images/atw/British_Council_logo.svg.png', alt: 'British Council' },
-    { src: '/images/atw/unilever-logo-png_seeklogo-145123.png', alt: 'Unilever' },
-    { src: '/images/atw/PMCM20LOGO-02-min202_11zon201.png', alt: 'PMC' },
-    { src: '/images/atw/Twi-logo-pxx.png', alt: 'Twi' },
-    { src: '/images/atw/FANMILK.webp', alt: 'Fanmilk' },
-    { src: '/images/atw/streamlined_stay_solutions_cover.jpg', alt: 'Streamlined Stay Solutions' },
-    { src: '/images/atw/global capacity hub.png', alt: 'Global Capacity Hub' },
-    { src: '/images/atw/Verna-Mineral-Water-Logo.png', alt: 'Verna Mineral Water' },
-    { src: '/images/atw/6009-476_import.png', alt: 'Import Logo' },
-    { src: '/images/atw/Asaase-radio-logo-02-01.webp', alt: 'Asaase Radio' },
-    { src: '/images/atw/GHOne_TV_logo.png', alt: 'GHOne TV' },
-    { src: '/images/atw/atinka tv.png', alt: 'Atinka TV' },
-    { src: '/images/atw/mx24.jpg', alt: 'MX24' }
-  ];
+// Helper: get up to 2 initials from a partner name
+const getPartnerInitials = (name) => {
+  if (!name) return 'P';
+  const words = name.trim().split(/\s+/);
+  if (words.length === 1) return words[0].substring(0, 2).toUpperCase();
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase();
+};
 
-  const repeatedPartners = [...partnerLogos, ...partnerLogos, ...partnerLogos];
+function App() {
+  // ── Partner data state ──────────────────────────────────────────────────────
+  const [partners, setPartners] = useState([]);
+  const [partnersLoading, setPartnersLoading] = useState(true);
+  const [partnersError, setPartnersError] = useState(null);
+  const [failedLogos, setFailedLogos] = useState(new Set());
+
+  const handleLogoError = useCallback((id) => {
+    setFailedLogos((prev) => { const s = new Set(prev); s.add(id); return s; });
+  }, []);
+
+  const loadPartners = useCallback(async () => {
+    setPartnersLoading(true);
+    setPartnersError(null);
+    const result = await getActivePartners();
+    if (result.isFallback) {
+      setPartners(fallbackPartners);
+    } else if (result.error) {
+      setPartnersError(result.error);
+      setPartners([]);
+    } else {
+      setPartners(result.data || []);
+    }
+    setPartnersLoading(false);
+  }, []);
+
+  useEffect(() => { loadPartners(); }, [loadPartners]);
+
+  // ── News data state ─────────────────────────────────────────────────────────
+  const [featuredStory, setFeaturedStory] = useState(null);
+  const [latestStories, setLatestStories] = useState([]);
+  const [newsLoading, setNewsLoading] = useState(true);
+  const [newsError, setNewsError] = useState(null);
+
+  const loadNews = useCallback(async () => {
+    setNewsLoading(true);
+    setNewsError(null);
+    try {
+      const result = await getPublishedPosts();
+      if (result.isFallback) {
+        setFeaturedStory(fallbackFeaturedStory);
+        setLatestStories(fallbackLatestStories);
+      } else if (result.error) {
+        setNewsError(result.error);
+        setFeaturedStory(null);
+        setLatestStories([]);
+      } else {
+        const { featured, latest } = resolveHomepagePosts(result.data);
+        setFeaturedStory(featured);
+        setLatestStories(latest);
+      }
+    } catch {
+      setNewsError(new Error('Unexpected error loading news'));
+    }
+    setNewsLoading(false);
+  }, []);
+
+  useEffect(() => { loadNews(); }, [loadNews]);
+
+  // ── Organisation data state ──────────────────────────────────────────────────
+  const [orgData, setOrgData] = useState(null);
+  const [orgLoading, setOrgLoading] = useState(true);
+  const [orgError, setOrgError] = useState(null);
+
+  const loadOrganisation = useCallback(async () => {
+    setOrgLoading(true);
+    setOrgError(null);
+    try {
+      const result = await getHomepageSection('organisation');
+      if (result.isFallback) {
+        setOrgData({ content: fallbackOrganisationContent, is_visible: true });
+      } else if (result.error) {
+        setOrgError(result.error);
+        setOrgData(null);
+      } else if (!result.data) {
+        setOrgData(null);
+      } else {
+        setOrgData(result.data);
+      }
+    } catch {
+      setOrgError(new Error('Unexpected error loading organisation section'));
+      setOrgData(null);
+    } finally {
+      setOrgLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { loadOrganisation(); }, [loadOrganisation]);
+
+  // ── Impact data state ────────────────────────────────────────────────────────
+  const [impactSection, setImpactSection] = useState(null);
+  const [impactPrograms, setImpactPrograms] = useState([]);
+  const [impactLoading, setImpactLoading] = useState(true);
+  const [impactError, setImpactError] = useState(null);
+
+  const loadImpact = useCallback(async () => {
+    setImpactLoading(true);
+    setImpactError(null);
+    try {
+      const sectionRes = await getHomepageSection('impact');
+      if (sectionRes.isFallback) {
+        setImpactSection({ content: fallbackImpactSection, is_visible: true });
+        setImpactPrograms(fallbackImpactPrograms);
+      } else if (sectionRes.error) {
+        setImpactError(sectionRes.error);
+        setImpactSection(null);
+        setImpactPrograms([]);
+      } else if (!sectionRes.data) {
+        // Section is intentionally hidden (is_visible = false) or not in DB
+        setImpactSection(null);
+        setImpactPrograms([]);
+      } else {
+        setImpactSection(sectionRes.data);
+        const programIds = Array.isArray(sectionRes.data.content?.program_ids)
+          ? sectionRes.data.content.program_ids
+          : [];
+
+        if (programIds.length > 0) {
+          const progsRes = await getPublishedProgramsByIds(programIds);
+          if (progsRes.error) {
+            setImpactError(progsRes.error);
+            setImpactPrograms([]);
+          } else {
+            setImpactPrograms(progsRes.data || []);
+          }
+        } else {
+          setImpactPrograms([]);
+        }
+      }
+    } catch {
+      setImpactError(new Error('Unexpected error loading impact section'));
+      setImpactSection(null);
+      setImpactPrograms([]);
+    } finally {
+      setImpactLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { loadImpact(); }, [loadImpact]);
+
+  // ── Gallery data state ───────────────────────────────────────────────────────
+  const [gallerySection, setGallerySection] = useState(null);
+  const [galleryLoading, setGalleryLoading] = useState(true);
+  const [galleryError, setGalleryError] = useState(null);
+
+  const loadGallery = useCallback(async () => {
+    setGalleryLoading(true);
+    setGalleryError(null);
+    try {
+      const result = await getHomepageSection('gallery');
+      if (result.isFallback) {
+        setGallerySection({ content: fallbackGalleryContent, is_visible: true });
+      } else if (result.error) {
+        setGalleryError(result.error);
+        setGallerySection(null);
+      } else if (!result.data) {
+        // Section is intentionally hidden (is_visible = false) or not in DB
+        setGallerySection(null);
+      } else {
+        setGallerySection(result.data);
+      }
+    } catch {
+      setGalleryError(new Error('Unexpected error loading gallery section'));
+      setGallerySection(null);
+    } finally {
+      setGalleryLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { loadGallery(); }, [loadGallery]);
+
+  // Repeat partners enough times for a seamless infinite loop.
+  // Minimum 3× so the CSS animation always has content to loop through.
+  const REPEAT = partners.length > 0 ? Math.max(3, Math.ceil(30 / partners.length)) : 3;
+  const repeatedPartners = Array.from({ length: REPEAT }, (_, ri) =>
+    partners.map((p) => ({ ...p, _key: `${p.id}-${ri}` }))
+  ).flat();
 
   const statsData = [
+
     { id: 1, number: "5,000+", label: "Youth Reached", icon: <Users size={22} /> },
     { id: 2, number: "100+", label: "Mentors", icon: <UserCheck size={22} /> },
     { id: 3, number: "25+", label: "Programs Delivered", icon: <BookOpen size={22} /> },
     { id: 4, number: "15+", label: "Strategic Partners", icon: <Handshake size={22} /> },
     { id: 5, number: "10+", label: "Communities Impacted", icon: <MapPin size={22} /> }
   ];
-
-  const highlightsImages = [
-    '/images/atw/795A8620.jpg',
-    '/images/atw/795A8545.jpg',
-    '/images/atw/bg-4.jpg',
-    '/images/atw/bg-12.jpg',
-    '/images/atw/bg-3.jpg'
-  ];
-
-  const breastImages = [
-    '/images/atw/bba-01.jpg',
-    '/images/atw/bba-02.jpg',
-    '/images/atw/bba-03.jpg',
-    '/images/atw/bba-04.jpg',
-    '/images/atw/bba-05.jpg',
-    '/images/atw/bba-06.jpg'
-  ];
-
-  const tamaleImages = [
-    '/images/atw/1.jpg',
-    '/images/atw/2.jpg',
-    '/images/atw/3.jpg',
-    '/images/atw/4a.jpg'
-  ];
-
-  const knustImages = [
-    '/images/atw/kic-01.jpg',
-    '/images/atw/kic-02.jpg',
-    '/images/atw/kic-03.jpg',
-    '/images/atw/kic-04.jpg',
-    '/images/atw/kic-05.jpg',
-    '/images/atw/kic-06.jpg',
-    '/images/atw/kic-07.jpg'
-  ];
-
-  // Gallery images list split between Row 1 (Right to Left) and Row 2 (Left to Right)
-  const galleryRow1 = [
-    '/images/atw/bg-1.jpg',
-    '/images/atw/Lenz IMG_0098.jpg',
-    '/images/atw/lenz Addict 219.jpg',
-    '/images/atw/1.jpg',
-    '/images/atw/795A9243.jpg',
-    '/images/atw/4a.jpg',
-    '/images/atw/1.webp',
-    '/images/atw/3.webp',
-    '/images/atw/2024-conference.jpg',
-    '/images/atw/ai-image.jpeg',
-    '/images/atw/atw@5-1.jpg'
-  ];
-
-  const galleryRow2 = [
-    '/images/atw/img-2a.jpg',
-    '/images/atw/162211.jpg',
-    '/images/atw/162200.jpg',
-    '/images/atw/162142.jpg',
-    '/images/atw/162109.jpg',
-    '/images/atw/162054.jpg',
-    '/images/atw/162022.jpg',
-    '/images/atw/161852.jpg',
-    '/images/atw/161927.jpg',
-    '/images/atw/161936.jpg'
-  ];
-
-  // Duplicate for seamless endless looping marquee effect
-  const repeatedRow1 = [...galleryRow1, ...galleryRow1];
-  const repeatedRow2 = [...galleryRow2, ...galleryRow2];
 
   return (
     <div className="atw-root">
@@ -161,174 +283,349 @@ function App() {
       <section className="atw-partners-section">
         <div className="atw-partners-container">
           <div className="atw-partners-label">
-            OUR PARTNERS & SUPPORTERS
+            OUR PARTNERS &amp; SUPPORTERS
           </div>
-          <div className="atw-partners-marquee-container">
-            <div className="atw-partners-marquee-track">
-              {repeatedPartners.map((logo, idx) => (
-                <div key={idx} className="atw-partner-logo-item">
-                  <img src={logo.src} alt={logo.alt} />
-                </div>
-              ))}
+
+          {partnersLoading && (
+            <div className="atw-partners-marquee-container" aria-hidden="true">
+              <div className="atw-partners-marquee-track atw-partners-marquee-track--static">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="atw-partner-logo-item atw-partner-skeleton" />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
+
+          {!partnersLoading && partnersError && (
+            <div className="atw-partners-notice">
+              <p>Unable to load partners.</p>
+              <button onClick={loadPartners} className="atw-partners-retry-btn">Retry</button>
+            </div>
+          )}
+
+          {!partnersLoading && !partnersError && partners.length === 0 && (
+            <div className="atw-partners-notice">
+              <p>Partner information coming soon.</p>
+            </div>
+          )}
+
+          {!partnersLoading && !partnersError && partners.length > 0 && (
+            <div className="atw-partners-marquee-container">
+              <div className="atw-partners-marquee-track">
+                {repeatedPartners.map((p) => {
+                  const showInitials = !p.logo || failedLogos.has(p.id);
+                  const inner = showInitials ? (
+                    <div className="atw-partner-initials" aria-label={p.name}>
+                      {getPartnerInitials(p.name)}
+                    </div>
+                  ) : (
+                    <img
+                      src={p.logo}
+                      alt={p.name}
+                      onError={() => handleLogoError(p.id)}
+                    />
+                  );
+
+                  return (
+                    <div key={p._key} className="atw-partner-logo-item">
+                      {p.website ? (
+                        <a
+                          href={p.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={p.name}
+                          tabIndex={-1}
+                        >
+                          {inner}
+                        </a>
+                      ) : inner}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
-
-
       </section>
       
-      {/* White background section with Vision and Mission Cards */}
-      <section className="atw-why-we-exist-section">
-        <div className="atw-why-exist-container">
-          {/* Left Column: Text Content */}
-          <div className="atw-why-exist-text-col">
-            <span className="atw-why-exist-tagline">OUR ORGANISATION</span>
-            <h2 className="atw-why-exist-main-statement">
-              Alice TalkWorld (ATW)
-            </h2>
-            <p className="atw-why-exist-supporting">
-              Alice TalkWorld (ATW) is a transformative platform dedicated to bridging the gap between tertiary students and industry stakeholders. With a focus on employability skills, mentorship, and leadership, ATW inspires emerging leaders to create global impact.
-            </p>
-          </div>
-
-          {/* Middle Column: Mission Card */}
-          <div className="atw-card-mission">
-            <div className="atw-card-icon-wrapper mission-icon">
-              <Target size={24} />
+      {/* Organisation loading skeleton */}
+      {orgLoading && (
+        <section className="atw-why-we-exist-section" aria-hidden="true">
+          <div className="atw-why-exist-container">
+            <div className="atw-why-exist-text-col">
+              <div className="atw-org-skeleton-line" style={{ height: 14, width: 140, marginBottom: 16 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 32, width: '80%', marginBottom: 24 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 14, width: '95%', marginBottom: 10 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 14, width: '90%', marginBottom: 10 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 14, width: '60%' }} />
             </div>
-            <h3 className="atw-card-title mission-title">Our Mission</h3>
-            <p className="atw-card-text mission-text">
-              A world where every young person has the confidence and opportunity to lead a sustainable, inclusive future.
-            </p>
-          </div>
-
-          {/* Right Column: Vision Card */}
-          <div className="atw-card-vision">
-            <div className="atw-card-icon-wrapper vision-icon">
-              <Eye size={24} />
+            <div className="atw-card-mission atw-org-skeleton-card">
+              <div className="atw-org-skeleton-box" style={{ width: 48, height: 48, borderRadius: 12, marginBottom: 24 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 22, width: 120, marginBottom: 16 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 14, width: '90%', marginBottom: 8 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 14, width: '70%' }} />
             </div>
-            <h3 className="atw-card-title vision-title">Our Vision</h3>
-            <p className="atw-card-text vision-text">
-              To bridge the gap between potential and purpose by equipping young leaders with the mentorship and opportunities to transform their communities.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Dark background section with Our Impact: 5 Years & Growing */}
-      <section className="atw-impact-section">
-        <div className="atw-impact-header">
-          <h2 className="atw-impact-title">Our Impact: 5 Years and Growing</h2>
-          <p className="atw-impact-subtitle">
-            For five years, we have championed a new model of change—one led by 
-            empowered young leaders. Our approach focuses on providing the tools, 
-            mentorship, and platforms necessary to turn passion into tangible impact at 
-            the community level.
-          </p>
-          <a href="atw-5-highlights.html" className="atw-impact-header-link">
-            Learn more about our approach
-          </a>
-        </div>
-
-        {/* Row 1: ALICE TALK WORLD @ 5 HIGHLIGHTS */}
-        <div className="atw-impact-row">
-          <div className="atw-impact-image-container">
-            <AtwFadeSlider images={highlightsImages} />
-          </div>
-          <div className="atw-impact-content-col">
-            <span className="atw-impact-location">
-              <MapPin size={14} style={{ marginRight: '4px' }} /> Accra, Ghana
-            </span>
-            <h3 className="atw-impact-row-title">Alice Talk World @ 5 Highlights</h3>
-            <p className="atw-impact-row-text">
-              In 2025, Alice Talk World marked five years of impact with a landmark 
-              anniversary conference at the British Council, under the theme <strong>"Shaping 
-              the Future: Leadership, Innovation and Global Impact."</strong> Hundreds of 
-              young leaders, professionals and partners gathered to reflect on our 
-              journey and chart bold new paths for the next decade.
-            </p>
-            <p className="atw-impact-row-text">
-              From inspiring keynotes to engaging youth and high-level panels, the 
-              celebration showcased the power of collaboration, mentorship, and 
-              purpose-driven leadership across Africa.
-            </p>
-            <a href="atw-5-highlights.html" className="atw-btn-outline">
-              View 2025 Highlights
-            </a>
-          </div>
-        </div>
-
-        {/* Row 2: BREAST CANCER AWARENESS CAMPAIGN */}
-        <div className="atw-impact-row">
-          <div className="atw-impact-content-col">
-            <span className="atw-impact-location">
-              <MapPin size={14} style={{ marginRight: '4px' }} /> Ghana
-            </span>
-            <h3 className="atw-impact-row-title">Breast Cancer Awareness Campaign</h3>
-            <p className="atw-impact-row-text">
-              Through our Breast Cancer Awareness Campaign, we coordinate outreach and health 
-              support systems in Ghana, mobilizing young leaders to lead awareness sessions, 
-              conduct screenings, and support women in vulnerable situations. By coupling 
-              health education with local advocacy, we break taboos and empower communities 
-              to prioritize preventative care.
-            </p>
-            <div className="atw-impact-tags-wrapper">
-              <span className="atw-impact-tag">Health & Wellness</span>
-              <span className="atw-impact-tag">Community Outreach</span>
-              <span className="atw-impact-tag">Youth Leadership</span>
+            <div className="atw-card-vision atw-org-skeleton-card">
+              <div className="atw-org-skeleton-box" style={{ width: 48, height: 48, borderRadius: 12, marginBottom: 24 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 22, width: 120, marginBottom: 16 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 14, width: '90%', marginBottom: 8 }} />
+              <div className="atw-org-skeleton-line" style={{ height: 14, width: '70%' }} />
             </div>
           </div>
-          <div className="atw-impact-image-container">
-            <AtwFadeSlider images={breastImages} />
-          </div>
-        </div>
+        </section>
+      )}
 
-        {/* Row 3: Visit to Tamale */}
-        <div className="atw-impact-row">
-          <div className="atw-impact-image-container">
-            <AtwFadeSlider images={tamaleImages} />
+      {/* Organisation error retry notice */}
+      {!orgLoading && orgError && (
+        <section className="atw-why-we-exist-section" aria-label="Organisation section notice">
+          <div className="atw-org-notice">
+            <p>Unable to load organisation information at this time.</p>
+            <button type="button" onClick={loadOrganisation} className="atw-org-retry-btn">
+              Retry
+            </button>
           </div>
-          <div className="atw-impact-content-col">
-            <span className="atw-impact-location">
-              <MapPin size={14} style={{ marginRight: '4px' }} /> West Africa
-            </span>
-            <h3 className="atw-impact-row-title">Visit to Tamale</h3>
-            <p className="atw-impact-row-text">
-              During our Visit to Tamale, we engaged with local schools and community centers 
-              to deliver critical hygiene resources, distribute sanitizing packs, and run peer 
-              workshops. Our initiative aims to support young girls, eliminate educational 
-              barriers due to period poverty, and build sustainable health awareness pathways 
-              across the region.
-            </p>
-            <div className="atw-impact-tags-wrapper">
-              <span className="atw-impact-tag">Advocacy</span>
-              <span className="atw-impact-tag">Community Support</span>
-              <span className="atw-impact-tag">Empowerment</span>
-            </div>
-          </div>
-        </div>
+        </section>
+      )}
 
-        {/* Row 4: KUMASI (KNUST) - Inspire Conference 1.0 */}
-        <div className="atw-impact-row">
-          <div className="atw-impact-content-col">
-            <span className="atw-impact-location">
-              <MapPin size={14} style={{ marginRight: '4px' }} /> Kumasi, Ghana
-            </span>
-            <h3 className="atw-impact-row-title">KUMASI (KNUST) - Inspire Conference 1.0</h3>
-            <p className="atw-impact-row-text">
-              The inaugural Inspire Conference at KNUST united science and tech students with industry mentors, sparking bold conversations about Africa's future. By bridging the gap between academia and professional fields, we equipped students with the leadership tools and guidance needed to navigate their career paths successfully.
-            </p>
-            <div className="atw-impact-tags-wrapper">
-              <span className="atw-impact-tag">Education</span>
-              <span className="atw-impact-tag">Mentorship</span>
-              <span className="atw-impact-tag">Tech & Innovation</span>
+      {/* Organisation section (rendered only when visible and loaded) */}
+      {!orgLoading && !orgError && orgData && (() => {
+        const c = orgData.content || {};
+        const eyebrow = typeof c.eyebrow === 'string' ? c.eyebrow.trim() : '';
+        const orgName = typeof c.organisation_name === 'string' ? c.organisation_name.trim() : '';
+        const intro = typeof c.introduction === 'string' ? c.introduction.trim() : '';
+        const missionTitle = typeof c.mission_title === 'string' ? c.mission_title.trim() : '';
+        const missionText = typeof c.mission_text === 'string' ? c.mission_text.trim() : '';
+        const visionTitle = typeof c.vision_title === 'string' ? c.vision_title.trim() : '';
+        const visionText = typeof c.vision_text === 'string' ? c.vision_text.trim() : '';
+
+        const hasTextCol = Boolean(eyebrow || orgName || intro);
+        const hasMission = Boolean(missionTitle || missionText);
+        const hasVision = Boolean(visionTitle || visionText);
+
+        if (!hasTextCol && !hasMission && !hasVision) return null;
+
+        const introParagraphs = intro ? intro.split(/\n\s*\n/).filter(Boolean) : [];
+
+        return (
+          <section className="atw-why-we-exist-section">
+            <div className="atw-why-exist-container">
+              {/* Left Column: Text Content */}
+              {hasTextCol && (
+                <div className="atw-why-exist-text-col">
+                  {eyebrow && <span className="atw-why-exist-tagline">{eyebrow}</span>}
+                  {orgName && <h2 className="atw-why-exist-main-statement">{orgName}</h2>}
+                  {introParagraphs.map((para, idx) => (
+                    <p key={idx} className="atw-why-exist-supporting">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              {/* Middle Column: Mission Card */}
+              {hasMission && (
+                <div className="atw-card-mission">
+                  <div className="atw-card-icon-wrapper mission-icon" aria-hidden="true">
+                    <Target size={24} aria-hidden="true" />
+                  </div>
+                  {missionTitle && <h3 className="atw-card-title mission-title">{missionTitle}</h3>}
+                  {missionText && (
+                    <p className="atw-card-text mission-text">
+                      {missionText}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Right Column: Vision Card */}
+              {hasVision && (
+                <div className="atw-card-vision">
+                  <div className="atw-card-icon-wrapper vision-icon" aria-hidden="true">
+                    <Eye size={24} aria-hidden="true" />
+                  </div>
+                  {visionTitle && <h3 className="atw-card-title vision-title">{visionTitle}</h3>}
+                  {visionText && (
+                    <p className="atw-card-text vision-text">
+                      {visionText}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
+          </section>
+        );
+      })()}
+
+      {/* Impact loading skeleton */}
+      {impactLoading && (
+        <section className="atw-impact-section" aria-hidden="true">
+          <div className="atw-impact-header">
+            <div className="atw-impact-skeleton-line" style={{ height: 32, width: '40%', margin: '0 auto 16px auto' }} />
+            <div className="atw-impact-skeleton-line" style={{ height: 16, width: '70%', margin: '0 auto 10px auto' }} />
+            <div className="atw-impact-skeleton-line" style={{ height: 16, width: '50%', margin: '0 auto 24px auto' }} />
+            <div className="atw-impact-skeleton-line" style={{ height: 18, width: 180, margin: '0 auto' }} />
           </div>
-          <div className="atw-impact-image-container">
-            <AtwFadeSlider images={knustImages} />
+          {Array.from({ length: 4 }).map((_, i) => {
+            const isEven = i % 2 === 0;
+            const imgSkeleton = (
+              <div className="atw-impact-image-container atw-impact-skeleton-img" />
+            );
+            const contentSkeleton = (
+              <div className="atw-impact-content-col">
+                <div className="atw-impact-skeleton-line" style={{ height: 14, width: 120, marginBottom: 12 }} />
+                <div className="atw-impact-skeleton-line" style={{ height: 28, width: '75%', marginBottom: 16 }} />
+                <div className="atw-impact-skeleton-line" style={{ height: 14, width: '100%', marginBottom: 8 }} />
+                <div className="atw-impact-skeleton-line" style={{ height: 14, width: '95%', marginBottom: 8 }} />
+                <div className="atw-impact-skeleton-line" style={{ height: 14, width: '80%', marginBottom: 20 }} />
+                <div className="atw-impact-skeleton-line" style={{ height: 36, width: 160, borderRadius: 6 }} />
+              </div>
+            );
+            return (
+              <div key={i} className="atw-impact-row">
+                {isEven ? (
+                  <>
+                    {imgSkeleton}
+                    {contentSkeleton}
+                  </>
+                ) : (
+                  <>
+                    {contentSkeleton}
+                    {imgSkeleton}
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </section>
+      )}
+
+      {/* Impact error retry notice */}
+      {!impactLoading && impactError && (
+        <section className="atw-impact-section" aria-label="Impact section notice">
+          <div className="atw-impact-notice">
+            <p>Unable to load impact initiatives right now.</p>
+            <button onClick={loadImpact} className="atw-impact-retry-btn">
+              Retry
+            </button>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Impact configured-empty state */}
+      {!impactLoading && !impactError && impactSection && impactPrograms.length === 0 && (
+        <section className="atw-impact-section" aria-label="Impact initiatives">
+          <div className="atw-impact-notice">
+            <p>No impact initiatives are currently featured.</p>
+          </div>
+        </section>
+      )}
+
+      {/* Impact section (rendered only when visible, loaded, and has programs) */}
+      {!impactLoading && !impactError && impactSection && impactPrograms.length > 0 && (() => {
+        const c = impactSection.content || {};
+        const heading = typeof c.heading === 'string' ? c.heading.trim() : 'Our Impact: 5 Years and Growing';
+        const description = typeof c.description === 'string' ? c.description.trim() : '';
+        const buttonLabel = typeof c.button_label === 'string' ? c.button_label.trim() : '';
+        const buttonUrl = typeof c.button_url === 'string' ? c.button_url.trim() : '';
+
+        return (
+          <section className="atw-impact-section">
+            <div className="atw-impact-header">
+              {heading && <h2 className="atw-impact-title">{heading}</h2>}
+              {description && <p className="atw-impact-subtitle">{description}</p>}
+              {buttonLabel && buttonUrl && (
+                <a href={buttonUrl} className="atw-impact-header-link">
+                  {buttonLabel}
+                </a>
+              )}
+            </div>
+
+            {impactPrograms.map((program, index) => {
+              const images = normalizeProgramImages(program);
+              const isEven = index % 2 === 0;
+
+              const descText =
+                typeof program.description === 'object' && program.description !== null
+                  ? program.description.text || ''
+                  : typeof program.description === 'string'
+                  ? program.description
+                  : '';
+
+              const tags =
+                typeof program.description === 'object' &&
+                program.description !== null &&
+                Array.isArray(program.description.tags)
+                  ? program.description.tags.filter((t) => typeof t === 'string' && t.trim().length > 0)
+                  : [];
+
+              const descParagraphs = descText ? descText.split(/\n\s*\n/).filter(Boolean) : [];
+
+              const hasExternalUrl =
+                typeof program.external_url === 'string' && program.external_url.trim().length > 0;
+
+              const ctaLabel =
+                program.slug === 'atw-5-highlights' ? 'View 2025 Highlights' : 'Learn More';
+
+              const imageBlock = (
+                <div className="atw-impact-image-container">
+                  <AtwFadeSlider images={images} />
+                </div>
+              );
+
+              const contentBlock = (
+                <div className="atw-impact-content-col">
+                  {program.location && (
+                    <span className="atw-impact-location">
+                      <MapPin size={14} style={{ marginRight: '4px' }} aria-hidden="true" /> {program.location}
+                    </span>
+                  )}
+                  {program.title && <h3 className="atw-impact-row-title">{program.title}</h3>}
+                  {descParagraphs.map((para, pIdx) => (
+                    <p key={pIdx} className="atw-impact-row-text">
+                      {para}
+                    </p>
+                  ))}
+                  {tags.length > 0 && (
+                    <div className="atw-impact-tags-wrapper">
+                      {tags.map((tag, tIdx) => (
+                        <span key={tIdx} className="atw-impact-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {hasExternalUrl && (
+                    <a
+                      href={program.external_url.trim()}
+                      className="atw-btn-outline"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {ctaLabel}
+                    </a>
+                  )}
+                </div>
+              );
+
+              return (
+                <div key={program.id || program.slug || index} className="atw-impact-row">
+                  {isEven ? (
+                    <>
+                      {imageBlock}
+                      {contentBlock}
+                    </>
+                  ) : (
+                    <>
+                      {contentBlock}
+                      {imageBlock}
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </section>
+        );
+      })()}
 
       {/* White background section with Latest News */}
       <section className="atw-news-section">
@@ -339,102 +636,125 @@ function App() {
             <div className="atw-news-divider"></div>
           </div>
 
+          {/* Error state */}
+          {!newsLoading && newsError && (
+            <div className="atw-news-notice">
+              <p>Unable to load stories right now.</p>
+              <button onClick={loadNews} className="atw-news-retry-btn">Retry</button>
+            </div>
+          )}
+
+          {/* Empty state — configured Supabase returned nothing */}
+          {!newsLoading && !newsError && !featuredStory && latestStories.length === 0 && (
+            <div className="atw-news-notice">
+              <p>No published stories available yet. Check back soon.</p>
+            </div>
+          )}
+
           {/* Featured Story Section */}
-          <div className="atw-featured-story-section">
-            <h3 className="atw-news-section-subtitle">Featured Story</h3>
-            <article className="atw-featured-card">
-              <div className="atw-featured-img-wrapper">
-                <img src="/images/atw/795A9243.jpg" alt="Anniversary Conference" className="atw-featured-img" />
-              </div>
-              <div className="atw-featured-content">
-                <div className="atw-featured-meta">
-                  <span className="atw-featured-category">Events</span>
-                  <span className="atw-featured-date">Jul 04, 2025</span>
+          {(newsLoading || featuredStory) && (
+            <div className="atw-featured-story-section">
+              <h3 className="atw-news-section-subtitle">Featured Story</h3>
+              {newsLoading ? (
+                <div className="atw-featured-card atw-news-skeleton-card" aria-hidden="true">
+                  <div className="atw-featured-img-wrapper atw-news-skeleton-shimmer" />
+                  <div className="atw-featured-content">
+                    <div className="atw-news-skeleton-line" style={{ height: 12, width: '30%', marginBottom: 12 }} />
+                    <div className="atw-news-skeleton-line" style={{ height: 26, width: '85%', marginBottom: 10 }} />
+                    <div className="atw-news-skeleton-line" style={{ height: 13, width: '95%', marginBottom: 6 }} />
+                    <div className="atw-news-skeleton-line" style={{ height: 13, width: '70%', marginBottom: 24 }} />
+                    <div className="atw-news-skeleton-line" style={{ height: 14, width: '22%' }} />
+                  </div>
                 </div>
-                <h4 className="atw-featured-card-title">
-                  Alice Talk World @ 5: Anniversary Conference at the British Council
-                </h4>
-                <p className="atw-featured-card-desc">
-                  Alice Talk World celebrated five years of Change, Empowerment and Impact with a milestone anniversary conference at the British Council in Accra. Under the theme “Shaping the Future: Leadership, Innovation and Global Impact.”
-                </p>
-                <a href="news.html?story=atw-5-anniversary" className="atw-news-readmore">
-                  Read Story <ArrowRight size={16} />
-                </a>
-              </div>
-            </article>
-          </div>
+              ) : featuredStory ? (
+                <article className="atw-featured-card">
+                  <div className="atw-featured-img-wrapper">
+                    {featuredStory.cover ? (
+                      <img
+                        src={featuredStory.cover}
+                        alt={featuredStory.title}
+                        className="atw-featured-img"
+                      />
+                    ) : (
+                      <div className="atw-featured-img atw-news-img-missing" aria-hidden="true" />
+                    )}
+                  </div>
+                  <div className="atw-featured-content">
+                    <div className="atw-featured-meta">
+                      <span className="atw-featured-category">{featuredStory.category}</span>
+                      <span className="atw-featured-date">{featuredStory.date}</span>
+                    </div>
+                    <h4 className="atw-featured-card-title">{featuredStory.title}</h4>
+                    <p className="atw-featured-card-desc">{featuredStory.excerpt}</p>
+                    <a
+                      href={`news.html?story=${featuredStory.slug}`}
+                      className="atw-news-readmore"
+                    >
+                      Read Story <ArrowRight size={16} />
+                    </a>
+                  </div>
+                </article>
+              ) : null}
+            </div>
+          )}
 
           {/* Latest Insights Section */}
-          <div className="atw-latest-insights-section" style={{ marginTop: '60px' }}>
-            <h3 className="atw-news-section-subtitle">Latest Insights</h3>
-            <div className="atw-news-grid">
-              {/* Card 1 */}
-              <article className="atw-news-card">
-                <div className="atw-news-img-wrapper">
-                  <img src="/images/atw/YOUTH PANEL - WEBSITE.jpg" alt="Youth Panel" className="atw-news-img" />
-                </div>
-                <div className="atw-news-content">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span className="atw-news-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--atw-primary)', textTransform: 'uppercase' }}>Leadership</span>
-                    <span className="atw-news-date" style={{ margin: 0 }}>Nov 01, 2025</span>
-                  </div>
-                  <h4 className="atw-news-card-title" style={{ minHeight: '52px' }}>
-                    Youth Panel: Shaping the Future of African Leadership
-                  </h4>
-                  <p className="atw-news-card-desc two-line-limit">
-                    The Youth Panel brought together dynamic young leaders including Dr Ekua Amoako, Alfred Eli Dei, Dr Khadija Owusu, Paa Kwesi Foison and Mariam Majeed, with David Quaye as moderator.
-                  </p>
-                  <a href="news.html?story=youth-panel-african-leadership" className="atw-news-readmore">
-                    Read Story <ArrowRight size={16} />
-                  </a>
-                </div>
-              </article>
-
-              {/* Card 2 */}
-              <article className="atw-news-card">
-                <div className="atw-news-img-wrapper">
-                  <img src="/images/atw/HIGH LEVEL PANEL - WEBSITE.jpg" alt="High Level Panel" className="atw-news-img" />
-                </div>
-                <div className="atw-news-content">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span className="atw-news-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--atw-primary)', textTransform: 'uppercase' }}>Partnerships</span>
-                    <span className="atw-news-date" style={{ margin: 0 }}>Nov 01, 2025</span>
-                  </div>
-                  <h4 className="atw-news-card-title" style={{ minHeight: '52px' }}>
-                    High Level Panel: Policy, Innovation & Global Impact
-                  </h4>
-                  <p className="atw-news-card-desc two-line-limit">
-                    On the high level panel, leaders discussed how policy, innovation and partnerships can unlock opportunities for young people, moderated by Mrs Belinda Boadu.
-                  </p>
-                  <a href="news.html?story=high-level-panel-policy-innovation" className="atw-news-readmore">
-                    Read Story <ArrowRight size={16} />
-                  </a>
-                </div>
-              </article>
-
-              {/* Card 3 */}
-              <article className="atw-news-card">
-                <div className="atw-news-img-wrapper">
-                  <img src="/images/atw/nokofio-logo.png" alt="MTN and Nokofio Partnership" className="atw-news-img" style={{ objectFit: 'contain', padding: '16px', background: '#f9f9f9' }} />
-                </div>
-                <div className="atw-news-content">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span className="atw-news-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--atw-primary)', textTransform: 'uppercase' }}>Announcements</span>
-                    <span className="atw-news-date" style={{ margin: 0 }}>Jan 15, 2026</span>
-                  </div>
-                  <h4 className="atw-news-card-title" style={{ minHeight: '52px' }}>
-                    Announcing 2026 Cohort Partnerships with MTN and Nokofio
-                  </h4>
-                  <p className="atw-news-card-desc two-line-limit">
-                    Alice Talk World is thrilled to announce strategic partnerships with MTN and Nokofio to power digital literacy and financial masterclasses for our next cohort.
-                  </p>
-                  <a href="news.html?story=partnership-mtn-nokofio-2026" className="atw-news-readmore">
-                    Read Story <ArrowRight size={16} />
-                  </a>
-                </div>
-              </article>
+          {(newsLoading || latestStories.length > 0) && (
+            <div className="atw-latest-insights-section" style={{ marginTop: '60px' }}>
+              <h3 className="atw-news-section-subtitle">Latest Insights</h3>
+              <div className="atw-news-grid">
+                {newsLoading ? (
+                  [0, 1, 2].map((i) => (
+                    <article key={i} className="atw-news-card atw-news-skeleton-card" aria-hidden="true">
+                      <div className="atw-news-img-wrapper atw-news-skeleton-shimmer" style={{ height: 200 }} />
+                      <div className="atw-news-content">
+                        <div className="atw-news-skeleton-line" style={{ height: 11, width: '40%', marginBottom: 8 }} />
+                        <div className="atw-news-skeleton-line" style={{ height: 18, width: '90%', marginBottom: 6 }} />
+                        <div className="atw-news-skeleton-line" style={{ height: 18, width: '75%', marginBottom: 10 }} />
+                        <div className="atw-news-skeleton-line" style={{ height: 12, width: '95%', marginBottom: 4 }} />
+                        <div className="atw-news-skeleton-line" style={{ height: 12, width: '60%', marginBottom: 16 }} />
+                        <div className="atw-news-skeleton-line" style={{ height: 12, width: '25%' }} />
+                      </div>
+                    </article>
+                  ))
+                ) : (
+                  latestStories.map((story) => (
+                    <article key={story.id} className="atw-news-card">
+                      <div className="atw-news-img-wrapper">
+                        {story.cover ? (
+                          <img
+                            src={story.cover}
+                            alt={story.title}
+                            className="atw-news-img"
+                          />
+                        ) : (
+                          <div className="atw-news-img atw-news-img-missing" aria-hidden="true" />
+                        )}
+                      </div>
+                      <div className="atw-news-content">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                          <span className="atw-news-category" style={{ fontSize: '11px', fontWeight: '800', color: 'var(--atw-primary)', textTransform: 'uppercase' }}>
+                            {story.category}
+                          </span>
+                          <span className="atw-news-date" style={{ margin: 0 }}>{story.date}</span>
+                        </div>
+                        <h4 className="atw-news-card-title" style={{ minHeight: '52px' }}>
+                          {story.title}
+                        </h4>
+                        <p className="atw-news-card-desc two-line-limit">{story.excerpt}</p>
+                        <a
+                          href={`news.html?story=${story.slug}`}
+                          className="atw-news-readmore"
+                        >
+                          Read Story <ArrowRight size={16} />
+                        </a>
+                      </div>
+                    </article>
+                  ))
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="atw-news-footer">
             <a href="news.html" className="atw-btn-partner">
@@ -444,60 +764,145 @@ function App() {
         </div>
       </section>
 
-      {/* White background section with endless scrolling Gallery */}
-      <section className="atw-gallery-section">
-        <div className="atw-gallery-header-container">
-          <span className="atw-gallery-tagline">Visual Journey</span>
-          <h2 className="atw-gallery-title">Gallery</h2>
-          <p className="atw-gallery-subtitle">
-            Moments from our programs, events, and community engagements.
-          </p>
-        </div>
-
-        <div className="atw-gallery-marquee-wrapper">
-          {/* Row 1: Scrolling Right to Left */}
-          <div className="atw-marquee-row">
-            <div className="atw-marquee-track atw-marquee-track-left">
-              {repeatedRow1.map((img, idx) => (
-                <img 
-                  key={`r1-${idx}`} 
-                  src={img} 
-                  alt={`Gallery moment ${idx + 1}`} 
-                  className="atw-gallery-img-item" 
-                />
-              ))}
+      {/* ─── Gallery Section ─────────────────────────────────────────────────── */}
+      {galleryLoading && (
+        <section className="atw-gallery-section" aria-hidden="true">
+          <div className="atw-gallery-header-container">
+            <div className="atw-gallery-skeleton-line" style={{ height: 14, width: 120, margin: '0 auto 12px auto' }} />
+            <div className="atw-gallery-skeleton-line" style={{ height: 32, width: 220, margin: '0 auto 16px auto' }} />
+            <div className="atw-gallery-skeleton-line" style={{ height: 16, width: '60%', maxWidth: 480, margin: '0 auto' }} />
+          </div>
+          <div className="atw-gallery-marquee-wrapper" style={{ opacity: 0.6 }}>
+            <div className="atw-marquee-row">
+              <div className="atw-marquee-track atw-marquee-track-left">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="atw-gallery-skeleton-item" />
+                ))}
+              </div>
+            </div>
+            <div className="atw-marquee-row">
+              <div className="atw-marquee-track atw-marquee-track-right">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="atw-gallery-skeleton-item" />
+                ))}
+              </div>
             </div>
           </div>
+        </section>
+      )}
 
-          {/* Row 2: Scrolling Left to Right */}
-          <div className="atw-marquee-row">
-            <div className="atw-marquee-track atw-marquee-track-right">
-              {repeatedRow2.map((img, idx) => (
-                <img 
-                  key={`r2-${idx}`} 
-                  src={img} 
-                  alt={`Gallery moment ${idx + 1}`} 
-                  className="atw-gallery-img-item" 
-                />
-              ))}
-            </div>
+      {!galleryLoading && galleryError && (
+        <section className="atw-gallery-section" aria-label="Gallery notice">
+          <div className="atw-gallery-notice">
+            <p>Unable to load gallery photos right now.</p>
+            <button onClick={loadGallery} className="atw-gallery-retry-btn">
+              Retry
+            </button>
           </div>
-        </div>
+        </section>
+      )}
 
-        <div className="atw-gallery-footer">
-          <a href="media-center.html" className="atw-gallery-view-link">
-            View All Photos <ArrowRight size={16} />
-          </a>
-          <a 
-            href="https://instagram.com/alicetalkworld" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="atw-gallery-insta-link"
-          >
-            <Instagram size={18} style={{ marginRight: '6px' }} /> Follow our journey <strong>@alicetalkworld</strong>
-          </a>
-        </div>
-      </section>
+      {!galleryLoading && !galleryError && gallerySection && (() => {
+        const c = gallerySection.content || {};
+        const heading = typeof c.heading === 'string' && c.heading.trim() ? c.heading.trim() : 'Gallery';
+        const description = typeof c.description === 'string' ? c.description.trim() : '';
+        const buttonLabel = typeof c.button_label === 'string' ? c.button_label.trim() : '';
+        const buttonUrl = typeof c.button_url === 'string' ? c.button_url.trim() : '';
+        const normalized = normalizeGalleryImages(c.images);
+
+        if (normalized.length === 0) {
+          return (
+            <section className="atw-gallery-section" aria-label="Gallery">
+              <div className="atw-gallery-header-container">
+                <span className="atw-gallery-tagline">Visual Journey</span>
+                <h2 className="atw-gallery-title">{heading}</h2>
+                {description && <p className="atw-gallery-subtitle">{description}</p>}
+              </div>
+              <div className="atw-gallery-notice">
+                <p>No gallery images are currently featured.</p>
+              </div>
+            </section>
+          );
+        }
+
+        const half = Math.ceil(normalized.length / 2);
+        const row1 = normalized.slice(0, half);
+        const row2 = normalized.slice(half).length > 0 ? normalized.slice(half) : row1;
+
+        // Repeat items to ensure seamless infinite looping marquee track
+        const makeRepeated = (arr) => {
+          if (!arr || arr.length === 0) return [];
+          const repeatCount = Math.max(2, Math.ceil(12 / arr.length));
+          const res = [];
+          for (let r = 0; r < repeatCount; r++) {
+            res.push(...arr);
+          }
+          return res;
+        };
+
+        const repeatedRow1 = makeRepeated(row1);
+        const repeatedRow2 = makeRepeated(row2);
+
+        return (
+          <section className="atw-gallery-section">
+            <div className="atw-gallery-header-container">
+              <span className="atw-gallery-tagline">Visual Journey</span>
+              <h2 className="atw-gallery-title">{heading}</h2>
+              {description && <p className="atw-gallery-subtitle">{description}</p>}
+            </div>
+
+            <div className="atw-gallery-marquee-wrapper">
+              {/* Row 1: Scrolling Right to Left */}
+              <div className="atw-marquee-row">
+                <div className="atw-marquee-track atw-marquee-track-left">
+                  {repeatedRow1.map((img, idx) => (
+                    <img
+                      key={`r1-${idx}`}
+                      src={img.url}
+                      alt={img.altText}
+                      className="atw-gallery-img-item"
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Row 2: Scrolling Left to Right */}
+              <div className="atw-marquee-row">
+                <div className="atw-marquee-track atw-marquee-track-right">
+                  {repeatedRow2.map((img, idx) => (
+                    <img
+                      key={`r2-${idx}`}
+                      src={img.url}
+                      alt={img.altText}
+                      className="atw-gallery-img-item"
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="atw-gallery-footer">
+              {buttonLabel && buttonUrl && (
+                <a
+                  href={buttonUrl}
+                  className="atw-gallery-view-link"
+                  {...(isExternalUrl(buttonUrl) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {buttonLabel} <ArrowRight size={16} />
+                </a>
+              )}
+              <a
+                href="https://instagram.com/alicetalkworld"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="atw-gallery-insta-link"
+              >
+                <Instagram size={18} style={{ marginRight: '6px' }} /> Follow our journey <strong>@alicetalkworld</strong>
+              </a>
+            </div>
+          </section>
+        );
+      })()}
       <AtwFooter />
     </div>
   );

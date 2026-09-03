@@ -1,0 +1,271 @@
+// Fallback hardcoded data used only when VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are missing.
+
+export const fallbackExecutives = {
+  featured: {
+    id: 'fallback-alice-yakubu',
+    name: 'Alice Yakubu',
+    role: 'Founder & Executive Director',
+    image: '/images/atw/Alice Yakubu.jpeg',
+    shortDesc: 'Founder of Alice TalkWorld, a platform connecting young people with opportunities.',
+    bio: "Alice Yakubu is a Gender-Inclusive Youth Advocate and youth development leader dedicated to empowering young people and women through mentorship, leadership development, and innovation. She is the Founder of Alice TalkWorld, a platform that connects young people with opportunities for networking, entrepreneurship, and personal growth. Alice serves as a Member of the Gender Advocacy Working Group of the All-Africa Students Union, championing youth and gender inclusion initiatives across Africa. Passionate about leadership, women and girls' empowerment, and community development, she works to equip the next generation with the skills and confidence to create meaningful impact.",
+    focusAreas: ['Youth Development', 'Mentorship', 'Leadership Development', "Women & Girls' Empowerment", 'Community Development'],
+    linkedin: 'https://www.linkedin.com/in/yakubu-alice',
+    email: 'yakubualice99@gmail.com',
+    whatsapp: '0242010044',
+    socials: 'All platforms',
+    team_group: 'featured',
+    is_featured: true,
+    display_order: 1
+  },
+  executiveLeadership: [
+    {
+      id: 'fallback-david-baah',
+      name: 'David Tonkouru Baah',
+      role: 'Co-Director',
+      image: '/images/atw/David Baah.jpeg',
+      shortDesc: 'IT Professional with a passion for technology, innovation, and digital solutions.',
+      bio: 'David Tonkouru Baah is an IT Professional with a passion for technology, innovation, and digital solutions. He provides IT leadership and support to organizations and businesses, specializing in infrastructure management, systems support, networking, and digital transformation. He is committed to delivering reliable solutions that drive efficiency and growth.',
+      focusAreas: ['IT Infrastructure & Systems', 'Network & Security', 'Technical Support & Troubleshooting', 'Digital Solutions'],
+      linkedin: 'https://www.linkedin.com/in/david-tonkournu-baah-29228a1b3',
+      email: 'baahdavid54@gmail.com',
+      whatsapp: '0540718885',
+      team_group: 'executive_leadership',
+      is_featured: false,
+      display_order: 1
+    },
+    {
+      id: 'fallback-david-yeboah',
+      name: 'David Yeboah',
+      role: 'Chief Operations Officer',
+      image: '/images/atw/David Yeboah.jpeg',
+      shortDesc: 'Project Manager, Operations Specialist, and strategic communications professional.',
+      bio: 'David Yeboah is a Project Manager, Operations Specialist, cybersecurity researcher, and strategic communications professional committed to driving innovation and sustainable development. His work combines technology, research, operations and digital communications to create impactful solutions, with a strong interest in artificial intelligence, climate action, and community development.',
+      focusAreas: ['Project & Operations Management', 'Cybersecurity & AI', 'Research & Policy Development', 'Digital Media Strategy', 'Climate Action & Sustainable Development', 'Political Strategist'],
+      linkedin: 'https://www.linkedin.com/in/davidyeboahexsqua',
+      whatsapp: '0550407543',
+      team_group: 'executive_leadership',
+      is_featured: false,
+      display_order: 2
+    },
+    {
+      id: 'fallback-gifty-adobeah',
+      name: 'Gifty Adobeah',
+      role: 'Campus Coordinator Lead',
+      image: '/images/atw/Gifty Adobeah.jpg',
+      shortDesc: 'Leading campus coordination and student engagement across the organization.',
+      bio: 'Gifty is the Campus Coordinator Lead at Alice TalkWorld. She leads campus-based coordination, student engagement, and outreach efforts. She supports the team in building strong campus relationships, organizing student-focused activities, and creating opportunities for young people to connect with the organization’s programs and impact.',
+      focusAreas: ['Campus Coordination', 'Student Engagement', 'Community Outreach', 'Program Support'],
+      email: 'gifty@alicetalkworld.org',
+      team_group: 'executive_leadership',
+      is_featured: false,
+      display_order: 3
+    }
+  ],
+  departmentLeads: [
+    {
+      id: 'fallback-adwoa-brenyah',
+      name: 'Adwoa Amaniampong Brenyah',
+      role: 'Gender Lead',
+      image: '/images/atw/Adwoa Amaniampong Brenyah.jpg',
+      shortDesc: 'Gender Team Lead promoting equality, youth empowerment, and inclusive leadership.',
+      bio: 'Adwoa Amaniampong Brenyah is the Gender Team Lead at Alice Talk World. She leads initiatives that promote gender equality, youth empowerment, and inclusive leadership across Africa. Driven by purpose and service, she is committed to leading initiatives that inspire growth, strengthen communities, and create opportunities for young people to thrive.',
+      focusAreas: ['Youth Empowerment', 'Strategic Communication', 'Leadership Development'],
+      linkedin: 'https://www.linkedin.com/in/adwoa-amaniampong-brenyah-33910531',
+      email: 'maameadwoab23@gmail.com',
+      whatsapp: '0202215827',
+      team_group: 'department_leads',
+      is_featured: false,
+      display_order: 1
+    },
+    {
+      id: 'fallback-lawrencia-owusu',
+      name: 'Lawrencia Owusu',
+      role: 'Co-Gender Lead',
+      image: null,
+      shortDesc: "Helping drive the gender agenda, equity, and Women's Connect cohorts.",
+      bio: "Lawrencia Owusu is Co-Gender Lead at Alice Talk World, where she helps drive the organisation's gender agenda and ensures equity and inclusion run through its leadership and mentorship work. She currently co-champions the Women's Connect Cohort 2, a flagship initiative advancing women's voice, leadership, and opportunity across the communities.",
+      focusAreas: ['Gender Equality and Social Inclusion (GESI)', 'Monitoring and Evaluation', 'Safeguarding'],
+      linkedin: 'https://www.linkedin.com/in/lawrencia-owusu/',
+      email: 'Lawrenciaowusu00@gmail.com',
+      whatsapp: '0560097959',
+      team_group: 'department_leads',
+      is_featured: false,
+      display_order: 2
+    },
+    {
+      id: 'fallback-jude-nartey',
+      name: 'Jude Nartey Jr',
+      role: 'Media & Communication Lead',
+      image: '/images/atw/Jude Nartey Jnr.jpeg',
+      shortDesc: 'Overseeing public image, storytelling, and communication strategies.',
+      bio: "Jude Nartey Jr serves as the Public Relations Officer of Alice Talk World (ATW). He oversees the organization's public image, communication strategies and stakeholder engagement through effective storytelling, media relations, and digital communication.",
+      focusAreas: ['Communications', 'Media Relations', 'Brand Management', 'Content Creation & Storytelling', 'Social Media Management'],
+      linkedin: 'https://www.linkedin.com/in/jude-k-nartey-jr-17619235a',
+      email: 'judekofinarteyjunior@gmail.com',
+      whatsapp: '0271040525',
+      team_group: 'department_leads',
+      is_featured: false,
+      display_order: 3
+    },
+    {
+      id: 'fallback-kwadwo-manu',
+      name: 'Kwadwo Arpong Manu',
+      role: 'Inclusive and Special Initiative Lead',
+      image: '/images/atw/Kwodwo Sarpong Manu.jpeg',
+      shortDesc: 'Directing special initiatives and inclusive programs for impact.',
+      bio: 'Kwadwo Arpong Manu directs inclusive and special initiative programs at Alice Talk World, ensuring that our projects cater to diverse needs and achieve strategic social outcomes.',
+      focusAreas: ['Inclusive Initiatives', 'Project Execution', 'Strategic Partnerships'],
+      linkedin: 'https://www.linkedin.com/in/kwadwo-s-manu-828716159',
+      email: 'kwadwomanu16@gmail.com',
+      whatsapp: '0277803385',
+      team_group: 'department_leads',
+      is_featured: false,
+      display_order: 4
+    },
+    {
+      id: 'fallback-chris-addo',
+      name: 'Chris Afari Addo',
+      role: 'Lead, Climate Department',
+      image: '/images/atw/Chris Addo.jpeg',
+      shortDesc: 'Sustainability advocate reducing carbon footprint and waste.',
+      bio: 'Chris Afari Addo is a sustainability advocate dedicated to helping the film industry, events, and organizations reduce their carbon footprint and minimize waste to combat global warming. His expertise includes data management, communication, report writing, sustainability memo design, and crew engagement. He has contributed to sustainable film productions and community development projects in Ghana, with a primary focus on building strong relationships with crews and promoting sustainability through education and awareness initiatives.',
+      focusAreas: ['Sustainability Advocacy', 'Data Management', 'Crew Engagement', 'Report Writing'],
+      email: 'chrisaddo13@gmail.com',
+      whatsapp: '0240041515',
+      team_group: 'department_leads',
+      is_featured: false,
+      display_order: 5
+    },
+    {
+      id: 'fallback-richard-laarison',
+      name: 'Richard Yennuam Laarison',
+      role: 'Co-Lead, Climate Department',
+      image: '/images/atw/Richard Laarison.jpeg',
+      shortDesc: 'Agribusiness Professional supporting climate and entrepreneurship.',
+      bio: 'Richard Yennuam Laarison is an Agribusiness Professional and the Deputy Head of Department for Climate and Entrepreneurship at Alice Talkworld. He supports the initiation and implementation of climate and entrepreneurship related projects.',
+      focusAreas: ['Agribusiness', 'Climate Projects', 'Entrepreneurship Support'],
+      email: 'laarisonrichard2002@gmail.com',
+      whatsapp: '0249745823',
+      team_group: 'department_leads',
+      is_featured: false,
+      display_order: 6
+    }
+  ],
+  operationsSupport: [
+    {
+      id: 'fallback-comfort-obeng',
+      name: 'Comfort Obeng',
+      role: 'Chief Financial Officer',
+      image: '/images/atw/Comfort Obeng.jpg',
+      shortDesc: 'Managing organization budgets, financial planning, and stewardship.',
+      bio: 'Comfort manages the financial planning and stewardship of the organization, ensuring transparency, accountability, and sustainable resource management.',
+      focusAreas: ['Financial Management', 'Budgeting', 'Compliance'],
+      email: 'comfort@alicetalkworld.org',
+      team_group: 'operations_support',
+      is_featured: false,
+      display_order: 1
+    },
+    {
+      id: 'fallback-joseph-agbozo',
+      name: 'Joseph Agbozo',
+      role: 'Head of Publicity',
+      image: '/images/atw/Joseph Agbozo.jpg',
+      shortDesc: 'Leading publicity campaigns and promoting events to raise brand awareness.',
+      bio: "Joseph leads publicity campaigns that increase awareness of Alice Talk World's programs, events, and impact across diverse audiences.",
+      focusAreas: ['Publicity', 'Campaign Promotion', 'Brand Awareness'],
+      email: 'joseph@alicetalkworld.org',
+      team_group: 'operations_support',
+      is_featured: false,
+      display_order: 2
+    },
+    {
+      id: 'fallback-lenz-addict',
+      name: 'Lenz Addict',
+      role: 'Head of Technology',
+      image: '/images/atw/Lenz Addict.jpg',
+      shortDesc: 'Overseeing technology platforms, digital innovation, and systems.',
+      bio: "Lenz oversees technology initiatives and digital platforms that support the organization's operations, communications, and engagement efforts.",
+      focusAreas: ['Technology', 'Digital Innovation', 'Systems Development'],
+      email: 'lenz@alicetalkworld.org',
+      team_group: 'operations_support',
+      is_featured: false,
+      display_order: 3
+    }
+  ]
+};
+
+export const fallbackAdvisors = [
+  {
+    id: 'fallback-benjamin-kusi',
+    name: 'Benjamin Kusi',
+    role: 'Advisory Board Chair',
+    image: null,
+    shortDesc: "Guiding the organization's advisory board and governance direction.",
+    bio: 'Benjamin Kusi serves as the Advisory Board Chair for Alice Talk World, steering strategic governance and advisory board engagements.',
+    focusAreas: ['Strategic Advisory', 'Board Chairmanship', 'Governance Support'],
+    whatsapp: '0240398373',
+    team_group: 'advisors',
+    is_featured: false,
+    display_order: 1
+  },
+  {
+    id: 'fallback-xorlali-deletsu',
+    name: 'Mr. Xorlali Victor Deletsu',
+    role: 'Consultant',
+    image: null,
+    shortDesc: 'Advising on structures and organizational strategy consultations.',
+    bio: 'Mr. Xorlali Victor Deletsu is an experienced development and business Consultant providing strategic support and operational guidance to Alice Talk World.',
+    focusAreas: ['Consulting', 'Strategic Planning', 'Operational Support'],
+    team_group: 'advisors',
+    is_featured: false,
+    display_order: 2
+  },
+  {
+    id: 'fallback-khadija-owusu',
+    name: 'Dr. Khadija Owusu',
+    role: 'Medical Advisor & Youth Mentor',
+    image: null,
+    shortDesc: 'Advising on youth health awareness campaigns and mental health mentorship.',
+    bio: 'Dr. Khadija Owusu is a passionate medical professional and global health advocate who advises Alice Talk World on health-related outreach, medical campaigns, and youth mentorship initiatives.',
+    focusAreas: ['Youth Health Outreach', 'Medical Advocacy', 'Youth Mentorship'],
+    team_group: 'advisors',
+    is_featured: false,
+    display_order: 3
+  },
+  {
+    id: 'fallback-alfred-dei',
+    name: 'Alfred Eli Dei',
+    role: 'Entrepreneurship Consultant',
+    image: null,
+    shortDesc: 'Guiding entrepreneurship training and leadership development programs.',
+    bio: 'Alfred Eli Dei is an experienced entrepreneur and startup builder who guides our youth entrepreneurship cohorts, providing strategic direction on business modeling and innovation.',
+    focusAreas: ['Entrepreneurship', 'Business Strategy', 'Innovation'],
+    team_group: 'advisors',
+    is_featured: false,
+    display_order: 4
+  },
+  {
+    id: 'fallback-ekua-amoako',
+    name: 'Dr. Ekua Amoako',
+    role: 'Leadership Educator',
+    image: null,
+    shortDesc: 'Academic and leadership consultant helping model youth development curriculums.',
+    bio: "Dr. Ekua Amoako is a dedicated educator and leadership consultant who helps curate Alice Talk World's leadership and career guidance curriculums.",
+    focusAreas: ['Leadership Education', 'Curriculum Development', 'Career Mentorship'],
+    team_group: 'advisors',
+    is_featured: false,
+    display_order: 5
+  },
+  {
+    id: 'fallback-paa-kwesi',
+    name: 'Paa Kwesi Foison',
+    role: 'Technology Advisor',
+    image: null,
+    shortDesc: 'Steering digital literacy, tech education, and tech workspace projects.',
+    bio: 'Paa Kwesi Foison is a technology leader who advises Alice Talk World on digital skills training, coding bootcamps, and expanding opportunities in the tech sector for young graduates.',
+    focusAreas: ['Technology Education', 'Digital Skills', 'Workspace Strategy'],
+    team_group: 'advisors',
+    is_featured: false,
+    display_order: 6
+  }
+];

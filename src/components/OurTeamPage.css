@@ -710,3 +710,67 @@
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
   transform: translateY(-1px);
 }
+
+/* Skeleton & Loading States */
+@keyframes atw-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.atw-skeleton-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e2e8f0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-shimmer 1.5s infinite;
+}
+
+.atw-skeleton-card {
+  pointer-events: none;
+}
+
+.atw-skeleton-line {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e2e8f0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: atw-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.atw-skeleton-name { height: 20px; width: 70%; margin-bottom: 8px; }
+.atw-skeleton-role { height: 14px; width: 45%; margin-bottom: 16px; }
+.atw-skeleton-desc { height: 12px; width: 95%; margin-bottom: 8px; }
+.atw-skeleton-desc-short { height: 12px; width: 60%; margin-bottom: 16px; }
+.atw-skeleton-tag { height: 14px; width: 110px; margin-bottom: 14px; }
+.atw-skeleton-title { height: 32px; width: 55%; margin-bottom: 10px; }
+
+/* Notice and Feedback Boxes */
+.atw-team-notice-box {
+  padding: 40px 24px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 20px 0;
+  background-color: var(--atw-white);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.atw-team-notice-box p {
+  color: var(--atw-text-gray);
+  font-size: 15px;
+  margin: 0 0 16px 0;
+}
+
+.atw-team-retry-btn {
+  background-color: var(--atw-primary);
+  color: var(--atw-white);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.atw-team-retry-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import AtwNavbar from './AtwNavbar';
 import AtwFooter from './AtwFooter';
-import { Mail, X, ArrowRight, Award, Target, HelpCircle, Phone } from 'lucide-react';
+import { Mail, X, ArrowRight, Phone } from 'lucide-react';
+import { getTeamMembers } from '../services/teamService';
+import { fallbackExecutives, fallbackAdvisors } from '../data/fallbackTeamData';
 import './OurTeamPage.css';
 
 // Custom LinkedIn icon since it is not exported by this version of lucide-react
@@ -40,232 +42,131 @@ const WhatsappIcon = ({ size = 24, ...props }) => (
 
 // Initials generator for avatar placeholder
 const getInitials = (name) => {
-  if (!name) return 'ATW';
+  if (!name || typeof name !== 'string') return 'ATW';
   const parts = name.trim().split(/\s+/);
   if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 };
 
+// Phone sanitizer for WhatsApp links
+const getWhatsAppUrl = (phone) => {
+  if (!phone || typeof phone !== 'string') return null;
+  const digits = phone.trim().replace(/\D/g, '');
+  if (!digits) return null;
+  const intlNumber = digits.startsWith('0') ? '233' + digits.slice(1) : digits;
+  return `https://wa.me/${intlNumber}`;
+};
+
+// Skeleton components matching card layouts
+const MemberCardSkeleton = () => (
+  <div className="atw-member-card atw-skeleton-card" aria-hidden="true">
+    <div className="atw-member-img-wrapper atw-skeleton-shimmer" />
+    <div className="atw-member-info">
+      <div className="atw-skeleton-line atw-skeleton-name" />
+      <div className="atw-skeleton-line atw-skeleton-role" />
+      <div className="atw-skeleton-line atw-skeleton-desc" />
+      <div className="atw-skeleton-line atw-skeleton-desc-short" />
+    </div>
+  </div>
+);
+
+const FeaturedLeaderSkeleton = () => (
+  <div className="atw-featured-leader-card atw-skeleton-card" aria-hidden="true">
+    <div className="atw-featured-img-wrapper atw-skeleton-shimmer" />
+    <div className="atw-featured-content">
+      <div className="atw-skeleton-line atw-skeleton-tag" />
+      <div className="atw-skeleton-line atw-skeleton-title" />
+      <div className="atw-skeleton-line atw-skeleton-role" />
+      <div className="atw-skeleton-line atw-skeleton-desc" />
+      <div className="atw-skeleton-line atw-skeleton-desc-short" />
+    </div>
+  </div>
+);
+
 export const OurTeamPage = () => {
   const [activeTab, setActiveTab] = useState('executive');
   const [selectedMember, setSelectedMember] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isFallback, setIsFallback] = useState(false);
+  const [members, setMembers] = useState([]);
+  const [failedImages, setFailedImages] = useState(new Set());
 
-  // Executive Team data (including Directors and Core Leadership)
-  const executives = {
-    featured: {
-      name: 'Alice Yakubu',
-      role: 'Founder & Executive Director',
-      image: '/images/atw/Alice Yakubu.jpeg',
-      shortDesc: 'Founder of Alice TalkWorld, a platform connecting young people with opportunities.',
-      bio: 'Alice Yakubu is a Gender-Inclusive Youth Advocate and youth development leader dedicated to empowering young people and women through mentorship, leadership development, and innovation. She is the Founder of Alice TalkWorld, a platform that connects young people with opportunities for networking, entrepreneurship, and personal growth. Alice serves as a Member of the Gender Advocacy Working Group of the All-Africa Students Union, championing youth and gender inclusion initiatives across Africa. Passionate about leadership, women and girls\' empowerment, and community development, she works to equip the next generation with the skills and confidence to create meaningful impact.',
-      focusAreas: ['Youth Development', 'Mentorship', 'Leadership Development', 'Women & Girls\' Empowerment', 'Community Development'],
-      linkedin: 'https://www.linkedin.com/in/yakubu-alice?',
-      email: 'yakubualice99@gmail.com',
-      whatsapp: '0242010044',
-      socials: 'All platforms'
-    },
-    executiveLeadership: [
-      {
-        name: 'David Tonkouru Baah',
-        role: 'Co-Director',
-        image: '/images/atw/David Baah.jpeg',
-        shortDesc: 'IT Professional with a passion for technology, innovation, and digital solutions.',
-        bio: 'David Tonkouru Baah is an IT Professional with a passion for technology, innovation, and digital solutions. He provides IT leadership and support to organizations and businesses, specializing in infrastructure management, systems support, networking, and digital transformation. He is committed to delivering reliable solutions that drive efficiency and growth.',
-        focusAreas: ['IT Infrastructure & Systems', 'Network & Security', 'Technical Support & Troubleshooting', 'Digital Solutions'],
-        linkedin: 'https://www.linkedin.com/in/david-tonkournu-baah-29228a1b3',
-        email: 'baahdavid54@gmail.com',
-        whatsapp: '0540718885'
-      },
-      {
-        name: 'David Yeboah',
-        role: 'Chief Operations Officer',
-        image: '/images/atw/David Yeboah.jpeg',
-        shortDesc: 'Project Manager, Operations Specialist, and strategic communications professional.',
-        bio: 'David Yeboah is a Project Manager, Operations Specialist, cybersecurity researcher, and strategic communications professional committed to driving innovation and sustainable development. His work combines technology, research, operations and digital communications to create impactful solutions, with a strong interest in artificial intelligence, climate action, and community development.',
-        focusAreas: ['Project & Operations Management', 'Cybersecurity & AI', 'Research & Policy Development', 'Digital Media Strategy', 'Climate Action & Sustainable Development', 'Political Strategist'],
-        linkedin: 'https://www.linkedin.com/in/davidyeboahexsqua',
-        whatsapp: '0550407543'
-      },
-      {
-        name: 'Gifty Adobeah',
-        role: 'Campus Coordinator Lead',
-        image: '/images/atw/Gifty Adobeah.jpg',
-        shortDesc: 'Leading campus coordination and student engagement across the organization.',
-        bio: 'Gifty is the Campus Coordinator Lead at Alice TalkWorld. She leads campus-based coordination, student engagement, and outreach efforts. She supports the team in building strong campus relationships, organizing student-focused activities, and creating opportunities for young people to connect with the organization’s programs and impact.',
-        focusAreas: ['Campus Coordination', 'Student Engagement', 'Community Outreach', 'Program Support'],
-        linkedin: '#',
-        email: 'gifty@alicetalkworld.org'
-      }
-    ],
-    departmentLeads: [
-      {
-        name: 'Adwoa Amaniampong Brenyah',
-        role: 'Gender Lead',
-        image: '/images/atw/Adwoa Amaniampong Brenyah.jpg',
-        shortDesc: 'Gender Team Lead promoting equality, youth empowerment, and inclusive leadership.',
-        bio: 'Adwoa Amaniampong Brenyah is the Gender Team Lead at Alice Talk World. She leads initiatives that promote gender equality, youth empowerment, and inclusive leadership across Africa. Driven by purpose and service, she is committed to leading initiatives that inspire growth, strengthen communities, and create opportunities for young people to thrive.',
-        focusAreas: ['Youth Empowerment', 'Strategic Communication', 'Leadership Development'],
-        linkedin: 'https://www.linkedin.com/in/adwoa-amaniampong-brenyah-33910531',
-        email: 'maameadwoab23@gmail.com',
-        whatsapp: '0202215827'
-      },
-      {
-        name: 'Lawrencia Owusu',
-        role: 'Co-Gender Lead',
-        image: 'placeholder',
-        shortDesc: 'Helping drive the gender agenda, equity, and Women\'s Connect cohorts.',
-        bio: 'Lawrencia Owusu is Co-Gender Lead at Alice Talk World, where she helps drive the organisation\'s gender agenda and ensures equity and inclusion run through its leadership and mentorship work. She currently co-champions the Women\'s Connect Cohort 2, a flagship initiative advancing women\'s voice, leadership, and opportunity across the communities.',
-        focusAreas: ['Gender Equality and Social Inclusion (GESI)', 'Monitoring and Evaluation', 'Safeguarding'],
-        linkedin: 'https://www.linkedin.com/in/lawrencia-owusu/',
-        email: 'Lawrenciaowusu00@gmail.com',
-        whatsapp: '0560097959'
-      },
-      {
-        name: 'Jude Nartey Jr',
-        role: 'Media & Communication Lead',
-        image: '/images/atw/Jude Nartey Jnr.jpeg',
-        shortDesc: 'Overseeing public image, storytelling, and communication strategies.',
-        bio: 'Jude Nartey Jr serves as the Public Relations Officer of Alice Talk World (ATW). He oversees the organization\'s public image, communication strategies and stakeholder engagement through effective storytelling, media relations, and digital communication.',
-        focusAreas: ['Communications', 'Media Relations', 'Brand Management', 'Content Creation & Storytelling', 'Social Media Management'],
-        linkedin: 'https://www.linkedin.com/in/jude-k-nartey-jr-17619235a',
-        email: 'judekofinarteyjunior@gmail.com',
-        whatsapp: '0271040525'
-      },
-      {
-        name: 'Kwadwo Arpong Manu',
-        role: 'Inclusive and Special Initiative Lead',
-        image: '/images/atw/Kwodwo Sarpong Manu.jpeg',
-        shortDesc: 'Directing special initiatives and inclusive programs for impact.',
-        bio: 'Kwadwo Arpong Manu directs inclusive and special initiative programs at Alice Talk World, ensuring that our projects cater to diverse needs and achieve strategic social outcomes.',
-        focusAreas: ['Inclusive Initiatives', 'Project Execution', 'Strategic Partnerships'],
-        linkedin: 'https://www.linkedin.com/in/kwadwo-s-manu-828716159?',
-        email: 'kwadwomanu16@gmail.com',
-        whatsapp: '0277803385'
-      },
-      {
-        name: 'Chris Afari Addo',
-        role: 'Lead, Climate Department',
-        image: '/images/atw/Chris Addo.jpeg',
-        shortDesc: 'Sustainability advocate reducing carbon footprint and waste.',
-        bio: 'Chris Afari Addo is a sustainability advocate dedicated to helping the film industry, events, and organizations reduce their carbon footprint and minimize waste to combat global warming. His expertise includes data management, communication, report writing, sustainability memo design, and crew engagement. He has contributed to sustainable film productions and community development projects in Ghana, with a primary focus on building strong relationships with crews and promoting sustainability through education and awareness initiatives.',
-        focusAreas: ['Sustainability Advocacy', 'Data Management', 'Crew Engagement', 'Report Writing'],
-        email: 'chrisaddo13@gmail.com',
-        whatsapp: '0240041515'
-      },
-      {
-        name: 'Richard Yennuam Laarison',
-        role: 'Co-Lead, Climate Department',
-        image: '/images/atw/Richard Laarison.jpeg',
-        shortDesc: 'Agribusiness Professional supporting climate and entrepreneurship.',
-        bio: 'Richard Yennuam Laarison is an Agribusiness Professional and the Deputy Head of Department for Climate and Entrepreneurship at Alice Talkworld. He supports the initiation and implementation of climate and entrepreneurship related projects.',
-        focusAreas: ['Agribusiness', 'Climate Projects', 'Entrepreneurship Support'],
-        email: 'laarisonrichard2002@gmail.com',
-        whatsapp: '0249745823'
-      }
-    ],
-    operationsSupport: [
-      {
-        name: 'Comfort Obeng',
-        role: 'Chief Financial Officer',
-        image: '/images/atw/Comfort Obeng.jpg',
-        shortDesc: 'Managing organization budgets, financial planning, and stewardship.',
-        bio: 'Comfort manages the financial planning and stewardship of the organization, ensuring transparency, accountability, and sustainable resource management.',
-        focusAreas: ['Financial Management', 'Budgeting', 'Compliance'],
-        linkedin: '#',
-        email: 'comfort@alicetalkworld.org'
-      },
-      {
-        name: 'Joseph Agbozo',
-        role: 'Head of Publicity',
-        image: '/images/atw/Joseph Agbozo.jpg',
-        shortDesc: 'Leading publicity campaigns and promoting events to raise brand awareness.',
-        bio: 'Joseph leads publicity campaigns that increase awareness of Alice Talk World\'s programs, events, and impact across diverse audiences.',
-        focusAreas: ['Publicity', 'Campaign Promotion', 'Brand Awareness'],
-        linkedin: '#',
-        email: 'joseph@alicetalkworld.org'
-      },
-      {
-        name: 'Lenz Addict',
-        role: 'Head of Technology',
-        image: '/images/atw/Lenz Addict.jpg',
-        shortDesc: 'Overseeing technology platforms, digital innovation, and systems.',
-        bio: 'Lenz oversees technology initiatives and digital platforms that support the organization\'s operations, communications, and engagement efforts.',
-        focusAreas: ['Technology', 'Digital Innovation', 'Systems Development'],
-        linkedin: '#',
-        email: 'lenz@alicetalkworld.org'
-      }
-    ]
+  const handleImageError = (id) => {
+    setFailedImages((prev) => {
+      const updated = new Set(prev);
+      updated.add(id);
+      return updated;
+    });
   };
 
-  // Advisors and Mentors data
-  const advisors = [
-    {
-      name: 'Benjamin Kusi',
-      role: 'Advisory Board Chair',
-      image: 'placeholder',
-      shortDesc: 'Guiding the organization\'s advisory board and governance direction.',
-      bio: 'Benjamin Kusi serves as the Advisory Board Chair for Alice Talk World, steering strategic governance and advisory board engagements.',
-      focusAreas: ['Strategic Advisory', 'Board Chairmanship', 'Governance Support'],
-      whatsapp: '0240398373'
-    },
-    {
-      name: 'Mr. Xorlali Victor Deletsu',
-      role: 'Consultant',
-      image: 'placeholder',
-      shortDesc: 'Advising on structures and organizational strategy consultations.',
-      bio: 'Mr. Xorlali Victor Deletsu is an experienced development and business Consultant providing strategic support and operational guidance to Alice Talk World.',
-      focusAreas: ['Consulting', 'Strategic Planning', 'Operational Support']
-    },
-    {
-      name: 'Dr. Khadija Owusu',
-      role: 'Medical Advisor & Youth Mentor',
-      image: 'placeholder',
-      shortDesc: 'Advising on youth health awareness campaigns and mental health mentorship.',
-      bio: 'Dr. Khadija Owusu is a passionate medical professional and global health advocate who advises Alice Talk World on health-related outreach, medical campaigns, and youth mentorship initiatives.',
-      focusAreas: ['Youth Health Outreach', 'Medical Advocacy', 'Youth Mentorship'],
-      linkedin: 'https://linkedin.com',
-      email: 'khadija@alicetalkworld.org'
-    },
-    {
-      name: 'Alfred Eli Dei',
-      role: 'Entrepreneurship Consultant',
-      image: 'placeholder',
-      shortDesc: 'Guiding entrepreneurship training and leadership development programs.',
-      bio: 'Alfred Eli Dei is an experienced entrepreneur and startup builder who guides our youth entrepreneurship cohorts, providing strategic direction on business modeling and innovation.',
-      focusAreas: ['Entrepreneurship', 'Business Strategy', 'Innovation'],
-      linkedin: 'https://linkedin.com',
-      email: 'alfred@alicetalkworld.org'
-    },
-    {
-      name: 'Dr. Ekua Amoako',
-      role: 'Leadership Educator',
-      image: 'placeholder',
-      shortDesc: 'Academic and leadership consultant helping model youth development curriculums.',
-      bio: 'Dr. Ekua Amoako is a dedicated educator and leadership consultant who helps curate Alice Talk World\'s leadership and career guidance curriculums.',
-      focusAreas: ['Leadership Education', 'Curriculum Development', 'Career Mentorship'],
-      linkedin: 'https://linkedin.com',
-      email: 'ekua@alicetalkworld.org'
-    },
-    {
-      name: 'Paa Kwesi Foison',
-      role: 'Technology Advisor',
-      image: 'placeholder',
-      shortDesc: 'Steering digital literacy, tech education, and tech workspace projects.',
-      bio: 'Paa Kwesi Foison is a technology leader who advises Alice Talk World on digital skills training, coding bootcamps, and expanding opportunities in the tech sector for young graduates.',
-      focusAreas: ['Technology Education', 'Digital Skills', 'Workspace Strategy'],
-      linkedin: 'https://linkedin.com',
-      email: 'paakwesi@alicetalkworld.org'
+  const loadTeamData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    const result = await getTeamMembers();
+    if (result.isFallback) {
+      setIsFallback(true);
+      setMembers([]);
+    } else if (result.error) {
+      setError(result.error);
+      setIsFallback(false);
+      setMembers([]);
+    } else {
+      setIsFallback(false);
+      setMembers(result.data || []);
     }
-  ];
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    loadTeamData();
+  }, [loadTeamData]);
 
   const handleCloseModal = () => {
     setSelectedMember(null);
   };
 
+  // Group active members based on whether Supabase data is loaded or fallback is active
+  let featuredLeader = null;
+  let executiveLeadership = [];
+  let departmentLeads = [];
+  let operationsSupport = [];
+  let advisors = [];
+
+  if (isFallback) {
+    featuredLeader = fallbackExecutives.featured;
+    executiveLeadership = fallbackExecutives.executiveLeadership;
+    departmentLeads = fallbackExecutives.departmentLeads;
+    operationsSupport = fallbackExecutives.operationsSupport;
+    advisors = fallbackAdvisors;
+  } else {
+    featuredLeader = members.find((m) => m.team_group === 'featured' || m.is_featured) || null;
+    executiveLeadership = members
+      .filter((m) => m.team_group === 'executive_leadership' && (!featuredLeader || m.id !== featuredLeader.id))
+      .sort((a, b) => a.display_order - b.display_order);
+    departmentLeads = members
+      .filter((m) => m.team_group === 'department_leads')
+      .sort((a, b) => a.display_order - b.display_order);
+    operationsSupport = members
+      .filter((m) => m.team_group === 'operations_support')
+      .sort((a, b) => a.display_order - b.display_order);
+    advisors = members
+      .filter((m) => m.team_group === 'advisors')
+      .sort((a, b) => a.display_order - b.display_order);
+  }
+
   // Helper to render image or initials avatar
   const renderCardImage = (member) => {
-    if (member.image && member.image !== 'placeholder') {
-      return <img src={member.image} alt={member.name} className="atw-member-img" />;
+    const hasValidImage = member.image && member.image !== 'placeholder' && !failedImages.has(member.id);
+    if (hasValidImage) {
+      return (
+        <img
+          src={member.image}
+          alt={member.name}
+          className="atw-member-img"
+          onError={() => handleImageError(member.id)}
+        />
+      );
     }
     return (
       <div className="atw-avatar-placeholder">
@@ -273,6 +174,13 @@ export const OurTeamPage = () => {
       </div>
     );
   };
+
+  const hasExecutiveContent = Boolean(
+    featuredLeader ||
+    executiveLeadership.length > 0 ||
+    departmentLeads.length > 0 ||
+    operationsSupport.length > 0
+  );
 
   return (
     <div className="atw-team-root atw-root">
@@ -336,6 +244,15 @@ export const OurTeamPage = () => {
       {/* Active Tab Content Section */}
       <section className="atw-team-content-section">
         <div className="atw-team-section-container">
+          {error && (
+            <div className="atw-team-notice-box atw-team-notice-error">
+              <p>Unable to load team members right now.</p>
+              <button onClick={loadTeamData} className="atw-team-retry-btn">
+                Retry
+              </button>
+            </div>
+          )}
+
           {activeTab === 'executive' && (
             <div>
               <div className="atw-team-section-header">
@@ -345,120 +262,156 @@ export const OurTeamPage = () => {
                 </p>
               </div>
 
-              {/* Subsection: Executive Leadership */}
-              <div className="atw-team-subsection-divider">
-                <h4 className="atw-team-subsection-title">Executive Leadership</h4>
-              </div>
-
-              {/* Featured Leader Card - Alice Yakubu */}
-              <div className="atw-featured-leader-card">
-                <div className="atw-featured-img-wrapper">
-                  <img
-                    src={executives.featured.image}
-                    alt={executives.featured.name}
-                    className="atw-featured-img"
-                  />
+              {loading ? (
+                <div>
+                  <div className="atw-team-subsection-divider">
+                    <h4 className="atw-team-subsection-title">Executive Leadership</h4>
+                  </div>
+                  <FeaturedLeaderSkeleton />
+                  <div className="atw-team-grid" style={{ marginTop: '30px' }}>
+                    <MemberCardSkeleton />
+                    <MemberCardSkeleton />
+                    <MemberCardSkeleton />
+                  </div>
+                  <div className="atw-team-subsection-divider">
+                    <h4 className="atw-team-subsection-title">Department Leads</h4>
+                  </div>
+                  <div className="atw-team-grid">
+                    <MemberCardSkeleton />
+                    <MemberCardSkeleton />
+                    <MemberCardSkeleton />
+                  </div>
                 </div>
-                <div className="atw-featured-content">
-                  <span className="atw-featured-tag">Featured Leader</span>
-                  <h4 className="atw-featured-name">{executives.featured.name}</h4>
-                  <p className="atw-featured-role">{executives.featured.role}</p>
-                  <p className="atw-featured-bio">{executives.featured.shortDesc}</p>
-                  
-                  <div className="atw-featured-skills">
-                    {executives.featured.focusAreas.map((skill, i) => (
-                      <span key={i} className="atw-featured-skill-tag">{skill}</span>
-                    ))}
-                  </div>
-
-                  <button
-                    className="atw-featured-link"
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                    onClick={() => setSelectedMember(executives.featured)}
-                  >
-                    View Profile <ArrowRight size={16} />
-                  </button>
+              ) : !hasExecutiveContent && !error ? (
+                <div className="atw-team-notice-box atw-team-empty-state">
+                  <p>No executive team members are currently active.</p>
                 </div>
-              </div>
-
-              {/* Grid for other Executive Leaders */}
-              <div className="atw-team-grid">
-                {executives.executiveLeadership.map((director, index) => (
-                  <div key={index} className="atw-member-card">
-                    <div className="atw-member-img-wrapper">
-                      {renderCardImage(director)}
-                    </div>
-                    <div className="atw-member-info">
-                      <h4 className="atw-member-name">{director.name}</h4>
-                      <p className="atw-member-role">{director.role}</p>
-                      <p className="atw-member-desc">{director.shortDesc}</p>
-                      <button
-                        className="atw-member-link"
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                        onClick={() => setSelectedMember(director)}
-                      >
-                        View Profile <ArrowRight size={14} />
-                      </button>
-                    </div>
+              ) : (
+                <div>
+                  {/* Subsection: Executive Leadership */}
+                  <div className="atw-team-subsection-divider">
+                    <h4 className="atw-team-subsection-title">Executive Leadership</h4>
                   </div>
-                ))}
-              </div>
 
-              {/* Subsection: Department Leads */}
-              <div className="atw-team-subsection-divider">
-                <h4 className="atw-team-subsection-title">Department Leads</h4>
-              </div>
+                  {/* Featured Leader Card - Alice Yakubu */}
+                  {featuredLeader && (
+                    <div className="atw-featured-leader-card">
+                      <div className="atw-featured-img-wrapper">
+                        {renderCardImage(featuredLeader)}
+                      </div>
+                      <div className="atw-featured-content">
+                        <span className="atw-featured-tag">Featured Leader</span>
+                        <h4 className="atw-featured-name">{featuredLeader.name}</h4>
+                        <p className="atw-featured-role">{featuredLeader.role}</p>
+                        <p className="atw-featured-bio">{featuredLeader.shortDesc}</p>
+                        
+                        {featuredLeader.focusAreas && featuredLeader.focusAreas.length > 0 && (
+                          <div className="atw-featured-skills">
+                            {featuredLeader.focusAreas.map((skill, i) => (
+                              <span key={i} className="atw-featured-skill-tag">{skill}</span>
+                            ))}
+                          </div>
+                        )}
 
-              <div className="atw-team-grid">
-                {executives.departmentLeads.map((member, index) => (
-                  <div key={index} className="atw-member-card">
-                    <div className="atw-member-img-wrapper">
-                      {renderCardImage(member)}
+                        <button
+                          className="atw-featured-link"
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                          onClick={() => setSelectedMember(featuredLeader)}
+                        >
+                          View Profile <ArrowRight size={16} />
+                        </button>
+                      </div>
                     </div>
-                    <div className="atw-member-info">
-                      <h4 className="atw-member-name">{member.name}</h4>
-                      <p className="atw-member-role">{member.role}</p>
-                      <p className="atw-member-desc">{member.shortDesc}</p>
-                      <button
-                        className="atw-member-link"
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                        onClick={() => setSelectedMember(member)}
-                      >
-                        View Profile <ArrowRight size={14} />
-                      </button>
+                  )}
+
+                  {/* Grid for other Executive Leaders */}
+                  {executiveLeadership.length > 0 && (
+                    <div className="atw-team-grid">
+                      {executiveLeadership.map((director) => (
+                        <div key={director.id} className="atw-member-card">
+                          <div className="atw-member-img-wrapper">
+                            {renderCardImage(director)}
+                          </div>
+                          <div className="atw-member-info">
+                            <h4 className="atw-member-name">{director.name}</h4>
+                            <p className="atw-member-role">{director.role}</p>
+                            <p className="atw-member-desc">{director.shortDesc}</p>
+                            <button
+                              className="atw-member-link"
+                              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                              onClick={() => setSelectedMember(director)}
+                            >
+                              View Profile <ArrowRight size={14} />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                ))}
-              </div>
+                  )}
 
+                  {/* Subsection: Department Leads */}
+                  {departmentLeads.length > 0 && (
+                    <>
+                      <div className="atw-team-subsection-divider">
+                        <h4 className="atw-team-subsection-title">Department Leads</h4>
+                      </div>
 
+                      <div className="atw-team-grid">
+                        {departmentLeads.map((member) => (
+                          <div key={member.id} className="atw-member-card">
+                            <div className="atw-member-img-wrapper">
+                              {renderCardImage(member)}
+                            </div>
+                            <div className="atw-member-info">
+                              <h4 className="atw-member-name">{member.name}</h4>
+                              <p className="atw-member-role">{member.role}</p>
+                              <p className="atw-member-desc">{member.shortDesc}</p>
+                              <button
+                                className="atw-member-link"
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                                onClick={() => setSelectedMember(member)}
+                              >
+                                View Profile <ArrowRight size={14} />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
 
-              {/* Subsection: Operations & Support */}
-              <div className="atw-team-subsection-divider">
-                <h4 className="atw-team-subsection-title">Operations & Support</h4>
-              </div>
+                  {/* Subsection: Operations & Support */}
+                  {operationsSupport.length > 0 && (
+                    <>
+                      <div className="atw-team-subsection-divider">
+                        <h4 className="atw-team-subsection-title">Operations & Support</h4>
+                      </div>
 
-              <div className="atw-team-grid">
-                {executives.operationsSupport.map((member, index) => (
-                  <div key={index} className="atw-member-card">
-                    <div className="atw-member-img-wrapper">
-                      {renderCardImage(member)}
-                    </div>
-                    <div className="atw-member-info">
-                      <h4 className="atw-member-name">{member.name}</h4>
-                      <p className="atw-member-role">{member.role}</p>
-                      <p className="atw-member-desc">{member.shortDesc}</p>
-                      <button
-                        className="atw-member-link"
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                        onClick={() => setSelectedMember(member)}
-                      >
-                        View Profile <ArrowRight size={14} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                      <div className="atw-team-grid">
+                        {operationsSupport.map((member) => (
+                          <div key={member.id} className="atw-member-card">
+                            <div className="atw-member-img-wrapper">
+                              {renderCardImage(member)}
+                            </div>
+                            <div className="atw-member-info">
+                              <h4 className="atw-member-name">{member.name}</h4>
+                              <p className="atw-member-role">{member.role}</p>
+                              <p className="atw-member-desc">{member.shortDesc}</p>
+                              <button
+                                className="atw-member-link"
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                                onClick={() => setSelectedMember(member)}
+                              >
+                                View Profile <ArrowRight size={14} />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
@@ -471,27 +424,42 @@ export const OurTeamPage = () => {
                 </p>
               </div>
 
-              <div className="atw-team-grid">
-                {advisors.map((advisor, index) => (
-                  <div key={index} className="atw-member-card">
-                    <div className="atw-member-img-wrapper">
-                      {renderCardImage(advisor)}
+              {loading ? (
+                <div className="atw-team-grid">
+                  <MemberCardSkeleton />
+                  <MemberCardSkeleton />
+                  <MemberCardSkeleton />
+                  <MemberCardSkeleton />
+                  <MemberCardSkeleton />
+                  <MemberCardSkeleton />
+                </div>
+              ) : advisors.length === 0 && !error ? (
+                <div className="atw-team-notice-box atw-team-empty-state">
+                  <p>No advisory network members are currently active.</p>
+                </div>
+              ) : (
+                <div className="atw-team-grid">
+                  {advisors.map((advisor) => (
+                    <div key={advisor.id} className="atw-member-card">
+                      <div className="atw-member-img-wrapper">
+                        {renderCardImage(advisor)}
+                      </div>
+                      <div className="atw-member-info">
+                        <h4 className="atw-member-name">{advisor.name}</h4>
+                        <p className="atw-member-role">{advisor.role}</p>
+                        <p className="atw-member-desc">{advisor.shortDesc}</p>
+                        <button
+                          className="atw-member-link"
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                          onClick={() => setSelectedMember(advisor)}
+                        >
+                          View Profile <ArrowRight size={14} />
+                        </button>
+                      </div>
                     </div>
-                    <div className="atw-member-info">
-                      <h4 className="atw-member-name">{advisor.name}</h4>
-                      <p className="atw-member-role">{advisor.role}</p>
-                      <p className="atw-member-desc">{advisor.shortDesc}</p>
-                      <button
-                        className="atw-member-link"
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-                        onClick={() => setSelectedMember(advisor)}
-                      >
-                        View Profile <ArrowRight size={14} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -526,8 +494,13 @@ export const OurTeamPage = () => {
               <X size={20} />
             </button>
             <div className="atw-modal-img-wrapper">
-              {selectedMember.image && selectedMember.image !== 'placeholder' ? (
-                <img src={selectedMember.image} alt={selectedMember.name} className="atw-modal-img" />
+              {selectedMember.image && selectedMember.image !== 'placeholder' && !failedImages.has(selectedMember.id) ? (
+                <img
+                  src={selectedMember.image}
+                  alt={selectedMember.name}
+                  className="atw-modal-img"
+                  onError={() => handleImageError(selectedMember.id)}
+                />
               ) : (
                 <div className="atw-avatar-placeholder" style={{ fontSize: '64px' }}>
                   {getInitials(selectedMember.name)}
@@ -552,19 +525,19 @@ export const OurTeamPage = () => {
                 </>
               )}
 
-              {selectedMember.socials && (
+              {selectedMember.socials && selectedMember.socials.trim() !== '' && (
                 <div style={{ marginBottom: '20px' }}>
                   <h5 className="atw-modal-section-title">Active Social Media</h5>
                   <p className="atw-modal-bio" style={{ marginBottom: 0, fontWeight: 500 }}>
-                    {selectedMember.socials}
+                    {selectedMember.socials.trim()}
                   </p>
                 </div>
               )}
 
               <div className="atw-modal-contact-row" style={{ flexWrap: 'wrap', gap: '16px' }}>
-                {selectedMember.linkedin && selectedMember.linkedin !== '#' && (
+                {selectedMember.linkedin && selectedMember.linkedin !== '#' && selectedMember.linkedin.trim() !== '' && (
                   <a
-                    href={selectedMember.linkedin}
+                    href={selectedMember.linkedin.trim()}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="atw-modal-contact-link"
@@ -572,26 +545,30 @@ export const OurTeamPage = () => {
                     <Linkedin size={18} /> LinkedIn
                   </a>
                 )}
-                {selectedMember.email && (
-                  <a href={`mailto:${selectedMember.email}`} className="atw-modal-contact-link">
+                {selectedMember.email && selectedMember.email.trim() !== '' && (
+                  <a href={`mailto:${selectedMember.email.trim()}`} className="atw-modal-contact-link">
                     <Mail size={18} /> Email
                   </a>
                 )}
-                {selectedMember.phone && (
-                  <a href={`tel:${selectedMember.phone}`} className="atw-modal-contact-link">
-                    <Phone size={18} /> Call {selectedMember.phoneNote ? `(${selectedMember.phoneNote})` : selectedMember.phone}
+                {selectedMember.phone && selectedMember.phone.trim() !== '' && (
+                  <a href={`tel:${selectedMember.phone.trim()}`} className="atw-modal-contact-link">
+                    <Phone size={18} /> Call {selectedMember.phone.trim()}
                   </a>
                 )}
-                {selectedMember.whatsapp && (
-                  <a
-                    href={`https://wa.me/233${selectedMember.whatsapp.replace(/^0/, '')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="atw-modal-contact-link"
-                  >
-                    <WhatsappIcon size={18} /> WhatsApp {selectedMember.whatsappNote ? `(${selectedMember.whatsappNote})` : selectedMember.whatsapp}
-                  </a>
-                )}
+                {(() => {
+                  const waUrl = getWhatsAppUrl(selectedMember.whatsapp || selectedMember.phone);
+                  if (!waUrl) return null;
+                  return (
+                    <a
+                      href={waUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="atw-modal-contact-link"
+                    >
+                      <WhatsappIcon size={18} /> WhatsApp
+                    </a>
+                  );
+                })()}
               </div>
             </div>
           </div>
